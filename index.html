@@ -357,16 +357,19 @@
     managerUsername: "ASurkoff",
   };
 
-  // Заглушки-ролики. В боевой версии сюда придут ваши видео (url + обложка).
-  // Градиенты подобраны в рамках палитры бренда (Dark Blue / Orange / June Bud).
-  // Цвет постера кодирует категорию: реклама – оранжевый, карточка – синий, соцсети – зелёный
+  // ================= ВАШИ ВИДЕО =================
+  // Как добавить свои ролики:
+  //  1) Загрузите mp4-файлы в репозиторий (можно в корень), назвав 1.mp4, 2.mp4, ...
+  //  2) В src ниже укажите имя файла ("1.mp4") или полную ссылку на CDN ("https://.../clip.mp4").
+  //  3) Одна строка = одна карточка. Добавляйте/удаляйте строки под число ваших роликов.
+  // Пока src пустой ("") — на карточке заглушка с кнопкой локальной загрузки (только для теста).
+  // Формат: вертикальные 9:16, mp4 (H.264 + AAC). g — цвет-подложка, виден пока грузится кадр.
   const VIDEOS = [
-    { cat:"Реклама",   dur:"0:22", title:"Рекламный ролик",     sub:"Бренд косметики · динамичный монтаж", g:["#FE5E32","#C23A17"] },
-    { cat:"Карточка",  dur:"0:15", title:"Видео для карточки",  sub:"Кухонная техника · демонстрация",     g:["#1A0089","#0E0052"] },
-    { cat:"Соцсети",   dur:"0:28", title:"Reels для Instagram", sub:"Спортивная одежда · тренд-формат",    g:["#8BA33A","#5E7222"] },
-    { cat:"Реклама",   dur:"0:18", title:"Промо-ролик",         sub:"Детские игрушки · яркая анимация",    g:["#FE7A4E","#D14A22"] },
-    { cat:"Карточка",  dur:"0:20", title:"Обзор товара",        sub:"Электроника · 360° показ",            g:["#2A1AA0","#12005C"] },
-    { cat:"Соцсети",   dur:"0:25", title:"Контент для TikTok",  sub:"Продукты питания · рецепт-формат",    g:["#A6BE48","#6E8A2C"] },
+    { src:"1.mp4", g:["#FE5E32","#C23A17"] },
+    { src:"2.mp4", g:["#1A0089","#0E0052"] },
+    { src:"3.mp4", g:["#8BA33A","#5E7222"] },
+    { src:"4.mp4", g:["#FE7A4E","#D14A22"] },
+    { src:"5.mp4", g:["#2A1AA0","#12005C"] },
   ];
 
   const STEPS = [
@@ -385,57 +388,77 @@
   VIDEOS.forEach((v,i)=>{
     const el = document.createElement('div');
     el.className = 'vcard';
-    el.dataset.videoUrl = '';
-    el.innerHTML = `
-      <div class="poster" style="background:linear-gradient(160deg,${v.g[0]},${v.g[1]})"></div>
-      <div class="overlay"></div>
-      <div class="top-row">
-        <div class="right-group">
-          <button class="upload-btn" type="button">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#FFFCF4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M12 4l-4 4M12 4l4 4"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
-          </button>
-          <input type="file" accept="video/*" class="vcard-file-input" hidden>
+    el.dataset.videoUrl = v.src || '';
+
+    if(v.src){
+      // боевой режим: обложка = кадр ролика; по тапу — плеер со звуком.
+      // Автовоспроизведение центрального ролика — ниже через IntersectionObserver.
+      el.innerHTML = `
+        <div class="poster" style="background:linear-gradient(160deg,${v.g[0]},${v.g[1]})"></div>
+        <video class="poster-video" src="${v.src}#t=0.1" muted loop playsinline preload="metadata" onerror="this.remove()"></video>
+        <div class="overlay"></div>
+        <div class="play is-play">${PLAY_ICON}</div>`;
+      el.addEventListener('click', ()=> openModal(v, v.src));
+    } else {
+      // тестовый режим: пока ролик не задан — заглушка с кнопкой локальной загрузки
+      el.innerHTML = `
+        <div class="poster" style="background:linear-gradient(160deg,${v.g[0]},${v.g[1]})"></div>
+        <div class="overlay"></div>
+        <div class="top-row">
+          <div class="right-group">
+            <button class="upload-btn" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FFFCF4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M12 4l-4 4M12 4l4 4"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
+            </button>
+            <input type="file" accept="video/*" class="vcard-file-input" hidden>
+          </div>
         </div>
-      </div>
-      <div class="play">${UPLOAD_ICON}</div>`;
-
-    const centerIcon = el.querySelector('.play');
-    const uploadBtn = el.querySelector('.upload-btn');
-    const fileInput = el.querySelector('.vcard-file-input');
-
-    function handleFile(file){
-      if(!file) return;
-      const url = URL.createObjectURL(file);
-      const posterEl = el.querySelector('.poster, video.poster-video');
-      const videoEl = document.createElement('video');
-      videoEl.className = 'poster-video';
-      videoEl.src = url;
-      videoEl.muted = true;
-      videoEl.loop = true;
-      videoEl.playsInline = true;
-      videoEl.autoplay = true;
-      posterEl.replaceWith(videoEl);
-      el.dataset.videoUrl = url;
-      centerIcon.classList.add('is-play');
-      centerIcon.innerHTML = PLAY_ICON;
+        <div class="play">${UPLOAD_ICON}</div>`;
+      const centerIcon = el.querySelector('.play');
+      const uploadBtn = el.querySelector('.upload-btn');
+      const fileInput = el.querySelector('.vcard-file-input');
+      function handleFile(file){
+        if(!file) return;
+        const url = URL.createObjectURL(file);
+        const posterEl = el.querySelector('.poster, video.poster-video');
+        const videoEl = document.createElement('video');
+        videoEl.className = 'poster-video';
+        videoEl.src = url;
+        videoEl.muted = true;
+        videoEl.loop = true;
+        videoEl.playsInline = true;
+        videoEl.autoplay = true;
+        posterEl.replaceWith(videoEl);
+        el.dataset.videoUrl = url;
+        centerIcon.classList.add('is-play');
+        centerIcon.innerHTML = PLAY_ICON;
+      }
+      el.addEventListener('click', ()=>{
+        if(el.dataset.videoUrl){ openModal(v, el.dataset.videoUrl); }
+        else{ fileInput.click(); }
+      });
+      uploadBtn.addEventListener('click', (e)=>{ e.stopPropagation(); fileInput.click(); });
+      fileInput.addEventListener('click', (e)=> e.stopPropagation());
+      fileInput.addEventListener('change', (e)=> handleFile(e.target.files[0]));
     }
 
-    el.addEventListener('click', ()=>{
-      if(el.dataset.videoUrl){ openModal(v, el.dataset.videoUrl); }
-      else{ fileInput.click(); }
-    });
-    uploadBtn.addEventListener('click', (e)=>{
-      e.stopPropagation();
-      fileInput.click();
-    });
-    fileInput.addEventListener('click', (e)=> e.stopPropagation());
-    fileInput.addEventListener('change', (e)=> handleFile(e.target.files[0]));
     feed.appendChild(el);
 
     const d = document.createElement('div');
     d.className = 'dot' + (i===0 ? ' active' : '');
     dotsEl.appendChild(d);
   });
+
+  /* ---------- авто-воспроизведение центрального ролика (Reels-эффект) ---------- */
+  const autoVids = feed.querySelectorAll('video.poster-video');
+  if('IntersectionObserver' in window && autoVids.length){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(en=>{
+        if(en.isIntersecting && en.intersectionRatio >= 0.6){ en.target.play().catch(()=>{}); }
+        else { en.target.pause(); }
+      });
+    }, { root: feed, threshold: [0, 0.6, 1] });
+    autoVids.forEach(v=> io.observe(v));
+  }
 
   /* ---------- синхронизация точек со свайпом ---------- */
   let dotEls = Array.from(dotsEl.children);
