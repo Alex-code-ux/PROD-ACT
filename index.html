@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PROD+ACT - видеопродакшн</title>
+<meta name="description" content="PROD+ACT - видеопродакшн: реклама, кино, работа с брендами и видео для маркетплейсов.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family:'Educational Gothic';
+    src:url('fonts/EducationalGothic-Regular.otf') format('opentype');
+    font-weight:400 900;
+    font-style:normal;
+    font-display:swap;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  :root{
+    --bg:#0f1013; --ink:#F2F2F2; --muted:rgba(242,242,242,.55);
+    --card:#161616; --card2:#1E1E1E; --line:rgba(255,255,255,.09);
+    --blue:#0016FF;
+    --rh:220px;                 /* высота плитки ленты */
+  }
+  @media(min-width:768px){ :root{ --rh:300px; } }
+  html,body,#root{ background:var(--bg); }
+  body{ font-family:'Educational Gothic','Kanit',sans-serif; color:var(--ink); overflow-x:clip; }
+  a{ color:inherit; text-decoration:none; }
+  img{ display:block; max-width:100%; }
+  section{ position:relative; }
+  .wrap{ width:100%; max-width:1200px; margin:0 auto; padding:0 1.5rem; }
+  @media(min-width:768px){ .wrap{ padding:0 2.5rem; } }
+
+  /* заголовки - монохромный «градиент» */
+  .grad{ color:#ffffff; }
+  .h-sec{ font-weight:900; text-transform:uppercase; letter-spacing:-.02em; line-height:1;
+    font-size:clamp(2.4rem,8vw,6rem); }
+
+  /* FadeIn */
+  .fade{ opacity:0; transform:translateY(var(--fy,30px));
+    transition:opacity .7s cubic-bezier(.25,.1,.25,1), transform .7s cubic-bezier(.25,.1,.25,1);
+    transition-delay:var(--d,0s); will-change:opacity,transform; }
+  .fade.in{ opacity:1; transform:none; }
+  @media (prefers-reduced-motion:reduce){ .fade{ transition:none; opacity:1; transform:none; }
+    .lane{ animation:none !important; } }
+
+  /* кнопки (ЧБ) */
+  .btn-white{ display:inline-block; cursor:pointer; border:none; font-family:inherit;
+    background:var(--ink); color:#0f1013; font-weight:600; text-transform:uppercase; letter-spacing:.08em;
+    border-radius:9999px; padding:.9rem 2rem; font-size:.9rem; transition:transform .2s, box-shadow .2s;
+    box-shadow:0 4px 16px rgba(0,0,0,.4); }
+  .btn-white:hover{ transform:translateY(-2px); box-shadow:0 8px 22px rgba(0,0,0,.4); }
+  .btn-blue{ background:var(--blue); color:#fff; }
+  .btn-ghost{ display:inline-block; cursor:pointer; font-family:inherit; background:transparent;
+    border:1.5px solid rgba(255,255,255,.35); color:var(--ink); font-weight:500; text-transform:uppercase;
+    letter-spacing:.1em; border-radius:9999px; padding:.85rem 1.9rem; font-size:.85rem; transition:background .2s, border-color .2s, color .2s; }
+  .btn-ghost:hover{ background:var(--blue); border-color:var(--blue); color:#fff; }
+
+  /* ============ 1. ГЛАВНАЯ ============ */
+  .hero{ position:relative; min-height:100vh; overflow:hidden; display:flex; flex-direction:column; }
+  .hero-video{ position:absolute; inset:0; z-index:0; background:radial-gradient(120% 90% at 50% -10%, #0f1240, #0f1013 60%); }
+  .hero-video video{ width:100%; height:100%; object-fit:cover; display:block; }
+  .hero-top{ position:relative; z-index:10; padding-top:1.5rem; }
+  .hero-corner{ display:inline-flex; align-items:center; gap:.7rem; }
+  .hero-corner img{ width:46px; height:46px; border-radius:12px; object-fit:cover; flex:none; }
+  .hero-corner-txt{ display:flex; flex-direction:column; line-height:1.1; }
+  .hero-brand{ font-weight:800; text-transform:uppercase; letter-spacing:.02em; font-size:1.05rem; color:#0f1013; }
+  .hero-brand .plus{ color:var(--blue); }
+  .hero-tag{ margin-top:.25rem; font-size:.72rem; font-weight:300; text-transform:uppercase;
+    letter-spacing:.14em; color:var(--muted); }
+  .hero-main{ position:relative; z-index:10; margin-top:auto; padding-bottom:3rem;
+    display:flex; align-items:flex-end; justify-content:space-between; gap:20px 32px; flex-wrap:wrap; }
+  .hero-main .hero-sub{ margin-top:0; }
+  .hero-main .hero-actions{ margin-top:0; flex:none; }
+  .hero-h1{ font-weight:900; text-transform:uppercase; letter-spacing:-.03em; line-height:.92;
+    font-size:clamp(3rem,13vw,12rem); }
+  .hero-h1 .line2{ display:block; color:#ffffff; }
+  .hero-sub{ margin-top:1.4rem; max-width:34rem; color:#0f1013; font-weight:300; line-height:1.6;
+    font-size:clamp(.85rem,1.6vw,1.1rem); text-transform:uppercase; letter-spacing:.03em; }
+  .hero-actions{ margin-top:1.9rem; }
+
+  /* ============ 2. РАБОТЫ (авто-лента) ============ */
+  .works{ padding:6rem 0 5rem; overflow:hidden; }
+  @media(min-width:768px){ .works{ padding:8rem 0 6rem; } }
+  .works .head{ margin-bottom:2.5rem; }
+  .lane-mask{ position:relative; }
+  .lane-mask::after{ content:''; position:absolute; left:0; right:0; bottom:-1px; height:90px;
+    background:linear-gradient(to bottom, transparent, var(--bg)); pointer-events:none; z-index:3; }
+  .lane-row{ overflow:hidden; }
+  .lane-row + .lane-row{ margin-top:16px; }
+  .lane{ display:flex; gap:16px; width:max-content; pointer-events:none; }
+  .lane.l1{ animation:scrollL 44s linear infinite; }
+  .lane.l2{ animation:scrollR 52s linear infinite; }
+  .lane:hover{ animation-play-state:paused; }
+  @keyframes scrollL{ from{transform:translateX(0)} to{transform:translateX(-33.333%)} }
+  @keyframes scrollR{ from{transform:translateX(-33.333%)} to{transform:translateX(0)} }
+  .tile{ height:var(--rh); border-radius:16px; overflow:hidden; position:relative;
+    flex:0 0 auto; border:1px solid var(--line); display:flex; align-items:flex-end; padding:14px;
+    background:linear-gradient(150deg,#2a2a2a,#111); filter:grayscale(1); transition:filter .35s, transform .35s; }
+  .tile.h{ aspect-ratio:16/9; } .tile.v{ aspect-ratio:9/16; }
+  .tile:hover{ filter:grayscale(0); transform:scale(1.015); border-color:var(--blue); }
+  .tile.has-media{ filter:grayscale(0); }
+  .tile-media{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center;
+    display:block; z-index:0; }
+  .tile span{ font-weight:500; text-transform:uppercase; letter-spacing:.06em; font-size:.8rem;
+    color:rgba(255,255,255,.9); position:relative; z-index:1; }
+
+  /* ============ 3. ЧТО СНИМАЕМ (облако тегов) ============ */
+  .shoot{ padding:5rem 0; text-align:center; }
+  @media(min-width:768px){ .shoot{ padding:7rem 0; } }
+  .shoot h2{ margin:0 auto 2.5rem; max-width:16ch; }
+  .tags{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; max-width:60rem; margin:0 auto; }
+  .tag{ padding:.55rem 1.05rem; border-radius:100px; background:var(--card); border:1px solid var(--line);
+    color:var(--muted); font-size:clamp(.8rem,1.4vw,1rem); font-weight:400; transition:color .2s, border-color .2s, background .2s; }
+  .tag:hover{ color:#fff; border-color:var(--blue); background:var(--blue); }
+  .shoot .note{ margin-top:2rem; color:var(--muted); font-weight:300; max-width:40rem; margin-left:auto; margin-right:auto; }
+
+  /* ============ 4. КАК РАБОТАЕМ ============ */
+  .how{ padding:5rem 0; }
+  @media(min-width:768px){ .how{ padding:7rem 0; } }
+  .how .head{ text-align:center; margin-bottom:3rem; }
+  .steps{ display:grid; grid-template-columns:1fr; gap:16px; }
+  @media(min-width:640px){ .steps{ grid-template-columns:1fr 1fr; } }
+  @media(min-width:1024px){ .steps{ grid-template-columns:repeat(4,1fr); } }
+  .step{ background:linear-gradient(160deg,var(--card2),#101010); border:1px solid var(--line);
+    border-radius:24px; padding:22px; display:flex; flex-direction:column; gap:14px; min-height:340px; }
+  .step-num{ width:44px; height:44px; border-radius:50%; background:var(--blue); border:1px solid var(--blue);
+    display:grid; place-items:center; font-weight:700; color:#fff; }
+  .step-title{ font-weight:600; text-transform:uppercase; font-size:1.05rem; }
+  .step-desc{ color:var(--muted); font-weight:300; line-height:1.5; font-size:.92rem; }
+  .step-img{ margin-top:auto; height:130px; border-radius:14px; border:1px solid var(--line); overflow:hidden;
+    background:#f3f4f7; display:grid; place-items:center; }
+  .step-img img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+  /* ============ 5. WB (инверсный баннер) ============ */
+  .wb{ padding:1.5rem 0 2.5rem; }
+  .wb-inner{ position:relative; overflow:hidden; border-radius:32px; text-align:center;
+    max-width:980px; margin:0 auto;
+    aspect-ratio:2000/843; background:#0f1013 url('images/marketplaces.jpg') center/cover no-repeat; }
+  .wb-inner::before{ content:none; }
+  .wb-chip{ position:relative; display:inline-block; text-transform:uppercase; letter-spacing:.12em;
+    font-size:.7rem; font-weight:600; background:#ffffff; color:var(--blue); border-radius:100px; padding:.4rem .9rem; margin-bottom:1rem; }
+  .wb-inner h2{ position:relative; font-weight:900; text-transform:uppercase; line-height:1; color:#ffffff;
+    font-size:clamp(2.4rem,8vw,5.5rem); }
+  .wb-inner p{ position:relative; max-width:40rem; margin:1rem auto 1.8rem; color:rgba(255,255,255,.75); font-weight:300; line-height:1.6; }
+  .btn-dark{ display:inline-block; background:#ffffff; color:#0f1013; font-family:inherit;
+    font-weight:600; text-transform:uppercase; letter-spacing:.08em; border-radius:9999px; padding:.9rem 2.2rem;
+    font-size:.9rem; transition:transform .2s, box-shadow .2s; box-shadow:0 6px 20px rgba(0,0,0,.35); }
+  .btn-dark:hover{ transform:translateY(-2px); }
+  .wb-inner .btn-dark{ position:absolute; left:50%; bottom:13%; transform:translateX(-50%); }
+  .wb-inner .btn-dark:hover{ transform:translateX(-50%) translateY(-2px); }
+
+  /* ============ 6. О НАС (текст слева / фото справа) ============ */
+  .about{ padding:5rem 0; }
+  @media(min-width:768px){ .about{ padding:7rem 0; } }
+  .about-grid{ display:grid; grid-template-columns:1fr; gap:2.5rem; align-items:center; }
+  @media(min-width:900px){ .about-grid{ grid-template-columns:1fr 1fr; gap:4rem; } }
+  .eyebrow{ text-transform:uppercase; letter-spacing:.16em; font-size:.75rem; color:var(--muted); margin-bottom:1rem; }
+  .about h2{ margin-bottom:1.4rem; }
+  .about p{ color:var(--muted); font-weight:300; line-height:1.75; font-size:clamp(.95rem,1.6vw,1.15rem); }
+  .about-award{ margin-top:1.8rem; display:inline-flex; align-items:center; gap:12px; border:1px solid var(--blue);
+    background:var(--blue); border-radius:16px; padding:.9rem 1.2rem; }
+  .about-award b{ display:block; font-size:.9rem; font-weight:600; color:#fff; }
+  .about-award span{ font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.75); }
+  .about-img{ aspect-ratio:4/3; border-radius:24px; border:1px solid var(--line);
+    background:#16171c center/cover no-repeat; }
+
+  /* ============ 7. КОНТАКТ ============ */
+  .contact{ padding:5rem 0 7rem; }
+  .contact-grid{ display:grid; grid-template-columns:1fr; gap:2.5rem; align-items:center; }
+  @media(min-width:900px){ .contact-grid{ grid-template-columns:1fr 1fr; gap:4rem; } }
+  .contact-photo{ aspect-ratio:3/4; border-radius:28px; border:1px solid var(--line); overflow:hidden;
+    background:radial-gradient(120% 90% at 50% 0%, #333, #101010); }
+  .contact-photo video{ width:100%; height:100%; object-fit:cover; display:block; }
+  .contact-cta h2{ margin-bottom:1.6rem; }
+  .contact-caption{ margin-top:1.1rem; color:var(--muted); font-weight:300; font-size:.95rem; }
+  .contact-caption a{ color:var(--blue); font-weight:500; }
+
+  footer{ border-top:1px solid var(--line); padding:2.2rem 0; text-align:center;
+    color:var(--muted); font-weight:300; font-size:.88rem; }
+  .footer-char{ display:block; max-width:220px; width:100%; height:auto; margin:0 auto 1rem; }
+
+  /* ============ МОДАЛКА РАБОТЫ ============ */
+  .pmodal{ position:fixed; inset:0; z-index:100; display:none; padding:20px; overflow:auto;
+    background:rgba(5,5,7,.88); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); }
+  .pmodal.open{ display:grid; place-items:center; }
+  .pmodal-box{ position:relative; width:100%; max-width:640px; max-height:92vh; overflow-y:auto; background:#17181c;
+    border:1px solid var(--line); border-radius:26px; padding:26px; }
+  .pm-close{ position:absolute; top:16px; right:16px; width:38px; height:38px; border-radius:50%;
+    border:1px solid var(--line); background:transparent; color:var(--ink); cursor:pointer; font-size:1rem; font-family:inherit; }
+  .pm-close:hover{ background:rgba(255,255,255,.08); }
+  .pm-cat{ text-transform:uppercase; letter-spacing:.14em; font-size:.75rem; color:var(--muted); }
+  .pm-name{ font-weight:700; text-transform:uppercase; font-size:clamp(1.4rem,3vw,2.1rem); margin:.2rem 0 1rem; line-height:1.05; }
+  .pm-video{ width:100%; aspect-ratio:16/9; max-height:50vh; border-radius:16px; margin-bottom:16px; margin-left:auto; margin-right:auto;
+    background:linear-gradient(150deg,#2a2a2a,#111); border:1px solid var(--line); filter:grayscale(1);
+    display:grid; place-items:center; color:var(--muted); font-size:.85rem; text-transform:uppercase; letter-spacing:.08em; overflow:hidden; text-align:center; padding:12px; }
+  .pm-video.v{ aspect-ratio:9/16; width:auto; height:min(48vh,380px); max-width:100%; }
+  .pm-video video{ width:100%; height:100%; object-fit:cover; filter:none; }
+  .pm-desc{ color:var(--muted); font-weight:300; line-height:1.7; font-size:clamp(.9rem,1.6vw,1.08rem); }
+  .pm-frames{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:16px; }
+  .pm-frames .pf{ height:100px; border-radius:12px; border:1px solid var(--line); filter:grayscale(1);
+    background:linear-gradient(150deg,#2a2a2a,#111); display:grid; place-items:center; color:rgba(255,255,255,.3); font-size:.7rem; text-transform:uppercase; }
+  .pm-frames.v{ grid-template-columns:repeat(4,1fr); max-width:260px; margin-left:auto; margin-right:auto; }
+  .pm-frames.v .pf{ height:auto; aspect-ratio:9/16; }
+</style>
+</head>
+<body>
+<div id="root">
+
+  <!-- ============ 1. ГЛАВНАЯ ============ -->
+  <section class="hero" id="top">
+    <div class="hero-video">
+      <video autoplay muted loop playsinline>
+        <source src="videos/hero.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="wrap hero-top">
+      <div class="hero-corner fade" style="--fy:-16px">
+      <img src="data:image/jpeg;base64,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" alt="PROD+ACT icon" class="top-bar-icon">
+      <div class="hero-corner-txt">
+        <span class="hero-brand">PROD <span class="plus">+</span> ACT</span>
+      </div>
+      </div>
+    </div>
+
+
+    <div class="wrap hero-main">
+      <p class="hero-sub fade" style="--fy:24px; --d:.2s">Реклама · кино · работа с брендами · видео для маркетплейсов</p>
+      <div class="hero-actions fade" style="--fy:20px; --d:.35s">
+        <a class="btn-white btn-blue" href="https://t.me/ASurkoff" target="_blank" rel="noopener">Обсудить проект</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 2. РАБОТЫ ============ -->
+  <section class="works" id="works">
+    <div class="wrap head fade" style="--fy:30px">
+      <h2 class="h-sec grad">Работы</h2>
+    </div>
+    <div class="lane-mask">
+      <div class="lane-row"><div class="lane l1" id="lane1"></div></div>
+      <div class="lane-row"><div class="lane l2" id="lane2"></div></div>
+    </div>
+  </section>
+
+  <!-- ============ 3. ЧТО СНИМАЕМ ============ -->
+  <section class="shoot" id="shoot">
+    <div class="wrap">
+      <h2 class="h-sec grad fade" style="--fy:30px">Что и для кого снимаем</h2>
+      <div class="tags" id="tags"></div>
+      <p class="note fade" style="--fy:20px">Разбивка по темам - не рамки. Работаем гибко: если вашего формата нет в списке - обсудим и сделаем.</p>
+    </div>
+  </section>
+
+  <!-- ============ 4. КАК РАБОТАЕМ ============ -->
+  <section class="how" id="how">
+    <div class="wrap">
+      <div class="head fade" style="--fy:30px"><h2 class="h-sec grad">Как работаем</h2></div>
+      <div class="steps" id="steps"></div>
+    </div>
+  </section>
+
+  <!-- ============ 5. WB ============ -->
+  <section class="wb" id="marketplaces">
+    <div class="wrap">
+      <div class="wb-inner fade" style="--fy:30px">
+        <a class="btn-dark" href="wb.html">Открыть раздел →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6. О НАС ============ -->
+  <section class="about" id="about">
+    <div class="wrap about-grid">
+      <div class="fade" style="--fy:30px">
+        <div class="eyebrow">О нас</div>
+        <h2 class="h-sec grad">Кто мы</h2>
+        <p>Более года в продакшене. Делаем рекламные ролики, видео для карточек маркетплейсов, кино и работу с брендами - с помощью современных ИИ-инструментов. Каждый проект обсуждаем индивидуально: от идеи и сценария до готового результата.</p>
+        <div class="about-award">
+          <div><b>2 место - международный AI-кинофестиваль MyFilm48</b><span>Конкурс AI-фильмов · 2026</span></div>
+        </div>
+      </div>
+      <div class="about-img fade" style="--fy:30px; --d:.1s; background-image:url('images/award.jpg')"></div>
+    </div>
+  </section>
+
+  <!-- ============ 7. КОНТАКТ ============ -->
+  <section class="contact" id="contact">
+    <div class="wrap contact-grid">
+      <div class="contact-photo fade" style="--fy:30px">
+        <video autoplay muted loop playsinline>
+          <source src="videos/contact.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="contact-cta fade" style="--fy:30px; --d:.1s">
+        <h2 class="h-sec grad">Обсудим проект?</h2>
+        <a class="btn-white" href="https://t.me/ASurkoff" target="_blank" rel="noopener">Написать в Telegram</a>
+        <p class="contact-caption">Отвечаем в течение дня · <a href="https://t.me/ASurkoff" target="_blank" rel="noopener">@ASurkoff</a></p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div>© <span id="year"></span> PROD+ACT · Видеопродакшн</div>
+  </footer>
+
+</div>
+
+<!-- ============ МОДАЛКА РАБОТЫ ============ -->
+<div class="pmodal" id="pmodal">
+  <div class="pmodal-box" role="dialog" aria-modal="true">
+    <button class="pm-close" id="pmClose" aria-label="Закрыть">✕</button>
+    <div class="pm-cat" id="pmCat"></div>
+    <div class="pm-name" id="pmName"></div>
+    <div class="pm-video" id="pmVideo"></div>
+    <p class="pm-desc" id="pmDesc"></p>
+    <div class="pm-frames" id="pmFrames"><div class="pf">кадр</div><div class="pf">кадр</div><div class="pf">кадр</div></div>
+  </div>
+</div>
+
+<script>
+/* ============ КОНТЕНТ ============ */
+// Работы для ленты. a: "h"=горизонт(16:9), "v"=вертикаль(9:16). video: путь к готовому ролику.
+const WORKS = [
+  // --- ВЕРХНЯЯ строка (ROW1) ---
+  {a:"v", label:"Распаковка", cat:"Маркетплейсы", name:"Видео-распаковка", video:"videos/lane/raspakovka.mp4",
+   desc:"Динамичная распаковка товара — доверие и наглядность для карточки."},
+  {a:"h", label:"Кино", cat:"Кино", name:"Короткометражный ролик", video:"videos/lane/kino.mp4",
+   desc:"Художественный ролик с проработкой кадра, света и монтажа."},
+  {a:"v", label:"Продуктовый ролик", cat:"Продукт", name:"Продуктовый ролик", video:"videos/lane/product.mp4",
+   desc:"Товар крупным планом: эффектная подача, свет и детали."},
+  {a:"h", label:"Клиповое видео", cat:"Музыка", name:"Клиповое видео", video:"videos/lane/clip.mp4",
+   desc:"Клип под трек: концепция, визуальный стиль, продакшн полного цикла."},
+  // --- НИЖНЯЯ строка (ROW2) ---
+  {a:"v", label:"Собственный бренд", cat:"Бренд", name:"Собственный бренд", video:"videos/lane/brand.mp4",
+   desc:"Видео для развития собственного бренда — образ, атмосфера, узнаваемость."},
+  {a:"v", label:"Карточка WB", cat:"Маркетплейсы", name:"Видео для карточки WB", video:"videos/lane/wb.mp4",
+   desc:"Продающий ролик для карточки товара на Wildberries — показываем товар в действии, поднимаем конверсию."},
+  {a:"h", label:"Моушн", cat:"Анимация", name:"Моушн-дизайн", video:"videos/lane/motion.mp4",
+   desc:"Анимация и моушн-графика: оживляем графику, тексты и логотипы."},
+  {a:"v", label:"Reels / Shorts — любой тренд", cat:"Соцсети", name:"Reels / Shorts", video:"videos/lane/reels.mp4",
+   desc:"Короткий вертикальный ролик под любой тренд с сильным хуком в первые секунды."},
+  {a:"v", label:"Говорящий аватар", cat:"ИИ", name:"Говорящий аватар", video:"videos/lane/avatar.mp4",
+   desc:"ИИ-ведущий/аватар: говорящий цифровой персонаж под ваш сценарий."},
+];
+const ROW1 = [0,1,2,3], ROW2 = [4,5,6,7,8];
+
+const TAGS = ["Видео для карточек","Рекламный ролик","Имиджевое видео","Промо для соцсетей","Reels / Shorts",
+  "Распаковки","Обзоры","Бренд-фильм","Моушн","Монтаж","Маркетплейсы","Бьюти","Одежда","Электроника",
+  "Общепит","Авто","Недвижимость","Инфобизнес","Услуги","Мероприятия"];
+
+const STEPS = [
+  ["1","Бриф","Рассказываете о товаре или задаче - мы задаём вопросы и фиксируем цель ролика.","images/step-brief.webp"],
+  ["2","Сценарий","Согласуем идею, референсы и раскадровку до старта продакшна.","images/step-script.webp"],
+  ["3","Продакшн","Создаём видео с помощью современных ИИ-инструментов и монтажа.","images/step-production.webp"],
+  ["4","Правки и сдача","Вносим корректировки и отдаём готовый ролик в нужных форматах.","images/step-edits.webp"],
+];
+
+/* ============ РЕНДЕР ============ */
+function tileHTML(i){ const w=WORKS[i];
+  let media = '';
+  if (w.video) media = `<video class="tile-media" src="${w.video}" autoplay muted loop playsinline></video>`;
+  else if (w.img) media = `<img class="tile-media" src="${w.img}" alt="">`;
+  const cls = (w.video || w.img) ? ' has-media' : '';
+  return `<div class="tile ${w.a}${cls}">${media}<span>${w.label}</span></div>`; }
+// тройной набор для бесшовной авто-прокрутки
+document.getElementById('lane1').innerHTML = [...ROW1,...ROW1,...ROW1].map(tileHTML).join('');
+document.getElementById('lane2').innerHTML = [...ROW2,...ROW2,...ROW2].map(tileHTML).join('');
+
+document.getElementById('tags').innerHTML = TAGS.map(t=>`<span class="tag">${t}</span>`).join('');
+
+document.getElementById('steps').innerHTML = STEPS.map(([n,t,d,img],i)=>`
+  <div class="step fade" style="--fy:30px; --d:${i*0.08}s">
+    <div class="step-num">${n}</div>
+    <div class="step-title">${t}</div>
+    <div class="step-desc">${d}</div>
+    <div class="step-img">${img?`<img src="${img}" alt="${t}" loading="lazy" onerror="this.remove()">`:''}</div>
+  </div>`).join('');
+
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ============ FadeIn ============ */
+const io = new IntersectionObserver((es)=>{ es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); },
+  { rootMargin:'50px', threshold:0 });
+document.querySelectorAll('.fade').forEach(el=> io.observe(el));
+
+/* ============ Модалка работы ============ */
+const pmodal = document.getElementById('pmodal'), pmVideo = document.getElementById('pmVideo');
+function openWork(i){
+  const w = WORKS[i];
+  document.getElementById('pmCat').textContent = w.cat;
+  document.getElementById('pmName').textContent = w.name;
+  document.getElementById('pmDesc').textContent = w.desc;
+  pmVideo.className = 'pm-video' + (w.a === 'v' ? ' v' : '');
+  pmVideo.innerHTML = w.video ? `<video src="${w.video}" controls autoplay muted loop playsinline></video>`
+                    : w.img ? `<img src="${w.img}" style="width:100%;height:100%;object-fit:cover;">`
+                              : '<span>видео - вставь готовый ролик (поле video в WORKS)</span>';
+  const pmFrames = document.getElementById('pmFrames');
+  pmFrames.className = 'pm-frames' + (w.a === 'v' ? ' v' : '');
+  pmFrames.innerHTML = (w.a === 'v' ? ['кадр','кадр','кадр','кадр'] : ['кадр','кадр','кадр'])
+    .map(t=>`<div class="pf">${t}</div>`).join('');
+  pmodal.classList.add('open'); document.body.style.overflow='hidden';
+}
+function closeWork(){ pmodal.classList.remove('open'); document.body.style.overflow='';
+  const v=pmVideo.querySelector('video'); if(v) v.pause(); }
+document.getElementById('pmClose').addEventListener('click', closeWork);
+pmodal.addEventListener('click', e=>{ if(e.target===pmodal) closeWork(); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeWork(); });
+document.addEventListener('click', e=>{ const t=e.target.closest('[data-open]'); if(t) openWork(+t.dataset.open); });
+</script>
+</body>
+</html>

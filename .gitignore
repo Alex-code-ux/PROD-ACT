@@ -1,0 +1,5 @@
+# бэкапы и системный мусор
+index_backup_*.html
+Thumbs.db
+desktop.ini
+.DS_Store
