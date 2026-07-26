@@ -214,9 +214,14 @@
   /* ============ МОБИЛЬНАЯ АДАПТАЦИЯ (в конце — чтобы перебивать базовые правила) ============ */
   @media(max-width:767px){
     :root{ --rh:150px; }                                   /* ниже плитки ленты */
-    .hero{ min-height:70vh; }                              /* меньше hero */
-    .hero-video video{ object-fit:contain; object-position:center; }  /* видео целиком по ширине */
-    .hero-brand, .hero-sub{ color:#fff; }                 /* текст читаем на тёмных полях */
+    /* hero: видео блоком 16:9 вверху (без полей/зума), лого поверх, контент под видео */
+    .hero{ min-height:auto; }
+    .hero-video{ position:relative; inset:auto; aspect-ratio:16/9; z-index:0; }
+    .hero-video video{ object-fit:cover; }
+    .hero-top{ position:absolute; top:0; left:0; right:0; }
+    .hero-brand{ color:#0f1013; }                          /* лого/название чёрным поверх видео */
+    .hero-main{ margin-top:0; padding-top:1.4rem; padding-bottom:2.4rem; }
+    .hero-sub{ color:#fff; }                               /* строка под видео на тёмном фоне */
     .tile span{ font-size:.58rem; letter-spacing:.04em; } /* мельче подпись в ленте */
     .wb-inner .btn-dark{ font-size:clamp(.42rem,1.55vw,.9rem); padding:.65em 1.4em; } /* меньше кнопка */
   }
