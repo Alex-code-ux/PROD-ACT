@@ -104,8 +104,13 @@
   .tile.has-media{ filter:grayscale(0); }
   .tile-media{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center;
     display:block; z-index:0; }
+  /* тёмная подложка под подписью (в отдельном слое, чтобы не пряталась за видео на мобильных) */
+  .tile::after{ content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,0) 45%);
+    transform:translateZ(0); }
   .tile span{ font-weight:500; text-transform:uppercase; letter-spacing:.06em; font-size:.8rem;
-    color:rgba(255,255,255,.9); position:relative; z-index:1; }
+    color:#fff; position:relative; z-index:2; transform:translateZ(0);
+    text-shadow:0 1px 4px rgba(0,0,0,.7); }
 
   /* ============ 3. ЧТО СНИМАЕМ (облако тегов) ============ */
   .shoot{ padding:5rem 0; text-align:center; }
