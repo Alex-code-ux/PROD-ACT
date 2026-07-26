@@ -82,8 +82,8 @@
   .hero-actions{ margin-top:1.9rem; }
 
   /* ============ 2. РАБОТЫ (авто-лента) ============ */
-  .works{ padding:6rem 0 5rem; overflow:hidden; }
-  @media(min-width:768px){ .works{ padding:8rem 0 6rem; } }
+  .works{ padding:3rem 0 5rem; overflow:hidden; }
+  @media(min-width:768px){ .works{ padding:4rem 0 6rem; } }
   .works .head{ margin-bottom:2.5rem; }
   .lane-mask{ position:relative; }
   .lane-mask::after{ content:''; position:absolute; left:0; right:0; bottom:-1px; height:90px;
@@ -140,7 +140,7 @@
   .step-img img{ max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; display:block; }
 
   /* ============ 5. WB (инверсный баннер) ============ */
-  .wb{ padding:1.5rem 0 2.5rem; }
+  .wb{ padding:0.75rem 0 1.25rem; }
   .wb-inner{ position:relative; overflow:hidden; border-radius:32px; text-align:center;
     max-width:980px; margin:0 auto;
     aspect-ratio:2000/843; background:#0f1013 url('images/marketplaces.jpg') center/cover no-repeat; }
@@ -346,25 +346,29 @@
 // Работы для ленты. a: "h"=горизонт(16:9), "v"=вертикаль(9:16). video: путь к готовому ролику.
 const WORKS = [
   // --- ВЕРХНЯЯ строка (ROW1) ---
-  {a:"v", label:"Распаковка", cat:"Маркетплейсы", name:"Видео-распаковка", video:"videos/lane/raspakovka.mp4",
-   desc:"Динамичная распаковка товара — доверие и наглядность для карточки."},
-  {a:"h", label:"Кино", cat:"Кино", name:"Короткометражный ролик", video:"videos/lane/kino.mp4",
-   desc:"Художественный ролик с проработкой кадра, света и монтажа."},
-  {a:"v", label:"Reels / Shorts — любой тренд", cat:"Соцсети", name:"Reels / Shorts", video:"videos/lane/reels.mp4",
-   desc:"Короткий вертикальный ролик под любой тренд с сильным хуком в первые секунды."},
   {a:"h", label:"Моушн", cat:"Анимация", name:"Моушн-дизайн", video:"videos/lane/motion.mp4",
    desc:"Анимация и моушн-графика: оживляем графику, тексты и логотипы."},
+  {a:"v", label:"Карточка товара", cat:"Маркетплейсы", name:"Видео для карточки товара", video:"videos/lane/wb.mp4",
+   desc:"Продающий ролик для карточки товара на маркетплейсах — показываем товар в действии, поднимаем конверсию."},
+  {a:"h", label:"Кино", cat:"Кино", name:"Короткометражный ролик", video:"videos/lane/kino.mp4",
+   desc:"Художественный ролик с проработкой кадра, света и монтажа."},
+  {a:"v", label:"Личный бренд", cat:"Бренд", name:"Личный бренд", video:"videos/lane/ownbrand.mp4",
+   desc:"Видео для личного бренда — образ, атмосфера, узнаваемость."},
   // --- НИЖНЯЯ строка (ROW2) ---
+  {a:"v", label:"Reels / Shorts — любой тренд", cat:"Соцсети", name:"Reels / Shorts", video:"videos/lane/reels.mp4",
+   desc:"Короткий вертикальный ролик под любой тренд с сильным хуком в первые секунды."},
   {a:"h", label:"Продуктовый ролик", cat:"Продукт", name:"Продуктовый ролик", video:"videos/lane/product.mp4",
    desc:"Товар крупным планом: эффектная подача, свет и детали."},
-  {a:"v", label:"Карточка WB", cat:"Маркетплейсы", name:"Видео для карточки WB", video:"videos/lane/wb.mp4",
-   desc:"Продающий ролик для карточки товара на Wildberries — показываем товар в действии, поднимаем конверсию."},
+  {a:"v", label:"Распаковка", cat:"Маркетплейсы", name:"Видео-распаковка", video:"videos/lane/raspakovka.mp4",
+   desc:"Динамичная распаковка товара — доверие и наглядность для карточки."},
   {a:"h", label:"Клиповое видео", cat:"Музыка", name:"Клиповое видео", video:"videos/lane/clip.mp4",
    desc:"Клип под трек: концепция, визуальный стиль, продакшн полного цикла."},
   {a:"v", label:"Говорящий аватар", cat:"ИИ", name:"Говорящий аватар", video:"videos/lane/avatar.mp4",
    desc:"ИИ-ведущий/аватар: говорящий цифровой персонаж под ваш сценарий."},
+  {a:"h", label:"Игры", cat:"Гейминг", name:"Видео для игр", video:"videos/lane/game.mp4",
+   desc:"Геймплей, трейлеры и промо для игр."},
 ];
-const ROW1 = [0,1,2,3], ROW2 = [4,5,6,7];
+const ROW1 = [0,1,2,3], ROW2 = [4,5,6,7,8,9];
 
 const TAGS = ["Видео для карточек","Рекламный ролик","Имиджевое видео","Промо для соцсетей","Reels / Shorts",
   "Распаковки","Обзоры","Бренд-фильм","Моушн","Монтаж","Маркетплейсы","Бьюти","Одежда","Электроника",
