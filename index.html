@@ -149,7 +149,8 @@
     font-weight:600; text-transform:uppercase; letter-spacing:.08em; border-radius:9999px; padding:.9rem 2.2rem;
     font-size:.9rem; transition:transform .2s, box-shadow .2s; box-shadow:0 6px 20px rgba(0,0,0,.35); }
   .btn-dark:hover{ transform:translateY(-2px); }
-  .wb-inner .btn-dark{ position:absolute; left:50%; bottom:13%; transform:translateX(-50%); }
+  .wb-inner .btn-dark{ position:absolute; left:50%; bottom:12%; transform:translateX(-50%);
+    font-size:clamp(.5rem,2.2vw,.9rem); padding:.85em 2em; letter-spacing:.06em; box-shadow:0 4px 14px rgba(0,0,0,.3); }
   .wb-inner .btn-dark:hover{ transform:translateX(-50%) translateY(-2px); }
 
   /* ============ 6. О НАС (текст слева / фото справа) ============ */
@@ -204,6 +205,16 @@
     background:linear-gradient(150deg,#2a2a2a,#111); display:grid; place-items:center; color:rgba(255,255,255,.3); font-size:.7rem; text-transform:uppercase; }
   .pm-frames.v{ grid-template-columns:repeat(4,1fr); max-width:260px; margin-left:auto; margin-right:auto; }
   .pm-frames.v .pf{ height:auto; aspect-ratio:9/16; }
+
+  /* ============ МОБИЛЬНАЯ АДАПТАЦИЯ (в конце — чтобы перебивать базовые правила) ============ */
+  @media(max-width:767px){
+    :root{ --rh:150px; }                                   /* ниже плитки ленты */
+    .hero{ min-height:70vh; }                              /* меньше hero */
+    .hero-video video{ object-fit:contain; object-position:center; }  /* видео целиком по ширине */
+    .hero-brand, .hero-sub{ color:#fff; }                 /* текст читаем на тёмных полях */
+    .tile span{ font-size:.58rem; letter-spacing:.04em; } /* мельче подпись в ленте */
+    .wb-inner .btn-dark{ font-size:clamp(.42rem,1.55vw,.9rem); padding:.65em 1.4em; } /* меньше кнопка */
+  }
 </style>
 </head>
 <body>
@@ -350,10 +361,10 @@ const TAGS = ["Видео для карточек","Рекламный роли�
   "Общепит","Авто","Недвижимость","Инфобизнес","Услуги","Мероприятия"];
 
 const STEPS = [
-  ["1","Бриф","Рассказываете о товаре или задаче - мы задаём вопросы и фиксируем цель ролика.","images/step-brief.webp"],
-  ["2","Сценарий","Согласуем идею, референсы и раскадровку до старта продакшна.","images/step-script.webp"],
-  ["3","Продакшн","Создаём видео с помощью современных ИИ-инструментов и монтажа.","images/step-production.webp"],
-  ["4","Правки и сдача","Вносим корректировки и отдаём готовый ролик в нужных форматах.","images/step-edits.webp"],
+  ["1","Бриф","Рассказываете о товаре или задаче - мы задаём вопросы и фиксируем цель ролика.","images/step-brief.png"],
+  ["2","Сценарий","Согласуем идею, референсы и раскадровку до старта продакшна.","images/step-script.png"],
+  ["3","Продакшн","Создаём видео с помощью современных ИИ-инструментов и монтажа.","images/step-production.png"],
+  ["4","Правки и сдача","Вносим корректировки и отдаём готовый ролик в нужных форматах.","images/step-edits.png"],
 ];
 
 /* ============ РЕНДЕР ============ */
