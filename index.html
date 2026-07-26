@@ -384,13 +384,32 @@ const STEPS = [
 /* ============ РЕНДЕР ============ */
 function tileHTML(i){ const w=WORKS[i];
   let media = '';
-  if (w.video) media = `<video class="tile-media" src="${w.video}" autoplay muted loop playsinline></video>`;
+  if (w.video) media = `<video class="tile-media" src="${w.video}" muted loop playsinline preload="metadata"></video>`;
   else if (w.img) media = `<img class="tile-media" src="${w.img}" alt="">`;
   const cls = (w.video || w.img) ? ' has-media' : '';
   return `<div class="tile ${w.a}${cls}">${media}<span>${w.label}</span></div>`; }
 // тройной набор для бесшовной авто-прокрутки
 document.getElementById('lane1').innerHTML = [...ROW1,...ROW1,...ROW1].map(tileHTML).join('');
 document.getElementById('lane2').innerHTML = [...ROW2,...ROW2,...ROW2].map(tileHTML).join('');
+
+/* Играем только видимые ролики ленты — экономим видеодекодер и батарею */
+(function(){
+  const vids = Array.from(document.querySelectorAll('.lane .tile-media'));
+  if(!vids.length) return;
+  const M = 120; // небольшой запас, чтобы ролик стартовал чуть до появления
+  function update(){
+    if(document.hidden){ vids.forEach(v=>{ if(!v.paused) v.pause(); }); return; }
+    const vw = innerWidth, vh = innerHeight;
+    const vis = vids.map(v=>{ const r = v.getBoundingClientRect();
+      return r.right > -M && r.left < vw + M && r.bottom > -M && r.top < vh + M; });
+    vids.forEach((v,i)=>{ if(vis[i]){ if(v.paused) v.play().catch(()=>{}); }
+      else if(!v.paused){ v.pause(); } });
+  }
+  setInterval(update, 350);
+  document.addEventListener('visibilitychange', update);
+  window.addEventListener('resize', update);
+  update();
+})();
 
 document.getElementById('tags').innerHTML = TAGS.map(t=>`<span class="tag">${t}</span>`).join('');
 
