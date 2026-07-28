@@ -124,6 +124,7 @@
   .hero-sub{ margin-top:1.4rem; max-width:34rem; color:#0f1013; font-weight:300; line-height:1.6;
     font-size:clamp(.85rem,1.6vw,1.1rem); text-transform:uppercase; letter-spacing:.03em; }
   .hero-actions{ margin-top:1.9rem; }
+  .hero-intro-m{ display:none; }
 
   /* ============ 2. РАБОТЫ (авто-лента) ============ */
   /* вводная строка «что мы делаем» */
@@ -271,7 +272,9 @@
     .hero-top{ position:absolute; top:0; left:0; right:0; }
     .hero-brand{ color:#0f1013; }                          /* лого/название чёрным поверх видео */
     .hero-main{ margin-top:0; padding:1.4rem 0 2.4rem; flex-direction:column; align-items:center; text-align:center; gap:1.1rem; }
-    .hero-sub{ color:#fff; }                               /* текст сверху, кнопка по центру под ним */
+    .hero-sub{ display:none; }                             /* строку форматов на телефоне не показываем */
+    .hero-intro-m{ display:block; color:#fff; font-weight:300; line-height:1.5; font-size:1.02rem; max-width:100%; }
+    .intro{ display:none; }                                /* вводный текст перенесён в шапку — отдельную секцию скрываем */
     .tile span{ font-size:.58rem; letter-spacing:.04em; } /* мельче подпись в ленте */
     .wb-inner .btn-dark{ font-size:clamp(.42rem,1.55vw,.9rem); padding:.65em 1.4em; } /* меньше кнопка */
   }
@@ -333,6 +336,7 @@
 
     <div class="wrap hero-main">
       <p class="hero-sub fade" style="--fy:24px; --d:.2s">Реклама · кино · работа с брендами · видео для маркетплейсов</p>
+      <p class="hero-intro-m fade" style="--fy:24px; --d:.2s">Делаем видеоролики нейросетями – без дорогих камер и выезда на площадку. Собираем из того, что уже есть: фото, референсы, бренд-материалы.</p>
       <div class="hero-actions fade" style="--fy:20px; --d:.35s">
         <a class="btn-white btn-blue" href="https://t.me/ASurkoff" target="_blank" rel="noopener">Обсудить проект</a>
       </div>
