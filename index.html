@@ -385,7 +385,7 @@ const STEPS = [
 /* ============ РЕНДЕР ============ */
 function tileHTML(i){ const w=WORKS[i];
   let media = '';
-  if (w.video) media = `<video class="tile-media" src="${w.video}" muted loop playsinline preload="metadata"></video>`;
+  if (w.video) media = `<video class="tile-media" src="${w.video}" muted loop playsinline preload="none"></video>`;
   else if (w.img) media = `<img class="tile-media" src="${w.img}" alt="">`;
   const cls = (w.video || w.img) ? ' has-media' : '';
   return `<div class="tile ${w.a}${cls}">${media}<span>${w.label}</span></div>`; }
@@ -393,20 +393,29 @@ function tileHTML(i){ const w=WORKS[i];
 document.getElementById('lane1').innerHTML = [...ROW1,...ROW1,...ROW1].map(tileHTML).join('');
 document.getElementById('lane2').innerHTML = [...ROW2,...ROW2,...ROW2].map(tileHTML).join('');
 
-/* Играем только видимые ролики ленты — экономим видеодекодер и батарею */
+/* Лента: играют все видимые ролики; ближайшие к появлению — подгружаются заранее (без лагов при въезде) */
 (function(){
   const vids = Array.from(document.querySelectorAll('.lane .tile-media'));
   if(!vids.length) return;
-  const M = 120; // небольшой запас, чтобы ролик стартовал чуть до появления
+  const PLAY = 60;      // играть, как только ролик хоть чуть появился на экране
+  const PRELOAD = 1400; // заранее грузить те, что скоро появятся (примерно за экран до входа)
+  function inZone(r, m, vw, vh){ return r.right > -m && r.left < vw + m && r.bottom > -m && r.top < vh + m; }
   function update(){
     if(document.hidden){ vids.forEach(v=>{ if(!v.paused) v.pause(); }); return; }
     const vw = innerWidth, vh = innerHeight;
-    const vis = vids.map(v=>{ const r = v.getBoundingClientRect();
-      return r.right > -M && r.left < vw + M && r.bottom > -M && r.top < vh + M; });
-    vids.forEach((v,i)=>{ if(vis[i]){ if(v.paused) v.play().catch(()=>{}); }
-      else if(!v.paused){ v.pause(); } });
+    vids.forEach(v=>{
+      const r = v.getBoundingClientRect();
+      if(inZone(r, PLAY, vw, vh)){
+        if(v.paused) v.play().catch(()=>{});         // на экране → играет
+      } else {
+        if(!v.paused) v.pause();                       // ушёл с экрана → пауза
+        if(inZone(r, PRELOAD, vw, vh) && v.preload !== 'auto'){
+          v.preload = 'auto'; v.load();                // близко → подгрузить заранее
+        }
+      }
+    });
   }
-  setInterval(update, 350);
+  setInterval(update, 300);
   document.addEventListener('visibilitychange', update);
   window.addEventListener('resize', update);
   update();
