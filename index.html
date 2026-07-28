@@ -60,6 +60,21 @@
     letter-spacing:.1em; border-radius:9999px; padding:.85rem 1.9rem; font-size:.85rem; transition:background .2s, border-color .2s, color .2s; }
   .btn-ghost:hover{ background:var(--blue); border-color:var(--blue); color:#fff; }
 
+  /* закреплённая верхняя панель (появляется при прокрутке) */
+  .topbar{ position:fixed; top:0; left:0; right:0; z-index:200;
+    background:rgba(15,16,19,.82); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+    transform:translateY(-100%); transition:transform .35s cubic-bezier(.25,.1,.25,1); }
+  .topbar.show{ transform:translateY(0); }
+  .topbar-inner{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:.55rem 1.5rem; }
+  @media(min-width:768px){ .topbar-inner{ padding:.6rem 2.5rem; } }
+  .topbar-brand{ display:flex; align-items:center; gap:.55rem; font-weight:800; text-transform:uppercase;
+    letter-spacing:.02em; font-size:.95rem; color:#fff; }
+  .topbar-brand .plus{ color:var(--blue); }
+  .topbar-logo{ width:32px; height:32px; border-radius:9px; object-fit:cover; flex:none; }
+  .topbar-cta{ padding:.55rem 1.2rem; font-size:.72rem; box-shadow:none; }
+  @media(max-width:480px){ .topbar-brand span{ display:none; } }
+
   /* ============ 1. ГЛАВНАЯ ============ */
   .hero{ position:relative; min-height:100vh; overflow:hidden; display:flex; flex-direction:column; }
   .hero-video{ position:absolute; inset:0; z-index:0; background:radial-gradient(120% 90% at 50% -10%, #0f1240, #0f1013 60%); }
@@ -232,6 +247,17 @@
 <body>
 <div id="root">
 
+  <!-- ============ ЗАКРЕПЛЁННАЯ ВЕРХНЯЯ ПАНЕЛЬ ============ -->
+  <div class="topbar" id="topbar">
+    <div class="wrap topbar-inner">
+      <a class="topbar-brand" href="#top">
+        <img src="images/favicon.png" alt="" class="topbar-logo">
+        <span>PROD <span class="plus">+</span> ACT</span>
+      </a>
+      <a class="btn-white btn-blue topbar-cta" href="https://t.me/ASurkoff" target="_blank" rel="noopener">Обсудить проект</a>
+    </div>
+  </div>
+
   <!-- ============ 1. ГЛАВНАЯ ============ -->
   <section class="hero" id="top">
     <div class="hero-video">
@@ -301,7 +327,7 @@
       <div class="fade" style="--fy:30px">
         <div class="eyebrow">О нас</div>
         <h2 class="h-sec grad">Кто мы</h2>
-        <p>Более года в продакшене. Делаем рекламные ролики, видео для карточек маркетплейсов, кино и работу с брендами - с помощью современных ИИ-инструментов. Каждый проект обсуждаем индивидуально: от идеи и сценария до готового результата.</p>
+        <p>В продакшене с 2024 года. Делаем рекламные ролики, видео для карточек маркетплейсов, кино и работу с брендами - с помощью современных ИИ-инструментов. Каждый проект обсуждаем индивидуально: от идеи и сценария до готового результата.</p>
         <div class="about-award">
           <div><b>2 место - международный AI-кинофестиваль MyFilm48</b><span>Конкурс AI-фильмов · 2026</span></div>
         </div>
@@ -434,6 +460,15 @@ document.getElementById('steps').innerHTML = STEPS.map(([n,t,d,img],i)=>`
   </div>`).join('');
 
 document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ============ Закреплённая панель: показывать при прокрутке ============ */
+(function(){
+  const tb = document.getElementById('topbar');
+  if(!tb) return;
+  const onScroll = () => tb.classList.toggle('show', window.scrollY > window.innerHeight * 0.6);
+  window.addEventListener('scroll', onScroll, { passive:true });
+  onScroll();
+})();
 
 /* ============ FadeIn ============ */
 const io = new IntersectionObserver((es)=>{ es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); },
