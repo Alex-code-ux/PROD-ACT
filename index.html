@@ -127,10 +127,10 @@
 
   /* ============ 2. РАБОТЫ (авто-лента) ============ */
   /* вводная строка «что мы делаем» */
-  .intro{ padding:3.5rem 0 0.5rem; text-align:center; }
-  @media(min-width:768px){ .intro{ padding:5rem 0 1rem; } }
-  .intro-text{ max-width:46rem; margin:0 auto; color:var(--ink); font-weight:300;
-    font-size:clamp(1.05rem,2.3vw,1.5rem); line-height:1.5; letter-spacing:.005em; }
+  .intro{ padding:3.5rem 0 1.5rem; text-align:center; }
+  @media(min-width:768px){ .intro{ padding:5rem 0 3rem; } }
+  .intro-text{ max-width:50rem; margin:0 auto; color:var(--ink); font-weight:300;
+    font-size:clamp(1.05rem,2.6vw,1.95rem); line-height:1.5; letter-spacing:.005em; }
 
   .works{ padding:1.2rem 0 5rem; overflow:hidden; }
   @media(min-width:768px){ .works{ padding:1.5rem 0 6rem; } }
@@ -271,7 +271,7 @@
     .hero-top{ position:absolute; top:0; left:0; right:0; }
     .hero-brand{ color:#0f1013; }                          /* лого/название чёрным поверх видео */
     .hero-main{ margin-top:0; padding-top:1.4rem; padding-bottom:2.4rem; }
-    .hero-sub{ color:#fff; }                               /* строка под видео на тёмном фоне */
+    .hero-sub{ display:none; }                             /* на телефоне прячем — описание даёт вводная строка ниже */
     .tile span{ font-size:.58rem; letter-spacing:.04em; } /* мельче подпись в ленте */
     .wb-inner .btn-dark{ font-size:clamp(.42rem,1.55vw,.9rem); padding:.65em 1.4em; } /* меньше кнопка */
   }
@@ -342,7 +342,7 @@
   <!-- ============ ВВОДНАЯ СТРОКА (что мы делаем) ============ -->
   <section class="intro">
     <div class="wrap">
-      <p class="intro-text fade" style="--fy:24px">Делаем видеоролики нейросетями — без дорогих камер и выезда на площадку. Собираем из того, что уже есть: фото, референсы, бренд-материалы.</p>
+      <p class="intro-text fade" style="--fy:24px">Делаем видеоролики нейросетями – без дорогих камер и выезда на площадку. Собираем из того, что уже есть: фото, референсы, бренд-материалы.</p>
     </div>
   </section>
 
