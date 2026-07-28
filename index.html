@@ -126,8 +126,14 @@
   .hero-actions{ margin-top:1.9rem; }
 
   /* ============ 2. РАБОТЫ (авто-лента) ============ */
-  .works{ padding:3rem 0 5rem; overflow:hidden; }
-  @media(min-width:768px){ .works{ padding:4rem 0 6rem; } }
+  /* вводная строка «что мы делаем» */
+  .intro{ padding:3.5rem 0 0.5rem; text-align:center; }
+  @media(min-width:768px){ .intro{ padding:5rem 0 1rem; } }
+  .intro-text{ max-width:46rem; margin:0 auto; color:var(--ink); font-weight:300;
+    font-size:clamp(1.05rem,2.3vw,1.5rem); line-height:1.5; letter-spacing:.005em; }
+
+  .works{ padding:1.2rem 0 5rem; overflow:hidden; }
+  @media(min-width:768px){ .works{ padding:1.5rem 0 6rem; } }
   .works .head{ margin-bottom:2.5rem; }
   .lane-mask{ position:relative; }
   .lane-mask::after{ content:''; position:absolute; left:0; right:0; bottom:-1px; height:90px;
@@ -287,7 +293,6 @@
         <a href="#how">Как работаем</a>
         <a href="wb/" class="nav-mp">Маркетплейсы</a>
         <a href="#about">О нас</a>
-        <a href="#contact">Контакты</a>
       </nav>
       <a class="btn-white btn-blue topbar-cta" href="https://t.me/ASurkoff" target="_blank" rel="noopener">Обсудить проект</a>
     </div>
@@ -303,7 +308,6 @@
       <a href="#shoot">Что снимаем</a>
       <a href="#how">Как работаем</a>
       <a href="#about">О нас</a>
-      <a href="#contact">Контакты</a>
       <a href="wb/" class="drawer-mp">Маркетплейсы →</a>
     </nav>
     <a class="btn-white btn-blue drawer-cta" href="https://t.me/ASurkoff" target="_blank" rel="noopener">Обсудить проект</a>
@@ -332,6 +336,13 @@
       <div class="hero-actions fade" style="--fy:20px; --d:.35s">
         <a class="btn-white btn-blue" href="https://t.me/ASurkoff" target="_blank" rel="noopener">Обсудить проект</a>
       </div>
+    </div>
+  </section>
+
+  <!-- ============ ВВОДНАЯ СТРОКА (что мы делаем) ============ -->
+  <section class="intro">
+    <div class="wrap">
+      <p class="intro-text fade" style="--fy:24px">Делаем видеоролики нейросетями — без дорогих камер и выезда на площадку. Собираем из того, что уже есть: фото, референсы, бренд-материалы.</p>
     </div>
   </section>
 
