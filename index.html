@@ -80,6 +80,27 @@
   .topbar-nav a:hover{ color:var(--blue); }
   @media(max-width:960px){ .topbar-nav{ display:none; } }
   @media(max-width:480px){ .topbar-brand span{ display:none; } }
+  .topbar-nav a.nav-mp{ color:#5866ff; }
+
+  /* выдвижное меню (мобильное) */
+  .drawer-backdrop{ position:fixed; inset:0; z-index:290; background:rgba(0,0,0,.55);
+    opacity:0; visibility:hidden; transition:opacity .3s; }
+  .drawer-backdrop.open{ opacity:1; visibility:visible; }
+  .drawer{ position:fixed; top:0; left:0; bottom:0; z-index:300; width:80%; max-width:320px;
+    background:#16171c; border-right:1px solid var(--line); padding:1.4rem 1.3rem 2rem;
+    display:flex; flex-direction:column; transform:translateX(-100%);
+    transition:transform .3s cubic-bezier(.25,.1,.25,1); overflow-y:auto; }
+  .drawer.open{ transform:translateX(0); }
+  .drawer-close{ align-self:flex-end; background:none; border:none; color:#fff; font-size:2rem;
+    line-height:1; cursor:pointer; padding:0 .2rem; }
+  .drawer-brand{ font-weight:800; text-transform:uppercase; letter-spacing:.02em; font-size:1.15rem;
+    color:#fff; margin:.2rem 0 1.2rem; }
+  .drawer-brand .plus{ color:var(--blue); }
+  .drawer-nav{ display:flex; flex-direction:column; }
+  .drawer-nav a{ color:rgba(255,255,255,.88); text-transform:uppercase; letter-spacing:.05em;
+    font-size:1rem; padding:.9rem 0; border-bottom:1px solid var(--line); }
+  .drawer-mp{ color:#5866ff !important; font-weight:600; border-bottom:none !important; }
+  .drawer-cta{ margin-top:1.5rem; text-align:center; }
 
   /* ============ 1. ГЛАВНАЯ ============ */
   .hero{ position:relative; min-height:100vh; overflow:hidden; display:flex; flex-direction:column; }
@@ -264,13 +285,29 @@
         <a href="#works">Работы</a>
         <a href="#shoot">Что снимаем</a>
         <a href="#how">Как работаем</a>
-        <a href="#marketplaces">Маркетплейсы</a>
+        <a href="wb/" class="nav-mp">Маркетплейсы</a>
         <a href="#about">О нас</a>
         <a href="#contact">Контакты</a>
       </nav>
       <a class="btn-white btn-blue topbar-cta" href="https://t.me/ASurkoff" target="_blank" rel="noopener">Обсудить проект</a>
     </div>
   </div>
+
+  <!-- ============ ВЫДВИЖНОЕ МЕНЮ (моб.) ============ -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="drawer" id="drawer" aria-label="Меню">
+    <button class="drawer-close" id="drawerClose" aria-label="Закрыть меню">&times;</button>
+    <div class="drawer-brand">PROD <span class="plus">+</span> ACT</div>
+    <nav class="drawer-nav">
+      <a href="#works">Работы</a>
+      <a href="#shoot">Что снимаем</a>
+      <a href="#how">Как работаем</a>
+      <a href="#about">О нас</a>
+      <a href="#contact">Контакты</a>
+      <a href="wb/" class="drawer-mp">Маркетплейсы →</a>
+    </nav>
+    <a class="btn-white btn-blue drawer-cta" href="https://t.me/ASurkoff" target="_blank" rel="noopener">Обсудить проект</a>
+  </aside>
 
   <!-- ============ 1. ГЛАВНАЯ ============ -->
   <section class="hero" id="top">
@@ -482,6 +519,23 @@ document.getElementById('year').textContent = new Date().getFullYear();
   const onScroll = () => tb.classList.toggle('show', window.scrollY > window.innerHeight * 0.6);
   window.addEventListener('scroll', onScroll, { passive:true });
   onScroll();
+})();
+
+/* ============ Выдвижное меню (тап по логотипу на мобильном) ============ */
+(function(){
+  const drawer = document.getElementById('drawer');
+  const backdrop = document.getElementById('drawerBackdrop');
+  if(!drawer || !backdrop) return;
+  const isMobile = () => window.matchMedia('(max-width:960px)').matches;
+  const open = () => { drawer.classList.add('open'); backdrop.classList.add('open'); document.body.style.overflow='hidden'; };
+  const close = () => { drawer.classList.remove('open'); backdrop.classList.remove('open'); document.body.style.overflow=''; };
+  document.querySelectorAll('.hero-corner, .topbar-brand').forEach(el=>{
+    el.style.cursor = 'pointer';
+    el.addEventListener('click', e => { if(isMobile()){ e.preventDefault(); open(); } });
+  });
+  backdrop.addEventListener('click', close);
+  document.getElementById('drawerClose').addEventListener('click', close);
+  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
 })();
 
 /* ============ FadeIn ============ */
