@@ -4,8 +4,8 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no" />
 <title>ИИ-продакшн – портфолио</title>
-<link rel="icon" type="image/png" href="images/favicon.png" />
-<link rel="apple-touch-icon" href="images/favicon.png" />
+<link rel="icon" type="image/png" href="../images/favicon.png" />
+<link rel="apple-touch-icon" href="../images/favicon.png" />
 <!-- Telegram Mini App SDK (работает только внутри Telegram; вне его код не падает) -->
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <!-- Yandex.Metrika counter -->
@@ -324,7 +324,7 @@
   /* ===== Новый фирменный стиль: шрифт Educational Gothic + акценты ===== */
   @font-face{
     font-family:'Educational Gothic';
-    src:url('fonts/EducationalGothic-Regular.otf') format('opentype');
+    src:url('../fonts/EducationalGothic-Regular.otf') format('opentype');
     font-weight:100 900; font-style:normal; font-display:swap;
   }
   h1,h2,.display,.brand-name,.stat b,.award-txt b,.eyebrow,
@@ -342,7 +342,7 @@
 
   <!-- ============ ВЕРХНЯЯ НАВИГАЦИЯ ============ -->
   <nav class="topnav">
-    <a class="back" href="index.html">
+    <a class="back" href="../">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
       Все направления
     </a>
@@ -480,12 +480,12 @@
   // Пока src пустой ("") – на карточке заглушка с кнопкой локальной загрузки (только для теста).
   // Формат: вертикальные 9:16, mp4 (H.264 + AAC). g – цвет-подложка, виден пока грузится кадр.
   const VIDEOS = [
-    { src:"videos/wb/1.mp4", g:["#0016FF","#00086b"] },
-    { src:"videos/wb/2.mp4", g:["#3a4bff","#0016FF"] },
-    { src:"videos/wb/3.mp4", g:["#0016FF","#0a1240"] },
-    { src:"videos/wb/4.mp4", g:["#4657ff","#0016FF"] },
-    { src:"videos/wb/5.mp4", g:["#0016FF","#000a99"] },
-    { src:"videos/wb/6.mp4", g:["#3a4bff","#0a1240"] },
+    { src:"../videos/wb/1.mp4", g:["#0016FF","#00086b"] },
+    { src:"../videos/wb/2.mp4", g:["#3a4bff","#0016FF"] },
+    { src:"../videos/wb/3.mp4", g:["#0016FF","#0a1240"] },
+    { src:"../videos/wb/4.mp4", g:["#4657ff","#0016FF"] },
+    { src:"../videos/wb/5.mp4", g:["#0016FF","#000a99"] },
+    { src:"../videos/wb/6.mp4", g:["#3a4bff","#0a1240"] },
   ];
 
   const STEPS = [
