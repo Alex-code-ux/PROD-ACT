@@ -475,7 +475,7 @@ const STEPS = [
 /* ============ РЕНДЕР ============ */
 function tileHTML(i){ const w=WORKS[i];
   let media = '';
-  if (w.video) media = `<video class="tile-media" src="${w.video}" muted loop playsinline preload="metadata"></video>`;
+  if (w.video) media = `<video class="tile-media" src="${w.video}" muted loop playsinline preload="none"></video>`;
   else if (w.img) media = `<img class="tile-media" src="${w.img}" alt="">`;
   const cls = (w.video || w.img) ? ' has-media' : '';
   return `<div class="tile ${w.a}${cls}">${media}<span>${w.label}</span></div>`; }
