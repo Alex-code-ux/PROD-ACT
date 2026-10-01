@@ -63,7 +63,7 @@
 
   /* закреплённая верхняя панель (появляется при прокрутке) */
   .topbar{ position:fixed; top:0; left:0; right:0; z-index:200;
-    background:rgba(15,16,19,.82); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+    background:rgba(15,16,19,.95);   /* без размытия фона: blur поверх движущихся видео сильно грузит страницу */
     border-bottom:1px solid var(--line);
     transform:translateY(-100%); transition:transform .35s cubic-bezier(.25,.1,.25,1); }
   .topbar.show{ transform:translateY(0); }
@@ -171,10 +171,10 @@
   @keyframes scrollL{ from{transform:translateX(0)} to{transform:translateX(-33.333%)} }
   .tile{ height:var(--rh); border-radius:16px; overflow:hidden; position:relative;
     flex:0 0 auto; border:1px solid var(--line); display:flex; align-items:flex-end; padding:14px;
-    background:linear-gradient(150deg,#2a2a2a,#111); filter:grayscale(1); transition:filter .35s, transform .35s; }
+    background:linear-gradient(150deg,#2a2a2a,#111); filter:grayscale(1); transition:transform .35s; }
   .tile.h{ aspect-ratio:16/9; } .tile.v{ aspect-ratio:9/16; } .tile.w{ aspect-ratio:21/9; }
   .tile:hover{ filter:grayscale(0); transform:scale(1.015); border-color:var(--blue); }
-  .tile.has-media{ filter:grayscale(0); }
+  .tile.has-media{ filter:none; }   /* у плиток с видео фильтра нет вообще — так легче для браузера */
   .tile-media{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center;
     display:block; z-index:0; }
   /* тёмная подложка под подписью (в отдельном слое, чтобы не пряталась за видео на мобильных) */
@@ -231,7 +231,7 @@
   /* ============ 3. ЧТО СНИМАЕМ (облако тегов) ============ */
   .shoot{ padding:5rem 0; text-align:center; }
   @media(min-width:768px){ .shoot{ padding:7rem 0; } }
-  .shoot h2{ margin:0 auto 2.5rem; max-width:16ch; }
+  .shoot h2{ margin:0 auto 2.5rem; }
   .tags{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; max-width:60rem; margin:0 auto; }
   .tag{ padding:.55rem 1.05rem; border-radius:100px; background:var(--card); border:1px solid var(--line);
     color:var(--muted); font-size:clamp(.8rem,1.4vw,1rem); font-weight:400; transition:color .2s, border-color .2s, background .2s; }
@@ -393,7 +393,6 @@
       <div class="hero-copy">
         <div class="hero-eyebrow fade" style="--fy:20px; --d:.1s">Генеративный видеопродакшн</div>
         <h1 class="hero-h1 fade" style="--fy:24px; --d:.2s">Визуально сложные видео <span class="line2">для&nbsp;брендов и&nbsp;агентств</span></h1>
-        <p class="hero-lead fade" style="--fy:20px; --d:.3s">Берём сформулированную креативную задачу и&nbsp;доводим её до&nbsp;финального видео: определяем подход к&nbsp;реализации, создаём сцены, собираем материал и&nbsp;проходим согласованные этапы правок.</p>
       </div>
       <div class="hero-side">
         <div class="hero-actions fade" style="--fy:20px; --d:.35s">
@@ -418,7 +417,7 @@
         <svg viewBox="0 0 40 40" style="width:20%; top:60%; left:0; stroke:#FFB800; animation-duration:6s"><path d="M20 4 L 24 16 L 36 20 L 24 24 L 20 36 L 16 24 L 4 20 L 16 16 Z"/></svg>
         <svg viewBox="0 0 100 30" style="width:62%; top:78%; left:34%; stroke:#FF5A5F; animation-duration:6.8s; animation-delay:-4s"><path d="M4 15 C 14 0, 24 30, 34 15 S 54 0, 64 15 S 84 30, 96 15"/></svg>
       </div>
-      <p class="intro-text fade" style="--fy:24px">AI – это технология производства, а&nbsp;не&nbsp;сам продукт. Мы используем генеративные инструменты там, где они подходят задаче, и&nbsp;берём ответственность за&nbsp;цельный ролик, а&nbsp;не&nbsp;за&nbsp;отдельные генерации.</p>
+      <p class="intro-text fade" style="--fy:24px">AI – один из&nbsp;инструментов достижения качества, за&nbsp;которое мы отвечаем. Мы берём сформулированную креативную задачу и&nbsp;доводим её до&nbsp;финального видео: определяем подход к&nbsp;реализации, создаём сцены, собираем материал и&nbsp;проходим согласованные этапы правок.</p>
     </div>
   </section>
 
@@ -461,7 +460,7 @@
   <!-- ============ 3. ЧТО СНИМАЕМ ============ -->
   <section class="shoot" id="shoot">
     <div class="wrap">
-      <h2 class="h-sec grad fade" style="--fy:30px">Что берём в&nbsp;работу</h2>
+      <h2 class="h-sec grad fade" style="--fy:30px">Берём в&nbsp;работу</h2>
       <div class="tags" id="tags"></div>
       <p class="note fade" style="--fy:20px">Разбивка по&nbsp;темам – не&nbsp;рамки. Работаем гибко: если вашего формата нет в&nbsp;списке – обсудим!</p>
     </div>
@@ -574,7 +573,7 @@ document.getElementById('lane1').innerHTML = [...ROW,...ROW,...ROW].map(tileHTML
 
 /* Лента: играют только видимые ролики (первый кадр уже подгружен через preload=metadata) */
 (function(){
-  const vids = Array.from(document.querySelectorAll('.lane .tile-media'));
+  const vids = Array.from(document.querySelectorAll('.lane .tile-media, .hero-video video, .contact-photo video'));   // + видео первого экрана и контактов
   if(!vids.length) return;
   const M = 100; // небольшой запас, чтобы ролик стартовал чуть до появления
   function update(){
