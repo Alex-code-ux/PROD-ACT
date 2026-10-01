@@ -127,8 +127,9 @@
 
   /* ============ 2. РАБОТЫ (авто-лента) ============ */
   /* вводная строка «что мы делаем» */
-  .intro{ padding:1.2rem 0 1.5rem; text-align:center; }
-  @media(min-width:768px){ .intro{ padding:2rem 0 4rem; } }
+  /* отступ сверху = верхнему отступу блока фильма под ним → текст ровно посередине */
+  .intro{ padding:3.5rem 0 0; text-align:center; }
+  @media(min-width:768px){ .intro{ padding:6rem 0 0; } }
   .intro-text{ max-width:50rem; margin:0 auto; color:var(--ink); font-weight:300;
     font-size:clamp(1.05rem,2.6vw,1.95rem); line-height:1.5; letter-spacing:.005em; }
 
@@ -141,26 +142,67 @@
   .lane-row{ overflow:hidden; }
   .lane-row + .lane-row{ margin-top:16px; }
   .lane{ display:flex; gap:16px; width:max-content; pointer-events:none; }
-  .lane.l1{ animation:scrollL 44s linear infinite; }
-  .lane.l2{ animation:scrollR 52s linear infinite; }
+  .lane.l1{ animation:scrollL 66s linear infinite; }
   @media(hover:hover){ .lane:hover{ animation-play-state:paused; } }
   @keyframes scrollL{ from{transform:translateX(0)} to{transform:translateX(-33.333%)} }
-  @keyframes scrollR{ from{transform:translateX(-33.333%)} to{transform:translateX(0)} }
   .tile{ height:var(--rh); border-radius:16px; overflow:hidden; position:relative;
     flex:0 0 auto; border:1px solid var(--line); display:flex; align-items:flex-end; padding:14px;
     background:linear-gradient(150deg,#2a2a2a,#111); filter:grayscale(1); transition:filter .35s, transform .35s; }
-  .tile.h{ aspect-ratio:16/9; } .tile.v{ aspect-ratio:9/16; }
+  .tile.h{ aspect-ratio:16/9; } .tile.v{ aspect-ratio:9/16; } .tile.w{ aspect-ratio:21/9; }
   .tile:hover{ filter:grayscale(0); transform:scale(1.015); border-color:var(--blue); }
   .tile.has-media{ filter:grayscale(0); }
   .tile-media{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center;
     display:block; z-index:0; }
   /* тёмная подложка под подписью (в отдельном слое, чтобы не пряталась за видео на мобильных) */
   .tile::after{ content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
-    background:linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,0) 45%);
+    background:linear-gradient(to top, rgba(0,0,0,.58) 0%, rgba(0,0,0,0) 40%);
     transform:translateZ(0); }
   .tile span{ font-weight:500; text-transform:uppercase; letter-spacing:.06em; font-size:.8rem;
     color:#fff; position:relative; z-index:2; transform:translateZ(0);
     text-shadow:0 1px 4px rgba(0,0,0,.7); }
+
+  /* ============ ПРЕМЬЕРА (флагманский фильм) ============ */
+  .premiere{ padding:3.5rem 0 1rem; }
+  @media(min-width:768px){ .premiere{ padding:6rem 0 2rem; } }
+  /* моб.: заголовок → видео → описание; десктоп: текст слева, видео справа */
+  .prem-grid{ display:grid; grid-template-columns:minmax(0,1fr); grid-template-areas:"head" "video" "body"; }
+  .prem-head{ grid-area:head; }
+  .prem-body{ grid-area:body; margin-top:1.5rem; }
+  .prem-stage{ grid-area:video; margin-top:1.5rem; }
+  @media(min-width:900px){
+    .prem-grid{ grid-template-columns:minmax(0,1fr) minmax(0,1.25fr); grid-template-areas:"head video" "body video"; column-gap:3.5rem; }
+    .prem-head{ align-self:end; }
+    .prem-body{ align-self:start; }
+    .prem-stage{ margin-top:0; align-self:center; }
+  }
+  .prem-eyebrow{ text-transform:uppercase; letter-spacing:.18em; font-size:.78rem; font-weight:600; color:var(--blue); margin-bottom:.7rem; }
+  .prem-title{ font-weight:900; text-transform:uppercase; letter-spacing:-.02em; line-height:1;
+    font-size:clamp(2.2rem,5vw,3.8rem); color:#fff; }
+  .prem-logline{ margin-top:1rem; color:var(--ink); font-weight:400; line-height:1.45;
+    font-size:clamp(1rem,1.6vw,1.2rem); }
+  .prem-desc{ color:var(--muted); font-weight:300; line-height:1.6; font-size:clamp(.9rem,1.3vw,1rem); }
+  .prem-stage{ position:relative; width:100%; aspect-ratio:16/9; border-radius:22px; overflow:hidden;
+    border:1px solid var(--line); background:linear-gradient(150deg,#20232e,#0c0d10); cursor:pointer;
+    box-shadow:0 24px 60px rgba(0,0,0,.5); }
+  .prem-stage img.prem-poster{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
+  .prem-stage::after{ content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:radial-gradient(60% 60% at 50% 45%, rgba(0,0,0,.12), rgba(0,0,0,.6)); }
+  .prem-stage.playing{ cursor:default; }
+  .prem-stage.playing::after,
+  .prem-stage.playing .prem-poster,
+  .prem-stage.playing .prem-play,
+  .prem-stage.playing .prem-runtime{ display:none; }
+  .prem-play{ position:absolute; z-index:2; left:50%; top:50%; transform:translate(-50%,-50%);
+    width:72px; height:72px; border-radius:50%; border:none; cursor:pointer; background:var(--blue); color:#fff;
+    display:grid; place-items:center; box-shadow:0 10px 34px rgba(0,22,255,.5); transition:transform .2s; }
+  .prem-stage:hover .prem-play{ transform:translate(-50%,-50%) scale(1.07); }
+  .prem-play svg{ width:28px; height:28px; margin-left:4px; }
+  .prem-runtime{ position:absolute; z-index:2; top:16px; right:16px; background:rgba(0,0,0,.6);
+    backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); color:#fff; font-size:.78rem; font-weight:600;
+    letter-spacing:.06em; text-transform:uppercase; padding:.4rem .8rem; border-radius:100px; border:1px solid rgba(255,255,255,.15); }
+  .prem-stage iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; z-index:5; }
+  .prem-credits{ margin-top:1.2rem; color:var(--muted); font-weight:300; font-size:.9rem; letter-spacing:.02em; }
+  .prem-credits b{ color:var(--ink); font-weight:500; }
 
   /* ============ 3. ЧТО СНИМАЕМ (облако тегов) ============ */
   .shoot{ padding:5rem 0; text-align:center; }
@@ -189,25 +231,6 @@
     display:grid; place-items:center; padding:8px; }
   .step-img img{ max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; display:block; }
 
-  /* ============ 5. WB (инверсный баннер) ============ */
-  .wb{ padding:0.75rem 0 1.25rem; }
-  .wb-inner{ position:relative; overflow:hidden; border-radius:32px; text-align:center;
-    max-width:980px; margin:0 auto;
-    aspect-ratio:2000/843; background:#0f1013 url('images/marketplaces.jpg') center/cover no-repeat; }
-  .wb-inner::before{ content:none; }
-  .wb-chip{ position:relative; display:inline-block; text-transform:uppercase; letter-spacing:.12em;
-    font-size:.7rem; font-weight:600; background:#ffffff; color:var(--blue); border-radius:100px; padding:.4rem .9rem; margin-bottom:1rem; }
-  .wb-inner h2{ position:relative; font-weight:900; text-transform:uppercase; line-height:1; color:#ffffff;
-    font-size:clamp(2.4rem,8vw,5.5rem); }
-  .wb-inner p{ position:relative; max-width:40rem; margin:1rem auto 1.8rem; color:rgba(255,255,255,.75); font-weight:300; line-height:1.6; }
-  .btn-dark{ display:inline-block; background:#ffffff; color:#0f1013; font-family:inherit;
-    font-weight:600; text-transform:uppercase; letter-spacing:.08em; border-radius:9999px; padding:.9rem 2.2rem;
-    font-size:.9rem; transition:transform .2s, box-shadow .2s; box-shadow:0 6px 20px rgba(0,0,0,.35); }
-  .btn-dark:hover{ transform:translateY(-2px); }
-  .wb-inner .btn-dark{ position:absolute; left:50%; bottom:12%; transform:translateX(-50%);
-    font-size:clamp(.5rem,2.2vw,.9rem); padding:.85em 2em; letter-spacing:.06em; box-shadow:0 4px 14px rgba(0,0,0,.3); }
-  .wb-inner .btn-dark:hover{ transform:translateX(-50%) translateY(-2px); }
-
   /* ============ 6. О НАС (текст слева / фото справа) ============ */
   .about{ padding:5rem 0; }
   @media(min-width:768px){ .about{ padding:7rem 0; } }
@@ -227,7 +250,7 @@
   .contact{ padding:5rem 0 7rem; }
   .contact-grid{ display:grid; grid-template-columns:1fr; gap:2.5rem; align-items:center; }
   @media(min-width:900px){ .contact-grid{ grid-template-columns:1fr 1fr; gap:4rem; } }
-  .contact-photo{ aspect-ratio:3/4; border-radius:28px; border:1px solid var(--line); overflow:hidden;
+  .contact-photo{ aspect-ratio:9/16; width:100%; max-width:420px; justify-self:center; border-radius:28px; border:1px solid var(--line); overflow:hidden;
     background:radial-gradient(120% 90% at 50% 0%, #333, #101010); }
   .contact-photo video{ width:100%; height:100%; object-fit:cover; display:block; }
   .contact-cta h2{ margin-bottom:1.6rem; }
@@ -273,7 +296,6 @@
     .hero-main{ margin-top:0; padding:1.4rem 0 2.4rem 1rem; flex-direction:column; align-items:flex-start; text-align:left; gap:1.1rem; }
     .hero-sub{ color:#fff; }                               /* строка форматов сверху, кнопка по центру под ней */
     .tile span{ font-size:.58rem; letter-spacing:.04em; } /* мельче подпись в ленте */
-    .wb-inner .btn-dark{ font-size:clamp(.42rem,1.55vw,.9rem); padding:.65em 1.4em; } /* меньше кнопка */
   }
 </style>
 </head>
@@ -288,6 +310,7 @@
         <span>PROD <span class="plus">+</span> ACT</span>
       </a>
       <nav class="topbar-nav">
+        <a href="#premiere">Фильм</a>
         <a href="#works">Работы</a>
         <a href="#shoot">Что снимаем</a>
         <a href="#how">Как работаем</a>
@@ -304,6 +327,7 @@
     <button class="drawer-close" id="drawerClose" aria-label="Закрыть меню">&times;</button>
     <div class="drawer-brand">PROD <span class="plus">+</span> ACT</div>
     <nav class="drawer-nav">
+      <a href="#premiere">Фильм</a>
       <a href="#works">Работы</a>
       <a href="#shoot">Что снимаем</a>
       <a href="#how">Как работаем</a>
@@ -332,9 +356,42 @@
 
 
     <div class="wrap hero-main">
-      <p class="hero-sub fade" style="--fy:24px; --d:.2s">Реклама · кино · работа с брендами · видео для маркетплейсов</p>
+      <p class="hero-sub fade" style="--fy:24px; --d:.2s">Реклама · кино · работа с брендами</p>
       <div class="hero-actions fade" style="--fy:20px; --d:.35s">
         <a class="btn-white btn-blue" href="https://t.me/ASurkoff" target="_blank" rel="noopener">Обсудить проект</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ВВОДНАЯ СТРОКА (что мы делаем) ============ -->
+  <section class="intro">
+    <div class="wrap">
+      <p class="intro-text fade" style="--fy:24px">Делаем видеоролики нейросетями – без дорогих камер и выезда на площадку. Собираем из того, что уже есть: фото, референсы, бренд-материалы.</p>
+    </div>
+  </section>
+
+  <!-- ============ ПРЕМЬЕРА (флагманский фильм) ============ -->
+  <!-- data-yt = ID видео с YouTube (из ссылки youtu.be/XXXX); постер подтягивается автоматически -->
+  <section class="premiere" id="premiere">
+    <div class="wrap prem-grid">
+      <div class="prem-head fade" style="--fy:30px">
+        <div class="prem-eyebrow">Премьера · короткий метр</div>
+        <h2 class="prem-title">Out of&nbsp;Credits</h2>
+        <p class="prem-logline">Неудачливый супергерой пытается доказать, что чего&#8209;то стоит, – пока не&nbsp;ломается сама история.</p>
+      </div>
+
+      <div class="prem-stage fade" id="premStage" data-yt="A-Xbo-UH-NQ" style="--fy:30px; --d:.1s"
+           role="button" tabindex="0" aria-label="Смотреть фильм">
+        <img class="prem-poster" id="premPoster" alt="Кадр из фильма Out of Credits">
+        <span class="prem-runtime">8 мин</span>
+        <button class="prem-play" aria-label="Смотреть фильм">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+      </div>
+
+      <div class="prem-body fade" style="--fy:20px; --d:.15s">
+        <p class="prem-desc">Лукас – студент и&nbsp;тайный супергерой Паладин, которого знают скорее по&nbsp;разрушениям, чем по&nbsp;подвигам. Фильм снят для AI&#8209;кинофестиваля: сначала мы погружаем зрителя в&nbsp;сгенерированный мир, а&nbsp;потом разрушаем его. История о&nbsp;том, что у&nbsp;героя и&nbsp;автора один выбор: остановиться – или найти другой путь.</p>
+        <div class="prem-credits">Фильм <b>PROD+ACT</b> · 2026</div>
       </div>
     </div>
   </section>
@@ -346,14 +403,6 @@
     </div>
     <div class="lane-mask">
       <div class="lane-row"><div class="lane l1" id="lane1"></div></div>
-      <div class="lane-row"><div class="lane l2" id="lane2"></div></div>
-    </div>
-  </section>
-
-  <!-- ============ ВВОДНАЯ СТРОКА (что мы делаем) ============ -->
-  <section class="intro">
-    <div class="wrap">
-      <p class="intro-text fade" style="--fy:24px">Делаем видеоролики нейросетями – без дорогих камер и выезда на площадку. Собираем из того, что уже есть: фото, референсы, бренд-материалы.</p>
     </div>
   </section>
 
@@ -374,22 +423,13 @@
     </div>
   </section>
 
-  <!-- ============ 5. WB ============ -->
-  <section class="wb" id="marketplaces">
-    <div class="wrap">
-      <div class="wb-inner fade" style="--fy:30px">
-        <a class="btn-dark" href="wb/">Открыть раздел →</a>
-      </div>
-    </div>
-  </section>
-
   <!-- ============ 6. О НАС ============ -->
   <section class="about" id="about">
     <div class="wrap about-grid">
       <div class="fade" style="--fy:30px">
         <div class="eyebrow">О нас</div>
-        <h2 class="h-sec grad">Кто мы</h2>
-        <p>В продакшне с 2024 года. Делаем рекламные ролики, видео для карточек маркетплейсов, кино и работу с брендами - с помощью современных ИИ-инструментов. Каждый проект обсуждаем индивидуально: от идеи и сценария до готового результата.</p>
+        <h2 class="h-sec grad">Студия</h2>
+        <p>В продакшне с 2024 года. Делаем рекламные ролики, видео для маркетплейсов, кино и работу с брендами - с помощью современных ИИ-инструментов. Каждый проект обсуждаем индивидуально: от идеи и сценария до готового результата.</p>
         <div class="about-award">
           <div><b>2 место - международный AI-кинофестиваль MyFilm48</b><span>Конкурс AI-фильмов · 2026</span></div>
         </div>
@@ -403,7 +443,7 @@
     <div class="wrap contact-grid">
       <div class="contact-photo fade" style="--fy:30px">
         <video autoplay muted loop playsinline>
-          <source src="videos/contact.mp4" type="video/mp4">
+          <source src="videos/brand.mp4" type="video/mp4">
         </video>
       </div>
       <div class="contact-cta fade" style="--fy:30px; --d:.1s">
@@ -434,32 +474,23 @@
 
 <script>
 /* ============ КОНТЕНТ ============ */
-// Работы для ленты. a: "h"=горизонт(16:9), "v"=вертикаль(9:16). video: путь к готовому ролику.
+// Работы для ленты. a: "h"=горизонт(16:9), "w"=широкий(21:9), "v"=вертикаль(9:16). video: путь к готовому ролику.
 const WORKS = [
-  // --- ВЕРХНЯЯ строка (ROW1) ---
-  {a:"v", label:"Reels / Shorts — любой тренд", cat:"Соцсети", name:"Reels / Shorts", video:"videos/lane/reels.mp4",
-   desc:"Короткий вертикальный ролик под любой тренд с сильным хуком в первые секунды."},
-  {a:"h", label:"Кино", cat:"Кино", name:"Короткометражный ролик", video:"videos/lane/kino.mp4",
+  {a:"h", label:"Кино", cat:"Кино", name:"Короткометражный ролик", video:"videos/lane/kino-hq.mp4",
    desc:"Художественный ролик с проработкой кадра, света и монтажа."},
-  {a:"v", label:"Личный бренд", cat:"Бренд", name:"Личный бренд", video:"videos/lane/ownbrand.mp4",
-   desc:"Видео для личного бренда — образ, атмосфера, узнаваемость."},
-  {a:"h", label:"Моушн", cat:"Анимация", name:"Моушн-дизайн", video:"videos/lane/motion.mp4",
-   desc:"Анимация и моушн-графика: оживляем графику, тексты и логотипы."},
-  // --- НИЖНЯЯ строка (ROW2) ---
   {a:"v", label:"Распаковка", cat:"Маркетплейсы", name:"Видео-распаковка", video:"videos/lane/raspakovka.mp4",
    desc:"Динамичная распаковка товара — доверие и наглядность для карточки."},
-  {a:"h", label:"Клиповое видео", cat:"Музыка", name:"Клиповое видео", video:"videos/lane/clip.mp4",
+  {a:"h", label:"Клипы", cat:"Музыка", name:"Клиповое видео", video:"videos/lane/clip.mp4?v=2",
    desc:"Клип под трек: концепция, визуальный стиль, продакшн полного цикла."},
-  {a:"v", label:"Говорящий аватар", cat:"ИИ", name:"Говорящий аватар", video:"videos/lane/avatar.mp4",
+  {a:"v", label:"Сторителлинг", cat:"ИИ", name:"Говорящий аватар", video:"videos/lane/avatar.mp4",
    desc:"ИИ-ведущий/аватар: говорящий цифровой персонаж под ваш сценарий."},
-  {a:"h", label:"Игры", cat:"Гейминг", name:"Видео для игр", video:"videos/lane/game.mp4",
-   desc:"Геймплей, трейлеры и промо для игр."},
-  {a:"v", label:"Карточка товара", cat:"Маркетплейсы", name:"Видео для карточки товара", video:"videos/lane/wb.mp4",
+  {a:"v", label:"Реклама", cat:"Маркетплейсы", name:"Видео для карточки товара", video:"videos/lane/wb.mp4",
    desc:"Продающий ролик для карточки товара на маркетплейсах — показываем товар в действии, поднимаем конверсию."},
-  {a:"h", label:"Продуктовый ролик", cat:"Продукт", name:"Продуктовый ролик", video:"videos/lane/product.mp4",
-   desc:"Товар крупным планом: эффектная подача, свет и детали."},
+  {a:"w", label:"Фестивали", cat:"Фестивали", name:"Фильм для AI-кинофестиваля", video:"videos/lane/festival.mp4",
+   desc:"Кадры из фильма для AI-кинофестиваля."},
 ];
-const ROW1 = [0,1,2,3], ROW2 = [4,5,6,7,8,9];
+// одна лента: каждый ролик ровно один раз за цикл, горизонтальные и вертикальные чередуются
+const ROW = [5,4,2,3,0,1];   // фестивали · реклама · клипы · сторителлинг · кино · распаковка
 
 const TAGS = ["Видео для карточек","Рекламный ролик","Имиджевое видео","Промо для соцсетей","Reels / Shorts",
   "Распаковки","Обзоры","Бренд-фильм","Моушн","Монтаж","Маркетплейсы","Бьюти","Одежда","Электроника",
@@ -479,9 +510,8 @@ function tileHTML(i){ const w=WORKS[i];
   else if (w.img) media = `<img class="tile-media" src="${w.img}" alt="">`;
   const cls = (w.video || w.img) ? ' has-media' : '';
   return `<div class="tile ${w.a}${cls}">${media}<span>${w.label}</span></div>`; }
-// тройной набор для бесшовной авто-прокрутки
-document.getElementById('lane1').innerHTML = [...ROW1,...ROW1,...ROW1].map(tileHTML).join('');
-document.getElementById('lane2').innerHTML = [...ROW2,...ROW2,...ROW2].map(tileHTML).join('');
+// три копии набора для бесшовной авто-прокрутки (лента сдвигается ровно на один набор и начинается заново)
+document.getElementById('lane1').innerHTML = [...ROW,...ROW,...ROW].map(tileHTML).join('');
 
 /* Лента: играют только видимые ролики (первый кадр уже подгружен через preload=metadata) */
 (function(){
@@ -570,6 +600,33 @@ document.getElementById('pmClose').addEventListener('click', closeWork);
 pmodal.addEventListener('click', e=>{ if(e.target===pmodal) closeWork(); });
 document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeWork(); });
 document.addEventListener('click', e=>{ const t=e.target.closest('[data-open]'); if(t) openWork(+t.dataset.open); });
+
+/* ============ Премьера: YouTube грузится только по клику (фасад) ============ */
+(function(){
+  const stage = document.getElementById('premStage');
+  if(!stage) return;
+  const id = stage.dataset.yt;
+  let loaded = false;
+  const poster = document.getElementById('premPoster');
+  if(poster && id && id !== 'FILM_ID'){
+    poster.src = 'https://img.youtube.com/vi/' + id + '/maxresdefault.jpg';
+    poster.onerror = function(){ this.onerror = null; this.src = 'https://img.youtube.com/vi/' + id + '/hqdefault.jpg'; };
+  }
+  function play(){
+    if(loaded) return;
+    if(!id || id === 'FILM_ID'){ alert('Плеер заработает, когда в data-yt впишете ID видео с YouTube (сейчас placeholder FILM_ID).'); return; }
+    loaded = true;
+    const ifr = document.createElement('iframe');
+    ifr.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1';
+    ifr.title = 'Фильм PROD+ACT';
+    ifr.allow = 'autoplay; encrypted-media; fullscreen; picture-in-picture';
+    ifr.setAttribute('allowfullscreen','');
+    stage.classList.add('playing');
+    stage.appendChild(ifr);
+  }
+  stage.addEventListener('click', play);
+  stage.addEventListener('keydown', e=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); play(); } });
+})();
 </script>
 </body>
 </html>
