@@ -327,7 +327,9 @@
     .hero-video video{ object-fit:cover; }
     .hero-top{ position:absolute; top:0; left:0; right:0; }
     .hero-brand{ color:#0f1013; }                          /* лого/название чёрным поверх видео */
-    .hero-main{ margin-top:0; padding:1.4rem 0 2.4rem 1rem; flex-direction:column; align-items:flex-start; text-align:left; gap:1.1rem; }
+    .hero-main{ margin-top:0; padding:1.4rem 1.5rem 2.4rem; flex-direction:column; align-items:flex-start; text-align:left; gap:1.1rem; }   /* поля как у остальных блоков */
+    .step{ min-height:0; }                                 /* карточки «Как работаем» без пустоты */
+    .step-img{ height:100px; }
     .hero-sub{ color:#fff; }                               /* строка форматов сверху, кнопка по центру под ней */
     .hero-video::after{ display:none; }                    /* на телефоне текст под видео, затемнение не нужно */
     .hero-main .hero-h1{ font-size:clamp(1.9rem,8.4vw,2.6rem); }
