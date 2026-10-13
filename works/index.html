@@ -296,7 +296,7 @@
   // когда плеер Rutube готов — команда play (автозапуск после клика по карточке)
   window.addEventListener('message', function(e){
     let msg; try{ msg = JSON.parse(e.data); }catch(_){ return; }
-    if(!msg || (msg.type !== 'player:ready' && msg.type !== 'player:changeState')) return;
+    if(!msg || msg.type !== 'player:ready') return;
     document.querySelectorAll('.ply iframe').forEach(function(f){
       if(f.contentWindow === e.source){ f.contentWindow.postMessage(JSON.stringify({ type:'player:play', data:{} }), '*'); }
     });

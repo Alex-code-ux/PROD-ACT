@@ -685,7 +685,7 @@ document.addEventListener('click', e=>{ const t=e.target.closest('[data-open]');
   window.addEventListener('message', function(e){
     if(!iframe || e.source !== iframe.contentWindow) return;
     let msg; try{ msg = JSON.parse(e.data); }catch(_){ return; }
-    if(msg && (msg.type === 'player:ready' || msg.type === 'player:changeState')){
+    if(msg && msg.type === 'player:ready'){
       iframe.contentWindow.postMessage(JSON.stringify({ type:'player:play', data:{} }), '*');
     }
   });
