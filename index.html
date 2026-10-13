@@ -288,6 +288,10 @@
   .contact-mails a{ color:var(--ink); font-weight:500; transition:color .2s; }
   .contact-mails a:hover{ color:#5866ff; }
   footer a{ color:var(--ink); }
+  .footer-social{ display:flex; justify-content:center; flex-wrap:wrap; gap:10px; margin-bottom:1.1rem; }
+  .footer-social a{ padding:.5rem 1.15rem; border:1px solid var(--line); border-radius:100px; background:var(--card);
+    font-size:.8rem; font-weight:500; text-transform:uppercase; letter-spacing:.08em; transition:background .2s, border-color .2s; }
+  .footer-social a:hover{ background:var(--blue); border-color:var(--blue); color:#fff; }
   .contact-caption{ margin-top:1.1rem; color:var(--muted); font-weight:300; font-size:.95rem; }
   .contact-caption a{ color:var(--blue); font-weight:500; }
 
@@ -425,7 +429,7 @@
   </section>
 
   <!-- ============ ПРЕМЬЕРА (флагманский фильм) ============ -->
-  <!-- data-yt = ID видео с YouTube (из ссылки youtu.be/XXXX); постер подтягивается автоматически -->
+  <!-- data-rt = ID видео с Rutube (из ссылки rutube.ru/video/XXXX/); постер подтягивается автоматически -->
   <section class="premiere" id="premiere">
     <div class="wrap prem-grid">
       <div class="prem-head fade" style="--fy:30px">
@@ -434,7 +438,7 @@
         <p class="prem-logline">Неудачливый супергерой пытается доказать, что чего&#8209;то стоит, – пока не&nbsp;ломается сама история.</p>
       </div>
 
-      <div class="prem-stage fade" id="premStage" data-yt="A-Xbo-UH-NQ" style="--fy:30px; --d:.1s"
+      <div class="prem-stage fade" id="premStage" data-rt="7fe68218b381596ba89df044b3e46de9" style="--fy:30px; --d:.1s"
            role="button" tabindex="0" aria-label="Смотреть фильм">
         <img class="prem-poster" id="premPoster" alt="Кадр из фильма Out of Credits">
         <span class="prem-runtime">8 мин</span>
@@ -517,6 +521,10 @@
   </section>
 
   <footer>
+    <div class="footer-social">
+      <a href="https://www.youtube.com/@PROD-ACT" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.tiktok.com/@prod_act" target="_blank" rel="noopener">TikTok</a>
+    </div>
     <div>© <span id="year"></span> PROD+ACT · Генеративный видеопродакшн · <a href="mailto:hello@prodact.site">hello@prodact.site</a></div>
   </footer>
 
@@ -662,25 +670,25 @@ pmodal.addEventListener('click', e=>{ if(e.target===pmodal) closeWork(); });
 document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeWork(); });
 document.addEventListener('click', e=>{ const t=e.target.closest('[data-open]'); if(t) openWork(+t.dataset.open); });
 
-/* ============ Премьера: YouTube грузится только по клику (фасад) ============ */
+/* ============ Премьера: Rutube грузится только по клику (фасад) ============ */
 (function(){
   const stage = document.getElementById('premStage');
   if(!stage) return;
-  const id = stage.dataset.yt;
+  const id = stage.dataset.rt;
   let loaded = false;
   const poster = document.getElementById('premPoster');
   if(poster && id && id !== 'FILM_ID'){
-    poster.src = 'https://img.youtube.com/vi/' + id + '/maxresdefault.jpg';
-    poster.onerror = function(){ this.onerror = null; this.src = 'https://img.youtube.com/vi/' + id + '/hqdefault.jpg'; };
+    poster.src = 'https://rutube.ru/api/video/' + id + '/thumbnail/?redirect=1';
+    poster.onerror = function(){ this.onerror = null; this.removeAttribute('src'); this.style.display = 'none'; };
   }
   function play(){
     if(loaded) return;
-    if(!id || id === 'FILM_ID'){ alert('Плеер заработает, когда в data-yt впишете ID видео с YouTube (сейчас placeholder FILM_ID).'); return; }
+    if(!id || id === 'FILM_ID'){ alert('Плеер заработает, когда в data-rt впишете ID видео с Rutube (сейчас placeholder FILM_ID).'); return; }
     loaded = true;
     const ifr = document.createElement('iframe');
-    ifr.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1';
+    ifr.src = 'https://rutube.ru/play/embed/' + id + '?autoStart=true';
     ifr.title = 'Фильм PROD+ACT';
-    ifr.allow = 'autoplay; encrypted-media; fullscreen; picture-in-picture';
+    ifr.allow = 'autoplay; fullscreen; clipboard-write; encrypted-media; picture-in-picture';
     ifr.setAttribute('allowfullscreen','');
     stage.classList.add('playing');
     stage.appendChild(ifr);

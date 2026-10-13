@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Портфолио — PROD+ACT</title>
+<meta name="description" content="Портфолио PROD+ACT: собственные фильмы, клипы и видео для карточек маркетплейсов. ИИ-продакшн.">
+<link rel="icon" type="image/png" href="../images/favicon.png">
+<link rel="apple-touch-icon" href="../images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  @font-face{ font-family:'Educational Gothic'; src:url('../fonts/EducationalGothic-Regular.otf') format('opentype');
+    font-weight:400 900; font-style:normal; font-display:swap; }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  :root{
+    --bg:#0f1013; --ink:#F2F2F2; --muted:rgba(242,242,242,.58);
+    --card:#16171c; --card2:#1c1d24; --line:rgba(255,255,255,.1); --blue:#0016FF; --blue-soft:#5866ff;
+  }
+  html{ scroll-behavior:smooth; }
+  html,body{ background:var(--bg); }
+  body{ font-family:'Educational Gothic','Kanit',sans-serif; color:var(--ink); overflow-x:clip; }
+  a{ color:inherit; text-decoration:none; }
+  img{ display:block; max-width:100%; }
+  .wrap{ width:100%; max-width:1200px; margin:0 auto; padding:0 1.5rem; }
+  @media(min-width:768px){ .wrap{ padding:0 2.5rem; } }
+
+  /* ---- верхняя панель ---- */
+  .topbar{ position:sticky; top:0; z-index:50; background:rgba(15,16,19,.85);
+    backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid var(--line); }
+  .topbar-inner{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:.6rem 1.5rem; }
+  @media(min-width:768px){ .topbar-inner{ padding:.6rem 2.5rem; } }
+  .tb-brand{ display:flex; align-items:center; gap:.55rem; font-weight:800; text-transform:uppercase;
+    letter-spacing:.02em; font-size:.95rem; color:#fff; }
+  .tb-brand img{ width:32px; height:32px; border-radius:9px; object-fit:cover; flex:none; }
+  .tb-brand .plus{ color:var(--blue); }
+  .tb-right{ display:flex; align-items:center; gap:1.2rem; }
+  .tb-back{ color:var(--muted); font-size:.82rem; text-transform:uppercase; letter-spacing:.06em; white-space:nowrap; }
+  .tb-back:hover{ color:#fff; }
+  .btn-blue{ display:inline-block; background:var(--blue); color:#fff; font-family:inherit; font-weight:600;
+    text-transform:uppercase; letter-spacing:.06em; border-radius:9999px; padding:.55rem 1.2rem; font-size:.72rem;
+    transition:transform .2s, background .2s; white-space:nowrap; }
+  .btn-blue:hover{ transform:translateY(-2px); background:var(--blue-soft); }
+  @media(max-width:560px){ .tb-back{ display:none; } .tb-brand span{ display:none; } }
+
+  /* ---- интро ---- */
+  .intro{ padding:3.5rem 0 1rem; text-align:center; }
+  @media(min-width:768px){ .intro{ padding:5rem 0 1.5rem; } }
+  .intro h1{ font-weight:900; text-transform:uppercase; letter-spacing:-.02em; line-height:1;
+    font-size:clamp(2.6rem,9vw,6rem); }
+  .intro p{ margin:1.2rem auto 0; max-width:46rem; color:var(--muted); font-weight:300; line-height:1.55;
+    font-size:clamp(1rem,2vw,1.3rem); }
+
+  /* ---- секции ---- */
+  .section{ padding:2.5rem 0; }
+  @media(min-width:768px){ .section{ padding:3.5rem 0; } }
+  .sec-head{ margin-bottom:1.6rem; }
+  .eyebrow{ text-transform:uppercase; letter-spacing:.16em; font-size:.75rem; color:var(--blue-soft); margin-bottom:.5rem; }
+  .sec-head h2{ font-weight:900; text-transform:uppercase; letter-spacing:-.01em; line-height:1;
+    font-size:clamp(1.8rem,5vw,3.2rem); }
+  .sec-head .sub{ margin-top:.6rem; color:var(--muted); font-weight:300; font-size:.98rem; max-width:48rem; }
+
+  /* ---- плеер-фасад (Rutube по клику) ---- */
+  .grid-h{ display:grid; grid-template-columns:1fr; gap:18px; }
+  @media(min-width:760px){ .grid-h{ grid-template-columns:1fr 1fr; } }
+  .grid-v{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+  @media(min-width:620px){ .grid-v{ grid-template-columns:repeat(3,1fr); } }
+  @media(min-width:980px){ .grid-v{ grid-template-columns:repeat(4,1fr); } }
+  .featured{ margin-bottom:18px; }
+
+  .ply{ position:relative; border-radius:18px; overflow:hidden; border:1px solid var(--line); cursor:pointer;
+    background:linear-gradient(145deg,#1b1d27,#101116); isolation:isolate; }
+  .ply.h{ aspect-ratio:16/9; } .ply.v{ aspect-ratio:9/16; }
+  .ply.g1{ background:linear-gradient(150deg,#141a44,#0f1013); }
+  .ply.g2{ background:linear-gradient(150deg,#1a1430,#0f1013); }
+  .ply.g3{ background:linear-gradient(150deg,#101a2e,#0f1013); }
+  .ply-poster{ position:absolute; inset:0; z-index:-1; }
+  .ply-poster img{ width:100%; height:100%; object-fit:cover; }
+  .ply::before{ content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,0) 55%); }
+  .ply-play{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:2;
+    width:62px; height:62px; border-radius:50%; border:none; cursor:pointer; background:var(--blue);
+    display:grid; place-items:center; box-shadow:0 8px 26px rgba(0,22,255,.45); transition:transform .2s, background .2s; }
+  .ply:hover .ply-play{ transform:translate(-50%,-50%) scale(1.08); background:var(--blue-soft); }
+  .ply-play svg{ width:24px; height:24px; margin-left:3px; fill:#fff; }
+  .ply-cap{ position:absolute; left:16px; right:16px; bottom:14px; z-index:2; }
+  .ply-cap b{ display:block; font-weight:600; text-transform:uppercase; letter-spacing:.02em;
+    font-size:clamp(.95rem,1.8vw,1.2rem); line-height:1.15; }
+  .ply-cap span{ display:block; margin-top:3px; color:rgba(255,255,255,.72); font-size:.8rem; font-weight:300; }
+  .ply.v .ply-cap b{ font-size:.95rem; } .ply.v .ply-play{ width:50px; height:50px; }
+  .ply .badge{ position:absolute; top:14px; left:14px; z-index:2; font-size:.65rem; letter-spacing:.1em;
+    text-transform:uppercase; font-weight:600; background:rgba(0,22,255,.9); color:#fff; border-radius:100px; padding:5px 11px; }
+  .ply iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; z-index:5; }
+  .ply.playing .ply-play, .ply.playing .ply-cap, .ply.playing::before, .ply.playing .badge{ display:none; }
+
+  /* описание под фичер-плеером */
+  .feat-desc{ margin-top:1rem; color:var(--muted); font-weight:300; line-height:1.65;
+    font-size:clamp(.95rem,1.6vw,1.12rem); max-width:52rem; }
+
+  /* ссылка-кнопка в конце секции */
+  .sec-more{ margin-top:1.6rem; }
+  .btn-ghost{ display:inline-block; background:transparent; border:1.5px solid var(--blue); color:#fff;
+    font-family:inherit; font-weight:500; text-transform:uppercase; letter-spacing:.08em; border-radius:9999px;
+    padding:.8rem 1.8rem; font-size:.82rem; transition:background .2s; }
+  .btn-ghost:hover{ background:rgba(0,22,255,.15); }
+
+  /* ---- CTA ---- */
+  .cta{ padding:4rem 0 5rem; text-align:center; }
+  .cta h2{ font-weight:900; text-transform:uppercase; line-height:1; font-size:clamp(2rem,7vw,4.5rem); }
+  .cta p{ margin:1rem auto 1.8rem; color:var(--muted); font-weight:300; max-width:34rem; }
+  .btn-white{ display:inline-block; background:var(--blue); color:#fff; font-family:inherit; font-weight:600;
+    text-transform:uppercase; letter-spacing:.08em; border-radius:9999px; padding:1rem 2.2rem; font-size:.95rem;
+    box-shadow:0 8px 26px rgba(0,22,255,.4); transition:transform .2s, background .2s; }
+  .btn-white:hover{ transform:translateY(-2px); background:var(--blue-soft); }
+
+  footer{ border-top:1px solid var(--line); padding:2.2rem 0; text-align:center; color:var(--muted);
+    font-weight:300; font-size:.88rem; }
+  footer a{ color:var(--blue-soft); }
+</style>
+</head>
+<body>
+
+  <!-- ============ ПАНЕЛЬ ============ -->
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="tb-brand" href="../">
+        <img src="../images/favicon.png" alt="">
+        <span>PROD <span class="plus">+</span> ACT</span>
+      </a>
+      <div class="tb-right">
+        <a class="tb-back" href="../">← На главную</a>
+        <a class="btn-blue" href="https://t.me/ASurkoff" target="_blank" rel="noopener">Обсудить проект</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ ИНТРО ============ -->
+  <section class="intro">
+    <div class="wrap">
+      <h1>Портфолио</h1>
+      <p>Полный список работ PROD+ACT — от собственных фильмов и клипов до видео для карточек маркетплейсов. Всё сделано с&nbsp;помощью нейросетей.</p>
+    </div>
+  </section>
+
+  <!-- ============ ФИЛЬМЫ ============ -->
+  <section class="section" id="films">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Фильмы и короткий метр</div>
+        <h2>Собственные фильмы</h2>
+        <p class="sub">Производство полного цикла: постоянные персонажи, диалоговые сцены и несколько визуальных сред на длинном хронометраже.</p>
+      </div>
+      <div id="filmsFeat"></div>
+      <div class="grid-h" id="filmsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ РЕКЛАМА ============ -->
+  <section class="section" id="ads">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Рекламные ролики</div>
+        <h2>Реклама</h2>
+        <p class="sub">Промо и рекламные видео для брендов — от идеи и сценария до готового ролика.</p>
+      </div>
+      <div class="grid-h" id="adsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ КЛИПЫ ============ -->
+  <section class="section" id="clips">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Музыкальные видео</div>
+        <h2>Клипы</h2>
+      </div>
+      <div class="grid-h" id="clipsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ МАРКЕТПЛЕЙСЫ ============ -->
+  <section class="section" id="mp">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Маркетплейсы · карточки товаров</div>
+        <h2>Видео для WB и Ozon</h2>
+        <p class="sub">Вертикальные ролики 9:16 для карточек: показываем товар в действии и поднимаем кликабельность.</p>
+      </div>
+      <div class="grid-v" id="mpGrid"></div>
+      <div class="sec-more"><a class="btn-ghost" href="../wb/">Подробнее про формат WB →</a></div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section class="cta">
+    <div class="wrap">
+      <h2>Обсудим проект?</h2>
+      <p>Расскажите про задачу — подберём формат, сроки и стоимость.</p>
+      <a class="btn-white" href="https://t.me/ASurkoff" target="_blank" rel="noopener">Написать в Telegram</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">PROD+ACT · ИИ-продакшн · <a href="../">prodact.site</a></div>
+  </footer>
+
+<script>
+/* =========================================================================
+   ВИДЕО ПОРТФОЛИО. Плеер грузится по клику (фасад) — из Rutube.
+
+   Как добавить ролик:
+   1. Залей видео на Rutube.
+   2. Открой видео, нажми «Поделиться» → «Встроить» (или возьми ID из ссылки
+      rutube.ru/video/XXXXXXXX/ — это и есть rt).
+   3. Впиши ID в поле rt у нужного ролика ниже.
+      Если видео приватное/по ссылке — вставь ПОЛНЫЙ embed-URL в rt
+      (например "https://rutube.ru/play/embed/XXXX?p=ТОКЕН").
+   Поле poster (необязательно) — путь к картинке-обложке в ../images/.
+   a: "h" = горизонтальное 16:9, "v" = вертикальное 9:16.
+   ========================================================================= */
+  const WORKS = {
+    films: [
+      { title:"Out of Credits", meta:"Короткий фильм · 8 минут", a:"h", g:"g1", featured:true,
+        badge:"2 место · AI-фестиваль MyFilm48", rt:"7fe68218b381596ba89df044b3e46de9", poster:"",
+        desc:"Собственный короткометражный фильм PROD+ACT как production-проект на длинном хронометраже: постоянные персонажи, диалоговые сцены и несколько визуальных сред на протяжении восьми минут." },
+      { title:"Новый игрок", meta:"Короткометражный фильм", a:"h", g:"g2", rt:"RUTUBE_ID_NOVYI_IGROK", poster:"" },
+      { title:"Hired to Finish", meta:"Трейлер", a:"h", g:"g3", rt:"RUTUBE_ID_HIRED_TO_FINISH", poster:"" },
+    ],
+    ads: [
+      { title:"Рекламный ролик", meta:"Промо для бренда", a:"h", g:"g3", rt:"RUTUBE_ID_AD_1", poster:"" },
+    ],
+    clips: [
+      { title:"Judy Luv", meta:"Музыкальное видео", a:"h", g:"g2", rt:"RUTUBE_ID_JUDY_LUV", poster:"" },
+    ],
+    mp: [
+      { title:"Розовый жакет", meta:"Одежда · WB", a:"v", g:"g1", rt:"RUTUBE_ID_WB_PINK_JACKET", poster:"" },
+      { title:"Пляжный образ", meta:"Одежда · WB", a:"v", g:"g3", rt:"RUTUBE_ID_WB_CLOTHE_PLAGE", poster:"" },
+      { title:"Zelma", meta:"Товар · WB", a:"v", g:"g2", rt:"RUTUBE_ID_WB_ZELMA", poster:"" },
+      { title:"Zelma · дубль 3", meta:"Товар · WB", a:"v", g:"g1", rt:"RUTUBE_ID_WB_ZELMA_3", poster:"" },
+      { title:"Юбка", meta:"Одежда · WB", a:"v", g:"g3", rt:"RUTUBE_ID_WB_SKIRT", poster:"" },
+      { title:"Шорты", meta:"Одежда · WB", a:"v", g:"g2", rt:"RUTUBE_ID_WB_SHORTS", poster:"" },
+    ],
+  };
+
+  const PLAY_SVG = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+
+  function cardHTML(w){
+    let posterSrc = w.poster;
+    if(!posterSrc && w.rt && !w.rt.startsWith('RUTUBE_ID') && !w.rt.startsWith('http')){
+      posterSrc = 'https://rutube.ru/api/video/' + w.rt + '/thumbnail/?redirect=1';
+    }
+    const poster = posterSrc ? `<div class="ply-poster"><img src="${posterSrc}" alt="" onerror="this.closest('.ply-poster').remove()"></div>` : '';
+    const badge  = w.badge ? `<span class="badge">${w.badge}</span>` : '';
+    return `<div class="ply ${w.a} ${w.g||''}" data-rt="${w.rt}">
+      ${poster}${badge}
+      <button class="ply-play" aria-label="Смотреть">${PLAY_SVG}</button>
+      <div class="ply-cap"><b>${w.title}</b>${w.meta?`<span>${w.meta}</span>`:''}</div>
+    </div>`;
+  }
+
+  // фильмы: отдельно фичер (крупный) + сетка
+  const feat = WORKS.films.find(f=>f.featured);
+  if(feat){
+    document.getElementById('filmsFeat').innerHTML =
+      `<div class="featured">${cardHTML(feat)}</div>` +
+      (feat.desc ? `<p class="feat-desc">${feat.desc}</p>` : '');
+  }
+  document.getElementById('filmsGrid').innerHTML = WORKS.films.filter(f=>!f.featured).map(cardHTML).join('');
+  document.getElementById('adsGrid').innerHTML   = WORKS.ads.map(cardHTML).join('');
+  document.getElementById('clipsGrid').innerHTML = WORKS.clips.map(cardHTML).join('');
+  document.getElementById('mpGrid').innerHTML     = WORKS.mp.map(cardHTML).join('');
+
+  // клик → грузим Rutube-плеер
+  document.addEventListener('click', e=>{
+    const ply = e.target.closest('.ply');
+    if(!ply || ply.classList.contains('playing')) return;
+    const rt = ply.getAttribute('data-rt') || '';
+    if(!rt || rt.startsWith('RUTUBE_ID')){
+      alert('Плеер заработает, когда в поле rt этого ролика вписать ID видео с Rutube (сейчас placeholder).');
+      return;
+    }
+    const src = rt.startsWith('http')
+      ? (rt + (rt.includes('?') ? '&' : '?') + 'autoStart=true')
+      : ('https://rutube.ru/play/embed/' + rt + '?autoStart=true');
+    const ifr = document.createElement('iframe');
+    ifr.src = src;
+    ifr.title = ply.querySelector('.ply-cap b')?.textContent || 'Видео';
+    ifr.allow = 'autoplay; fullscreen; clipboard-write; encrypted-media; picture-in-picture';
+    ifr.setAttribute('allowfullscreen','');
+    ply.appendChild(ifr);
+    ply.classList.add('playing');
+  });
+</script>
+</body>
+</html>
