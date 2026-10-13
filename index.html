@@ -670,32 +670,41 @@ pmodal.addEventListener('click', e=>{ if(e.target===pmodal) closeWork(); });
 document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeWork(); });
 document.addEventListener('click', e=>{ const t=e.target.closest('[data-open]'); if(t) openWork(+t.dataset.open); });
 
-/* ============ Премьера: Rutube грузится только по клику (фасад) ============ */
+/* ============ Премьера: фасад → клик → Rutube грузится и сразу играет (JS-API) ============ */
 (function(){
   const stage = document.getElementById('premStage');
   if(!stage) return;
   const id = stage.dataset.rt;
-  let loaded = false;
+  let loaded = false, iframe = null;
   const poster = document.getElementById('premPoster');
   if(poster && id && id !== 'FILM_ID'){
     poster.src = 'https://rutube.ru/api/video/' + id + '/thumbnail/?redirect=1';
     poster.onerror = function(){ this.onerror = null; this.removeAttribute('src'); this.style.display = 'none'; };
   }
+  // когда плеер Rutube готов — отправляем команду play (автозапуск после клика по фасаду)
+  window.addEventListener('message', function(e){
+    if(!iframe || e.source !== iframe.contentWindow) return;
+    let msg; try{ msg = JSON.parse(e.data); }catch(_){ return; }
+    if(msg && (msg.type === 'player:ready' || msg.type === 'player:changeState')){
+      iframe.contentWindow.postMessage(JSON.stringify({ type:'player:play', data:{} }), '*');
+    }
+  });
   function play(){
     if(loaded) return;
-    if(!id || id === 'FILM_ID'){ alert('Плеер заработает, когда в data-rt впишете ID видео с Rutube (сейчас placeholder FILM_ID).'); return; }
+    if(!id || id === 'FILM_ID'){ alert('Впишите в data-rt ID видео с Rutube.'); return; }
     loaded = true;
-    const ifr = document.createElement('iframe');
-    ifr.src = 'https://rutube.ru/play/embed/' + id + '?autoStart=true';
-    ifr.title = 'Фильм PROD+ACT';
-    ifr.allow = 'autoplay; fullscreen; clipboard-write; encrypted-media; picture-in-picture';
-    ifr.setAttribute('allowfullscreen','');
+    iframe = document.createElement('iframe');
+    iframe.src = 'https://rutube.ru/play/embed/' + id + '/?autoplay=true';
+    iframe.title = 'Фильм Out of Credits — PROD+ACT';
+    iframe.allow = 'clipboard-write; autoplay; fullscreen; encrypted-media; picture-in-picture';
+    iframe.setAttribute('allowfullscreen','');
     stage.classList.add('playing');
-    stage.appendChild(ifr);
+    stage.appendChild(iframe);
   }
   stage.addEventListener('click', play);
   stage.addEventListener('keydown', e=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); play(); } });
 })();
+
 </script>
 </body>
 </html>

@@ -282,15 +282,24 @@
       return;
     }
     const src = rt.startsWith('http')
-      ? (rt + (rt.includes('?') ? '&' : '?') + 'autoStart=true')
-      : ('https://rutube.ru/play/embed/' + rt + '?autoStart=true');
+      ? (rt + (rt.includes('?') ? '&' : '?') + 'autoplay=true')
+      : ('https://rutube.ru/play/embed/' + rt + '/?autoplay=true');
     const ifr = document.createElement('iframe');
     ifr.src = src;
     ifr.title = ply.querySelector('.ply-cap b')?.textContent || 'Видео';
-    ifr.allow = 'autoplay; fullscreen; clipboard-write; encrypted-media; picture-in-picture';
+    ifr.allow = 'clipboard-write; autoplay; fullscreen; encrypted-media; picture-in-picture';
     ifr.setAttribute('allowfullscreen','');
     ply.appendChild(ifr);
     ply.classList.add('playing');
+  });
+
+  // когда плеер Rutube готов — команда play (автозапуск после клика по карточке)
+  window.addEventListener('message', function(e){
+    let msg; try{ msg = JSON.parse(e.data); }catch(_){ return; }
+    if(!msg || (msg.type !== 'player:ready' && msg.type !== 'player:changeState')) return;
+    document.querySelectorAll('.ply iframe').forEach(function(f){
+      if(f.contentWindow === e.source){ f.contentWindow.postMessage(JSON.stringify({ type:'player:play', data:{} }), '*'); }
+    });
   });
 </script>
 </body>
