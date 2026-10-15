@@ -74,13 +74,15 @@
   .topbar-brand .plus{ color:var(--blue); }
   .topbar-logo{ width:32px; height:32px; border-radius:9px; object-fit:cover; flex:none; }
   .topbar-cta{ padding:.55rem 1.2rem; font-size:.72rem; box-shadow:none; flex:none; }
-  .topbar-nav{ display:flex; align-items:center; gap:1.4rem; }
+  .topbar-nav{ display:flex; align-items:center; gap:1.4rem; margin-right:auto; margin-left:1.6rem; }
   .topbar-nav a{ color:rgba(255,255,255,.72); font-size:.8rem; font-weight:400; text-transform:uppercase;
     letter-spacing:.06em; white-space:nowrap; transition:color .2s; }
   .topbar-nav a:hover{ color:var(--blue); }
   @media(max-width:960px){ .topbar-nav{ display:none; } }
   @media(max-width:480px){ .topbar-brand span{ display:none; } }
   .topbar-nav a.nav-mp{ color:#5866ff; }
+  .topbar-nav a.nav-portfolio{ color:#5866ff; font-weight:600; }
+  .drawer-nav a.drawer-portfolio{ color:#5866ff; }
 
   /* выдвижное меню (мобильное) */
   .drawer-backdrop{ position:fixed; inset:0; z-index:290; background:rgba(0,0,0,.55);
@@ -354,8 +356,9 @@
         <span>PROD <span class="plus">+</span> ACT</span>
       </a>
       <nav class="topbar-nav">
+        <a class="nav-portfolio" href="works/">Портфолио</a>
         <a href="#premiere">Фильм</a>
-        <a href="works/">Работы</a>
+        <a href="#works">Работы</a>
         <a href="#shoot">Что снимаем</a>
         <a href="#how">Как работаем</a>
         <a href="#about">О нас</a>
@@ -370,8 +373,9 @@
     <button class="drawer-close" id="drawerClose" aria-label="Закрыть меню">&times;</button>
     <div class="drawer-brand">PROD <span class="plus">+</span> ACT</div>
     <nav class="drawer-nav">
+      <a class="drawer-portfolio" href="works/">Портфолио</a>
       <a href="#premiere">Фильм</a>
-      <a href="works/">Работы</a>
+      <a href="#works">Работы</a>
       <a href="#shoot">Что снимаем</a>
       <a href="#how">Как работаем</a>
       <a href="#about">О нас</a>
@@ -461,6 +465,9 @@
     </div>
     <div class="lane-mask">
       <div class="lane-row"><div class="lane l1" id="lane1"></div></div>
+    </div>
+    <div class="wrap fade" style="--fy:20px; text-align:center; margin-top:2.4rem;">
+      <a class="btn-ghost" href="works/">Смотреть всё портфолио →</a>
     </div>
   </section>
 
