@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Портфолио — PROD+ACT</title>
-<meta name="description" content="Портфолио PROD+ACT: собственные фильмы, клипы и видео для карточек маркетплейсов. ИИ-продакшн.">
+<title>Работы PROD+ACT - видеопродакшн</title>
+<meta name="description" content="Портфолио PROD+ACT: коммерческие ролики, собственные фильмы и музыкальные видео, созданные с использованием генеративных технологий.">
 <link rel="icon" type="image/png" href="../images/favicon.png">
 <link rel="apple-touch-icon" href="../images/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,270 +16,422 @@
 
   *{ box-sizing:border-box; margin:0; padding:0; }
   :root{
-    --bg:#0f1013; --ink:#F2F2F2; --muted:rgba(242,242,242,.58);
-    --card:#16171c; --card2:#1c1d24; --line:rgba(255,255,255,.1); --blue:#0016FF; --blue-soft:#5866ff;
+    --bg:#0a0b0e; --ink:#F4F5F7; --muted:rgba(244,245,247,.55);
+    --line:rgba(255,255,255,.09); --blue:#0016FF; --blue-soft:#5e6bff;
+    --card:#161616; --shell:1200px;
   }
   html{ scroll-behavior:smooth; }
   html,body{ background:var(--bg); }
   body{ font-family:'Educational Gothic','Kanit',sans-serif; color:var(--ink); overflow-x:clip; }
   a{ color:inherit; text-decoration:none; }
   img{ display:block; max-width:100%; }
-  .wrap{ width:100%; max-width:1200px; margin:0 auto; padding:0 1.5rem; }
-  @media(min-width:768px){ .wrap{ padding:0 2.5rem; } }
+  ::selection{ background:var(--blue); color:#fff; }
+  ::-webkit-scrollbar{ width:10px; height:10px; }
+  ::-webkit-scrollbar-thumb{ background:#23252e; border-radius:10px; }
+  .shell{ width:100%; max-width:var(--shell); margin:0 auto; padding:0 1.5rem; }
+  @media(min-width:768px){ .shell{ padding:0 2.5rem; } }
 
-  /* ---- верхняя панель ---- */
-  .topbar{ position:sticky; top:0; z-index:50; background:rgba(15,16,19,.85);
-    backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid var(--line); }
-  .topbar-inner{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:.6rem 1.5rem; }
-  @media(min-width:768px){ .topbar-inner{ padding:.6rem 2.5rem; } }
-  .tb-brand{ display:flex; align-items:center; gap:.55rem; font-weight:800; text-transform:uppercase;
-    letter-spacing:.02em; font-size:.95rem; color:#fff; }
-  .tb-brand img{ width:32px; height:32px; border-radius:9px; object-fit:cover; flex:none; }
-  .tb-brand .plus{ color:var(--blue); }
-  .tb-right{ display:flex; align-items:center; gap:1.2rem; }
-  .tb-back{ color:var(--muted); font-size:.82rem; text-transform:uppercase; letter-spacing:.06em; white-space:nowrap; }
-  .tb-back:hover{ color:#fff; }
-  .btn-blue{ display:inline-block; background:var(--blue); color:#fff; font-family:inherit; font-weight:600;
-    text-transform:uppercase; letter-spacing:.06em; border-radius:9999px; padding:.55rem 1.2rem; font-size:.72rem;
-    transition:transform .2s, background .2s; white-space:nowrap; }
-  .btn-blue:hover{ transform:translateY(-2px); background:var(--blue-soft); }
-  @media(max-width:560px){ .tb-back{ display:none; } .tb-brand span{ display:none; } }
+  .progress{ position:fixed; top:0; left:0; height:3px; width:0; background:var(--blue); z-index:120; box-shadow:0 0 12px var(--blue); transition:width .1s linear; }
 
-  /* ---- интро ---- */
-  .intro{ padding:3.5rem 0 1rem; text-align:center; }
-  @media(min-width:768px){ .intro{ padding:5rem 0 1.5rem; } }
-  .intro h1{ font-weight:900; text-transform:uppercase; letter-spacing:-.02em; line-height:1;
-    font-size:clamp(2.6rem,9vw,6rem); }
-  .intro p{ margin:1.2rem auto 0; max-width:46rem; color:var(--muted); font-weight:300; line-height:1.55;
-    font-size:clamp(1rem,2vw,1.3rem); }
+  /* верхняя панель */
+  .topbar{ position:fixed; top:0; left:0; right:0; z-index:100; background:rgba(10,11,14,.6);
+    backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-bottom:1px solid var(--line); }
+  .topbar-in{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:.65rem 1.5rem; }
+  @media(min-width:768px){ .topbar-in{ padding:.7rem 2.5rem; } }
+  .brand{ display:flex; align-items:center; gap:.55rem; font-weight:800; text-transform:uppercase; letter-spacing:.02em; font-size:.95rem; }
+  .brand img{ width:32px; height:32px; border-radius:9px; object-fit:cover; flex:none; }
+  .brand .plus{ color:var(--blue); }
+  .top-right{ display:flex; align-items:center; gap:1.3rem; }
+  .back{ color:var(--muted); font-size:.8rem; text-transform:uppercase; letter-spacing:.06em; white-space:nowrap; }
+  .back:hover{ color:#fff; }
+  .cta-sm{ background:var(--blue); color:#fff; font-weight:600; text-transform:uppercase; letter-spacing:.05em;
+    font-size:.72rem; padding:.55rem 1.2rem; border-radius:9999px; white-space:nowrap; transition:transform .2s,background .2s; }
+  .cta-sm:hover{ transform:translateY(-2px); background:var(--blue-soft); }
+  @media(max-width:560px){ .back{ display:none; } .brand span{ display:none; } }
 
-  /* ---- секции ---- */
-  .section{ padding:2.5rem 0; }
-  @media(min-width:768px){ .section{ padding:3.5rem 0; } }
-  .sec-head{ margin-bottom:1.6rem; }
-  .eyebrow{ text-transform:uppercase; letter-spacing:.16em; font-size:.75rem; color:var(--blue-soft); margin-bottom:.5rem; }
-  .sec-head h2{ font-weight:900; text-transform:uppercase; letter-spacing:-.01em; line-height:1;
-    font-size:clamp(1.8rem,5vw,3.2rem); }
-  .sec-head .sub{ margin-top:.6rem; color:var(--muted); font-weight:300; font-size:.98rem; max-width:48rem; }
+  /* боковые точки */
+  .dots{ position:fixed; right:20px; top:50%; transform:translateY(-50%); z-index:90; display:flex; flex-direction:column; gap:14px; }
+  .dots a{ position:relative; width:9px; height:9px; border-radius:50%; background:rgba(255,255,255,.22); transition:all .25s; }
+  .dots a::after{ content:attr(data-l); position:absolute; right:20px; top:50%; transform:translateY(-50%);
+    font-size:.62rem; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); white-space:nowrap; opacity:0; transition:opacity .2s; pointer-events:none; }
+  .dots a:hover::after{ opacity:1; }
+  .dots a.active{ background:var(--blue); transform:scale(1.5); box-shadow:0 0 10px var(--blue); }
+  @media(max-width:1000px){ .dots{ display:none; } }
 
-  /* ---- плеер-фасад (Rutube по клику) ---- */
-  .grid-h{ display:grid; grid-template-columns:1fr; gap:18px; }
-  @media(min-width:760px){ .grid-h{ grid-template-columns:1fr 1fr; } }
-  .grid-v{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
-  @media(min-width:620px){ .grid-v{ grid-template-columns:repeat(3,1fr); } }
-  @media(min-width:980px){ .grid-v{ grid-template-columns:repeat(4,1fr); } }
-  .featured{ margin-bottom:18px; }
+  /* ============ HERO ============ */
+  .hero{ position:relative; min-height:84vh; display:flex; flex-direction:column; justify-content:center; overflow:hidden; padding:7rem 0 3.5rem; }
+  .hero-bg{ position:absolute; inset:0; z-index:0; }
+  .hero-bg::before{ content:''; position:absolute; inset:0;
+    background:
+      radial-gradient(40% 50% at 82% 20%, rgba(0,22,255,.26), transparent 70%),
+      radial-gradient(45% 55% at 10% 90%, rgba(94,107,255,.14), transparent 70%);
+    animation:drift 16s ease-in-out infinite alternate; }
+  .hero-bg::after{ content:''; position:absolute; inset:0; opacity:.45;
+    background-image:linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+                     linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+    background-size:70px 70px;
+    -webkit-mask-image:radial-gradient(120% 90% at 50% 40%, #000 25%, transparent 85%);
+            mask-image:radial-gradient(120% 90% at 50% 40%, #000 25%, transparent 85%); }
+  @keyframes drift{ from{ transform:translate3d(-3%,-2%,0) scale(1.05);} to{ transform:translate3d(4%,3%,0) scale(1.12);} }
+  .hero-in{ position:relative; z-index:2; max-width:62rem; }
+  .hero-eyebrow{ text-transform:uppercase; letter-spacing:.3em; font-size:.78rem; color:var(--blue-soft); margin-bottom:1.4rem; }
+  .hero h1{ font-weight:900; text-transform:uppercase; letter-spacing:-.02em; line-height:1.03;
+    font-size:clamp(1.9rem,4.6vw,3.4rem); }
+  .hero h1 .ac{ color:var(--blue-soft); }
+  .hero-sub{ margin-top:1.5rem; max-width:38rem; color:var(--muted); font-weight:300; line-height:1.6; font-size:clamp(1rem,1.8vw,1.2rem); }
+  .hero-stats{ margin-top:2.2rem; display:flex; flex-wrap:wrap; gap:.6rem .7rem; }
+  .pill{ border:1px solid var(--line); background:rgba(255,255,255,.03); border-radius:100px; padding:.5rem 1.05rem;
+    font-size:.78rem; text-transform:uppercase; letter-spacing:.06em; color:rgba(244,245,247,.8); }
+  .pill b{ color:var(--blue-soft); font-weight:600; }
+  .scrollcue{ position:relative; z-index:2; margin-top:2.6rem; align-self:center;
+    color:var(--muted); font-size:.66rem; text-transform:uppercase; letter-spacing:.2em; display:flex; flex-direction:column; align-items:center; gap:.5rem; }
+  .scrollcue svg{ width:18px; height:18px; animation:bob 1.8s ease-in-out infinite; }
+  @keyframes bob{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(6px);} }
 
+  /* ============ КАТЕГОРИЯ ============ */
+  .cat{ display:flex; align-items:baseline; gap:1rem; padding:3.4rem 0 .4rem; border-top:1px solid var(--line); }
+  .cat-n{ font-weight:900; color:var(--blue-soft); font-size:1rem; letter-spacing:.05em; }
+  .cat-t{ font-weight:900; text-transform:uppercase; letter-spacing:-.01em; font-size:clamp(1.3rem,3vw,2rem); }
+  .cat-s{ margin-left:auto; color:var(--muted); font-size:.8rem; text-transform:uppercase; letter-spacing:.08em; }
+  @media(max-width:560px){ .cat-s{ display:none; } }
+
+  /* ============ ПОЛОСА (band) ============ */
+  .band{ display:grid; grid-template-columns:1fr; gap:1.4rem; align-items:center; padding:2.6rem 0; }
+  @media(min-width:900px){
+    .band{ grid-template-columns:1.7fr .65fr; gap:3rem; padding:3.4rem 0; }
+    .band.flip{ grid-template-columns:.65fr 1.7fr; }
+    .band.flip .band-media{ order:2; }
+    .band.flip .band-text{ order:1; text-align:right; }
+    .band.flip .band-top{ justify-content:flex-end; }
+    .band.flip .band-desc{ margin-left:auto; }
+  }
+  .band + .band{ border-top:1px solid rgba(255,255,255,.055); }
+  .band-media{ position:relative; }
+  .band-media .ply{ width:100%; }
+  .band-num{ position:absolute; z-index:0; font-weight:900; line-height:1; letter-spacing:-.04em;
+    font-size:clamp(4rem,9vw,8rem); color:rgba(255,255,255,.045); top:-2.4rem; }
+  .band.flip .band-num{ right:0; }
+  .band-text{ position:relative; z-index:1; }
+  .band-top{ display:flex; align-items:center; gap:.7rem; margin-bottom:.8rem; }
+  .band-tag{ text-transform:uppercase; letter-spacing:.18em; font-size:.72rem; color:var(--blue-soft); }
+  .band-line{ flex:1; height:1px; background:var(--line); min-width:24px; }
+  .band-text h3{ font-weight:900; text-transform:uppercase; letter-spacing:-.015em; line-height:1.02;
+    font-size:clamp(1.7rem,3.6vw,3rem); }
+  .band-meta{ margin-top:.6rem; color:var(--muted); font-size:.95rem; text-transform:uppercase; letter-spacing:.04em; }
+  .band-badge{ display:inline-block; margin-top:1rem; font-size:.66rem; letter-spacing:.08em; text-transform:uppercase; font-weight:600;
+    background:rgba(0,22,255,.14); border:1px solid rgba(94,107,255,.45); color:#c7cbff; border-radius:100px; padding:6px 13px; }
+  .band-desc{ margin-top:1.1rem; color:var(--muted); font-weight:300; line-height:1.65; font-size:1rem; max-width:30rem; }
+  .band-cue{ display:inline-flex; align-items:center; gap:.6rem; margin-top:1.5rem; cursor:pointer;
+    font-size:.82rem; text-transform:uppercase; letter-spacing:.1em; color:#fff; transition:gap .25s, color .25s; }
+  .band.flip .band-cue{ flex-direction:row-reverse; }
+  .band-cue .ic{ width:34px; height:34px; border-radius:50%; background:var(--blue); display:grid; place-items:center; box-shadow:0 8px 22px rgba(0,22,255,.45); transition:transform .25s; }
+  .band-cue .ic svg{ width:14px; height:14px; margin-left:2px; fill:#fff; }
+  .band-cue:hover{ gap:1rem; color:var(--blue-soft); }
+  .band-cue:hover .ic{ transform:scale(1.12); }
+
+  /* featured - заметно крупнее остальных полос */
+  .band.feat{ display:block; text-align:center; padding:2.6rem 0 3.8rem; }
+  .band.feat .band-media{ max-width:980px; margin:0 auto; }
+  .band.feat .band-media .ply{ box-shadow:0 30px 80px rgba(0,22,255,.22); }
+  .band.feat .band-text{ max-width:760px; margin:1.7rem auto 0; }
+  .band.feat .band-top{ justify-content:center; }
+  .band.feat .band-line{ display:none; }
+  .band.feat h3{ margin-top:.3rem; font-size:clamp(2.3rem,5.4vw,4rem); }
+  .band.feat .band-badge{ margin-top:1rem; }
+  .band.feat .band-desc{ margin:1.1rem auto 0; max-width:42rem; }
+  .band.feat .band-cue{ justify-content:center; }
+
+  /* ключевые кадры */
+  .frames{ margin-top:16px; }
+  .frames-lbl{ font-size:.64rem; text-transform:uppercase; letter-spacing:.18em; color:var(--muted); margin-bottom:9px; }
+  .frames-row{ display:flex; gap:10px; }
+  .frame{ flex:1 1 0; min-width:0; position:relative; border-radius:9px; overflow:hidden; border:1px solid var(--line);
+    background:#101119 center/cover no-repeat; transition:transform .3s, border-color .3s, box-shadow .3s; }
+  .frame.h{ aspect-ratio:16/9; } .frame.v{ aspect-ratio:9/16; }
+  button.frame{ cursor:pointer; padding:0; }
+  button.frame:hover{ transform:translateY(-3px); border-color:rgba(94,107,255,.55); box-shadow:0 12px 28px rgba(0,22,255,.22); }
+  .frame.ph{ display:grid; place-items:center; border-style:dashed; border-color:rgba(255,255,255,.14);
+    background-image:repeating-linear-gradient(135deg, rgba(255,255,255,.016) 0 10px, transparent 10px 20px); }
+  .frame.ph span{ color:rgba(255,255,255,.22); font-size:.85rem; font-weight:600; }
+
+  /* кадры сбоку - вертикальная линейка у крупного (featured) видео */
+  .band.feat .band-media{ display:flex; gap:16px; align-items:flex-start; max-width:980px; margin:0 auto; }
+  .band.feat .band-media .ply{ flex:1 1 auto; }
+  .band.feat .frames.side{ order:-1; }
+  .frames.side{ flex:0 0 150px; width:150px; margin-top:0; }
+  .frames.side .frames-row{ flex-direction:column; }
+  .frames.side .frame{ flex:0 0 auto; width:100%; }
+  @media(max-width:700px){
+    .band.feat .band-media{ flex-direction:column; }
+    .frames.side{ flex:none; width:auto; margin-top:16px; }
+    .frames.side .frames-row{ flex-direction:row; }
+    .frames.side .frame{ flex:1 1 0; }
+  }
+
+  /* вертикальные карточки - рекламные ролики для маркетплейсов (два блока в ряд) */
+  .vrow{ display:flex; gap:20px; padding:1.2rem 0 .4rem; }
+  .vcard{ flex:1 1 0; min-width:0; display:flex; gap:18px; align-items:center; border:1px solid var(--line); border-radius:16px; padding:14px; background:rgba(255,255,255,.02); }
+  .vc-video{ flex:0 0 132px; }
+  .vc-video .ply{ width:132px; }
+  .vc-video .ply-cap{ display:none; }
+  .vc-info{ flex:1; min-width:0; }
+  .vc-info h4{ font-weight:900; text-transform:uppercase; letter-spacing:-.01em; font-size:1.1rem; }
+  .vc-info p{ margin-top:3px; color:var(--muted); font-size:.76rem; text-transform:uppercase; letter-spacing:.04em; }
+  .vc-info .frames{ margin-top:14px; }
+  .vc-info .frames-row{ gap:8px; }
+  .vc-info .frame.v{ flex:1 1 0; width:auto; }
+  @media(max-width:760px){ .vrow{ flex-direction:column; } }
+  @media(max-width:460px){ .vcard{ flex-direction:column; align-items:flex-start; } .vc-video{ flex:none; } }
+
+  /* лайтбокс для кадров */
+  .lightbox{ position:fixed; inset:0; z-index:200; background:rgba(5,6,10,.92); display:none; place-items:center; padding:4vw; cursor:zoom-out; }
+  .lightbox.on{ display:grid; }
+  .lightbox img{ max-width:100%; max-height:90vh; border-radius:12px; box-shadow:0 30px 80px rgba(0,0,0,.6); }
+
+  /* reveal */
+  .reveal{ opacity:0; transform:translateY(34px); transition:opacity .8s cubic-bezier(.2,.65,.2,1), transform .8s cubic-bezier(.2,.65,.2,1); will-change:opacity,transform; }
+  .reveal.in{ opacity:1; transform:none; }
+  @media (prefers-reduced-motion:reduce){ .reveal{ opacity:1; transform:none; transition:none; } .hero-bg::before{ animation:none; } .scrollcue svg{ animation:none; } }
+
+  /* ============ ПЛЕЕР-КАРТОЧКА ============ */
   .ply{ position:relative; border-radius:18px; overflow:hidden; border:1px solid var(--line); cursor:pointer;
-    background:linear-gradient(145deg,#1b1d27,#101116); isolation:isolate; }
+    background:linear-gradient(150deg,#1a1c26,#0e0f14); isolation:isolate;
+    transition:transform .45s cubic-bezier(.2,.65,.2,1), box-shadow .45s, border-color .45s; }
   .ply.h{ aspect-ratio:16/9; } .ply.v{ aspect-ratio:9/16; }
-  .ply.g1{ background:linear-gradient(150deg,#141a44,#0f1013); }
-  .ply.g2{ background:linear-gradient(150deg,#1a1430,#0f1013); }
-  .ply.g3{ background:linear-gradient(150deg,#101a2e,#0f1013); }
-  .ply-poster{ position:absolute; inset:0; z-index:-1; }
-  .ply-poster img{ width:100%; height:100%; object-fit:cover; }
+  .ply.g1{ background:linear-gradient(150deg,#121a4a,#0e0f14); }
+  .ply.g2{ background:linear-gradient(150deg,#1b1436,#0e0f14); }
+  .ply.g3{ background:linear-gradient(150deg,#0f1c33,#0e0f14); }
+  .ply:hover{ transform:translateY(-5px); border-color:rgba(94,107,255,.5); box-shadow:0 26px 60px rgba(0,22,255,.26); }
+  .ply-poster{ position:absolute; inset:0; z-index:-1; overflow:hidden; }
+  .ply-poster img{ width:100%; height:100%; object-fit:cover; transition:transform .7s cubic-bezier(.2,.65,.2,1); }
+  .ply:hover .ply-poster img{ transform:scale(1.06); }
   .ply::before{ content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
-    background:linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,0) 55%); }
+    background:linear-gradient(to top, rgba(6,7,12,.72) 0%, rgba(6,7,12,.03) 55%, rgba(6,7,12,.18) 100%); }
   .ply-play{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:2;
-    width:62px; height:62px; border-radius:50%; border:none; cursor:pointer; background:var(--blue);
-    display:grid; place-items:center; box-shadow:0 8px 26px rgba(0,22,255,.45); transition:transform .2s, background .2s; }
-  .ply:hover .ply-play{ transform:translate(-50%,-50%) scale(1.08); background:var(--blue-soft); }
+    width:64px; height:64px; border-radius:50%; border:none; cursor:pointer; background:var(--blue);
+    display:grid; place-items:center; box-shadow:0 10px 30px rgba(0,22,255,.5); transition:transform .3s, background .3s; }
+  .ply-play::after{ content:''; position:absolute; inset:-8px; border-radius:50%; border:1px solid rgba(94,107,255,.5); animation:pulse 2.6s ease-out infinite; }
+  @keyframes pulse{ 0%{ transform:scale(1); opacity:.7; } 100%{ transform:scale(1.5); opacity:0; } }
+  .ply:hover .ply-play{ transform:translate(-50%,-50%) scale(1.1); background:var(--blue-soft); }
   .ply-play svg{ width:24px; height:24px; margin-left:3px; fill:#fff; }
   .ply-cap{ position:absolute; left:16px; right:16px; bottom:14px; z-index:2; }
-  .ply-cap b{ display:block; font-weight:600; text-transform:uppercase; letter-spacing:.02em;
-    font-size:clamp(.95rem,1.8vw,1.2rem); line-height:1.15; }
-  .ply-cap span{ display:block; margin-top:3px; color:rgba(255,255,255,.72); font-size:.8rem; font-weight:300; }
-  .ply.v .ply-cap b{ font-size:.95rem; } .ply.v .ply-play{ width:50px; height:50px; }
-  .ply .badge{ position:absolute; top:14px; left:14px; z-index:2; font-size:.65rem; letter-spacing:.1em;
-    text-transform:uppercase; font-weight:600; background:rgba(0,22,255,.9); color:#fff; border-radius:100px; padding:5px 11px; }
+  .ply-cap b{ display:block; font-weight:600; text-transform:uppercase; letter-spacing:.02em; line-height:1.15; font-size:.95rem; }
+  .ply-cap span{ display:block; margin-top:3px; color:rgba(255,255,255,.66); font-size:.78rem; font-weight:300; }
+  .band-media .ply-cap{ display:none; }
+  .ply .badge{ position:absolute; top:14px; left:14px; z-index:2; font-size:.62rem; letter-spacing:.1em;
+    text-transform:uppercase; font-weight:600; background:rgba(0,22,255,.92); color:#fff; border-radius:100px; padding:5px 11px; box-shadow:0 6px 18px rgba(0,22,255,.4); }
   .ply iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; z-index:5; }
   .ply.playing .ply-play, .ply.playing .ply-cap, .ply.playing::before, .ply.playing .badge{ display:none; }
+  .ply.playing:hover{ transform:none; box-shadow:none; }
 
-  /* описание под фичер-плеером */
-  .feat-desc{ margin-top:1rem; color:var(--muted); font-weight:300; line-height:1.65;
-    font-size:clamp(.95rem,1.6vw,1.12rem); max-width:52rem; }
+  /* ============ КОНТАКТ (1:1 с главной) ============ */
+  .contact{ padding:5rem 0 7rem; border-top:1px solid var(--line); }
+  .contact-grid{ display:grid; grid-template-columns:1fr; gap:2.5rem; align-items:center; }
+  @media(min-width:900px){ .contact-grid{ grid-template-columns:1fr 1fr; gap:4rem; } }
+  .contact-photo{ aspect-ratio:9/16; width:100%; max-width:420px; justify-self:center; border-radius:28px; border:1px solid var(--line); overflow:hidden;
+    background:radial-gradient(120% 90% at 50% 0%, #333, #101010); }
+  .contact-photo video{ width:100%; height:100%; object-fit:cover; display:block; }
+  .grad{ color:#ffffff; }
+  .h-sec{ font-weight:900; text-transform:uppercase; letter-spacing:-.02em; line-height:1; font-size:clamp(2.4rem,8vw,6rem); }
+  .contact-cta h2{ margin-bottom:1.2rem; font-size:clamp(1.9rem,3.4vw,3rem); }
+  .contact-lead{ margin-bottom:1.6rem; max-width:34rem; color:var(--muted); font-weight:300; line-height:1.6; font-size:clamp(.95rem,1.4vw,1.1rem); }
+  .btn-white{ display:inline-block; cursor:pointer; border:none; font-family:inherit; background:var(--ink); color:#0f1013; font-weight:600; text-transform:uppercase; letter-spacing:.08em;
+    border-radius:9999px; padding:.9rem 2rem; font-size:.9rem; transition:transform .2s, box-shadow .2s; box-shadow:0 4px 16px rgba(0,0,0,.4); }
+  .btn-white:hover{ transform:translateY(-2px); box-shadow:0 8px 22px rgba(0,0,0,.4); }
+  .contact-caption{ margin-top:1.1rem; color:var(--muted); font-weight:300; font-size:.95rem; }
+  .contact-caption a{ color:var(--blue); font-weight:500; }
+  .contact-mails{ list-style:none; margin-top:2rem; max-width:34rem; border-top:1px solid var(--line); }
+  .contact-mails li{ display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; gap:.2rem 1rem;
+    padding:.85rem 0; border-bottom:1px solid var(--line); font-size:.95rem; }
+  .contact-mails span{ color:var(--muted); font-weight:300; }
+  .contact-mails a{ color:var(--ink); font-weight:500; transition:color .2s; }
+  .contact-mails a:hover{ color:#5866ff; }
 
-  /* ссылка-кнопка в конце секции */
-  .sec-more{ margin-top:1.6rem; }
-  .btn-ghost{ display:inline-block; background:transparent; border:1.5px solid var(--blue); color:#fff;
-    font-family:inherit; font-weight:500; text-transform:uppercase; letter-spacing:.08em; border-radius:9999px;
-    padding:.8rem 1.8rem; font-size:.82rem; transition:background .2s; }
-  .btn-ghost:hover{ background:rgba(0,22,255,.15); }
-
-  /* ---- CTA ---- */
-  .cta{ padding:4rem 0 5rem; text-align:center; }
-  .cta h2{ font-weight:900; text-transform:uppercase; line-height:1; font-size:clamp(2rem,7vw,4.5rem); }
-  .cta p{ margin:1rem auto 1.8rem; color:var(--muted); font-weight:300; max-width:34rem; }
-  .btn-white{ display:inline-block; background:var(--blue); color:#fff; font-family:inherit; font-weight:600;
-    text-transform:uppercase; letter-spacing:.08em; border-radius:9999px; padding:1rem 2.2rem; font-size:.95rem;
-    box-shadow:0 8px 26px rgba(0,22,255,.4); transition:transform .2s, background .2s; }
-  .btn-white:hover{ transform:translateY(-2px); background:var(--blue-soft); }
-
-  footer{ border-top:1px solid var(--line); padding:2.2rem 0; text-align:center; color:var(--muted);
-    font-weight:300; font-size:.88rem; }
-  footer a{ color:var(--blue-soft); }
+  footer{ border-top:1px solid var(--line); padding:2.2rem 0; text-align:center; color:var(--muted); font-weight:300; font-size:.88rem; }
+  footer a{ color:var(--ink); }
+  .footer-social{ display:flex; justify-content:center; flex-wrap:wrap; gap:10px; margin-bottom:1.1rem; }
+  .footer-social a{ padding:.5rem 1.15rem; border:1px solid var(--line); border-radius:100px; background:var(--card);
+    font-size:.8rem; font-weight:500; text-transform:uppercase; letter-spacing:.08em; transition:background .2s, border-color .2s; }
+  .footer-social a:hover{ background:var(--blue); border-color:var(--blue); color:#fff; }
 </style>
 </head>
 <body>
 
-  <!-- ============ ПАНЕЛЬ ============ -->
+  <div class="progress" id="progress"></div>
+
   <header class="topbar">
-    <div class="wrap topbar-inner">
-      <a class="tb-brand" href="../">
-        <img src="../images/favicon.png" alt="">
-        <span>PROD <span class="plus">+</span> ACT</span>
-      </a>
-      <div class="tb-right">
-        <a class="tb-back" href="../">← На главную</a>
-        <a class="btn-blue" href="https://t.me/ASurkoff" target="_blank" rel="noopener">Обсудить проект</a>
+    <div class="shell topbar-in">
+      <a class="brand" href="../"><img src="../images/favicon.png" alt=""><span>PROD <span class="plus">+</span> ACT</span></a>
+      <div class="top-right">
+        <a class="back" href="../">← На главную</a>
+        <a class="cta-sm" href="https://t.me/ASurkoff" target="_blank" rel="noopener">Обсудить проект</a>
       </div>
     </div>
   </header>
 
-  <!-- ============ ИНТРО ============ -->
-  <section class="intro">
-    <div class="wrap">
-      <h1>Портфолио</h1>
-      <p>Полный список работ PROD+ACT — от собственных фильмов и клипов до видео для карточек маркетплейсов. Всё сделано с&nbsp;помощью нейросетей.</p>
-    </div>
-  </section>
+  <nav class="dots" id="dots"></nav>
 
-  <!-- ============ ФИЛЬМЫ ============ -->
-  <section class="section" id="films">
-    <div class="wrap">
-      <div class="sec-head">
-        <div class="eyebrow">Фильмы и короткий метр</div>
-        <h2>Собственные фильмы</h2>
-        <p class="sub">Производство полного цикла: постоянные персонажи, диалоговые сцены и несколько визуальных сред на длинном хронометраже.</p>
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="hero-bg"></div>
+    <div class="shell hero-in">
+      <div class="hero-eyebrow">Портфолио PROD+ACT</div>
+      <h1>Работы, которые<br>мы довели <span class="ac">до экрана</span></h1>
+      <p class="hero-sub">Коммерческие ролики, собственные фильмы и музыкальные проекты. Здесь можно посмотреть, с какими визуальными задачами мы уже работали и какой результат получили.</p>
+      <div class="hero-stats">
+        <span class="pill">Коммерческие проекты</span>
+        <span class="pill"><b>8 минут</b> · собственный фильм</span>
+        <span class="pill"><b>2 место</b> · MyFilm48</span>
       </div>
-      <div id="filmsFeat"></div>
-      <div class="grid-h" id="filmsGrid"></div>
+    </div>
+    <div class="scrollcue">работы
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
     </div>
   </section>
 
-  <!-- ============ РЕКЛАМА ============ -->
-  <section class="section" id="ads">
-    <div class="wrap">
-      <div class="sec-head">
-        <div class="eyebrow">Рекламные ролики</div>
-        <h2>Реклама</h2>
-        <p class="sub">Промо и рекламные видео для брендов — от идеи и сценария до готового ролика.</p>
+  <main class="shell" id="app"></main>
+
+  <!-- КОНТАКТ -->
+  <section class="contact" id="contact">
+    <div class="shell contact-grid">
+      <div class="contact-photo reveal">
+        <video autoplay muted loop playsinline>
+          <source src="../videos/brand.mp4" type="video/mp4">
+        </video>
       </div>
-      <div class="grid-h" id="adsGrid"></div>
-    </div>
-  </section>
-
-  <!-- ============ КЛИПЫ ============ -->
-  <section class="section" id="clips">
-    <div class="wrap">
-      <div class="sec-head">
-        <div class="eyebrow">Музыкальные видео</div>
-        <h2>Клипы</h2>
+      <div class="contact-cta reveal">
+        <h2 class="h-sec grad">Есть creative, который нужно реализовать?</h2>
+        <p class="contact-lead">Пришлите сценарий, референсы или описание задачи. Посмотрим, что можем взять на&nbsp;себя, как лучше построить production и&nbsp;где могут быть ограничения проекта.</p>
+        <a class="btn-white" href="https://t.me/ASurkoff" target="_blank" rel="noopener">Обсудить проект</a>
+        <p class="contact-caption">Отвечаем в&nbsp;течение дня · <a href="https://t.me/ASurkoff" target="_blank" rel="noopener">@ASurkoff</a></p>
+        <ul class="contact-mails">
+          <li><span>Новый проект</span><a href="mailto:projects@prodact.site">projects@prodact.site</a></li>
+          <li><span>Партнёрство</span><a href="mailto:partners@prodact.site">partners@prodact.site</a></li>
+          <li><span>Общие вопросы</span><a href="mailto:hello@prodact.site">hello@prodact.site</a></li>
+        </ul>
       </div>
-      <div class="grid-h" id="clipsGrid"></div>
-    </div>
-  </section>
-
-  <!-- ============ МАРКЕТПЛЕЙСЫ ============ -->
-  <section class="section" id="mp">
-    <div class="wrap">
-      <div class="sec-head">
-        <div class="eyebrow">Маркетплейсы · карточки товаров</div>
-        <h2>Видео для WB и Ozon</h2>
-        <p class="sub">Вертикальные ролики 9:16 для карточек: показываем товар в действии и поднимаем кликабельность.</p>
-      </div>
-      <div class="grid-v" id="mpGrid"></div>
-      <div class="sec-more"><a class="btn-ghost" href="../wb/">Подробнее про формат WB →</a></div>
-    </div>
-  </section>
-
-  <!-- ============ CTA ============ -->
-  <section class="cta">
-    <div class="wrap">
-      <h2>Обсудим проект?</h2>
-      <p>Расскажите про задачу — подберём формат, сроки и стоимость.</p>
-      <a class="btn-white" href="https://t.me/ASurkoff" target="_blank" rel="noopener">Написать в Telegram</a>
     </div>
   </section>
 
   <footer>
-    <div class="wrap">PROD+ACT · ИИ-продакшн · <a href="../">prodact.site</a></div>
+    <div class="footer-social">
+      <a href="https://www.youtube.com/@PROD-ACT" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.tiktok.com/@prod_act" target="_blank" rel="noopener">TikTok</a>
+    </div>
+    <div>© <span id="year"></span> PROD+ACT · Генеративный видеопродакшн · <a href="mailto:hello@prodact.site">hello@prodact.site</a></div>
   </footer>
 
-<script>
-/* =========================================================================
-   ВИДЕО ПОРТФОЛИО. Плеер грузится по клику (фасад) — из Rutube.
+  <div class="lightbox" id="lightbox"><img alt=""></div>
 
-   Как добавить ролик:
-   1. Залей видео на Rutube.
-   2. Открой видео, нажми «Поделиться» → «Встроить» (или возьми ID из ссылки
-      rutube.ru/video/XXXXXXXX/ — это и есть rt).
-   3. Впиши ID в поле rt у нужного ролика ниже.
-      Если видео приватное/по ссылке — вставь ПОЛНЫЙ embed-URL в rt
-      (например "https://rutube.ru/play/embed/XXXX?p=ТОКЕН").
-   Поле poster (необязательно) — путь к картинке-обложке в ../images/.
-   a: "h" = горизонтальное 16:9, "v" = вертикальное 9:16.
-   ========================================================================= */
-  const WORKS = {
-    films: [
-      { title:"Out of Credits", meta:"Короткий фильм · 8 минут", a:"h", g:"g1", featured:true,
-        badge:"2 место · AI-фестиваль MyFilm48", rt:"7fe68218b381596ba89df044b3e46de9", poster:"",
-        desc:"Собственный короткометражный фильм PROD+ACT как production-проект на длинном хронометраже: постоянные персонажи, диалоговые сцены и несколько визуальных сред на протяжении восьми минут." },
-      { title:"Новый игрок", meta:"Короткометражный фильм", a:"h", g:"g2", rt:"RUTUBE_ID_NOVYI_IGROK", poster:"" },
-      { title:"Hired to Finish", meta:"Трейлер", a:"h", g:"g3", rt:"RUTUBE_ID_HIRED_TO_FINISH", poster:"" },
-    ],
-    ads: [
-      { title:"Рекламный ролик", meta:"Промо для бренда", a:"h", g:"g3", rt:"RUTUBE_ID_AD_1", poster:"" },
-    ],
-    clips: [
-      { title:"Judy Luv", meta:"Музыкальное видео", a:"h", g:"g2", rt:"RUTUBE_ID_JUDY_LUV", poster:"" },
-    ],
-    mp: [
-      { title:"Розовый жакет", meta:"Одежда · WB", a:"v", g:"g1", rt:"RUTUBE_ID_WB_PINK_JACKET", poster:"" },
-      { title:"Пляжный образ", meta:"Одежда · WB", a:"v", g:"g3", rt:"RUTUBE_ID_WB_CLOTHE_PLAGE", poster:"" },
-      { title:"Zelma", meta:"Товар · WB", a:"v", g:"g2", rt:"RUTUBE_ID_WB_ZELMA", poster:"" },
-      { title:"Zelma · дубль 3", meta:"Товар · WB", a:"v", g:"g1", rt:"RUTUBE_ID_WB_ZELMA_3", poster:"" },
-      { title:"Юбка", meta:"Одежда · WB", a:"v", g:"g3", rt:"RUTUBE_ID_WB_SKIRT", poster:"" },
-      { title:"Шорты", meta:"Одежда · WB", a:"v", g:"g2", rt:"RUTUBE_ID_WB_SHORTS", poster:"" },
-    ],
-  };
+<script>
+  /* rt = ID видео с Rutube. frames = число кадров-плейсхолдеров ИЛИ массив путей к картинкам (["frames/xxx/1.jpg", ...]). */
+  const SECTIONS = [
+    { id:"ads", nav:"Коммерческие", num:"01", title:"Коммерческие проекты", sub:"работа для брендов", type:"band", items:[
+      { title:"Рекламный ролик", meta:"Коммерческий проект · 0:38", g:"g1", rt:"b7d600db425c7d6cf24c497ccfa6b230", frames:["frames/hrust/closeup.png","frames/hrust/backpack.webp","frames/hrust/run.webp","frames/hrust/team.webp"],
+        desc:"Идею, сюжет и персонажей придумали сами. PROD+ACT отвечал за всё: разработку и производство сцен, работу с персонажами и брендированными объектами и финальный монтаж." },
+      { title:"Шорты", meta:"Вертикальная реклама · маркетплейс", g:"g2", a:"v", rt:"fc5678cc228d00d9f1a8360e458dd207", frames:["frames/shorts/1.webp","frames/shorts/2.webp","frames/shorts/3.webp"], vcard:true },
+      { title:"Юбка", meta:"Вертикальная реклама · маркетплейс", g:"g3", a:"v", rt:"08c4cef4568e0bd2691409752d8f9f3b", frames:["frames/ubka/1.webp","frames/ubka/2.webp","frames/ubka/3.webp"], vcard:true },
+    ]},
+    { id:"films", nav:"Фильмы", num:"02", title:"Собственные фильмы", sub:"авторские проекты PROD+ACT", type:"band", items:[
+      { title:"Out of Credits", meta:"Короткий фильм · 8 минут", g:"g1", featured:true, frames:["frames/ooc/1.webp","frames/ooc/2.webp","frames/ooc/4.webp","frames/ooc/hero.webp","frames/ooc/5.webp"],
+        rt:"7fe68218b381596ba89df044b3e46de9",
+        desc:"Собственный восьмиминутный фильм PROD+ACT - от идеи до финальной сборки. В проекте мы работали с постоянными персонажами, диалоговыми сценами, несколькими локациями и визуальной связностью на длинном хронометраже." },
+      { title:"Новый игрок", meta:"Короткометражный фильм", g:"g2", rt:"c2056eb55cf32123c4a064639f2a6b10", frames:["frames/igrok/1.webp","frames/igrok/2.webp","frames/igrok/3.webp","frames/igrok/4.webp"],
+        desc:"Короткометражный фильм, собранный к фестивалю: идея, сценарий и визуальная реализация - полностью PROD+ACT." },
+      { title:"Hired to Finish", meta:"Короткометражный фильм", g:"g3", badge:"2 место · MyFilm48", frames:["frames/hired/1.webp","frames/hired/2.webp","frames/hired/3.webp","frames/hired/4.webp"],
+        rt:"d7f14262a337d244f3023ebd2e77a143",
+        desc:"Проект PROD+ACT для международного кинофестиваля MyFilm48 - 2 место. Показывает умение уместить в короткое видео многогранность персонажа и при этом сохранить цельный сюжет." },
+    ]},
+    { id:"clips", nav:"Музыка", num:"03", title:"Музыкальные видео", sub:"визуальные проекты для музыки", type:"band", items:[
+      { title:"Judy Luv", meta:"Музыкальное видео", g:"g2", rt:"a35e881cd394906eaea76ee186f75282", frames:["frames/judy/1.webp","frames/judy/2.webp","frames/judy/3.webp","frames/judy/4.webp","frames/judy/5.webp"],
+        desc:"Музыкальное видео, в котором PROD+ACT отвечал за производство и сборку визуальных сцен под композицию." },
+    ]},
+  ];
 
   const PLAY_SVG = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+  const isReal = rt => rt && !rt.startsWith('RUTUBE_ID') && !rt.startsWith('http');
 
-  function cardHTML(w){
-    let posterSrc = w.poster;
-    if(!posterSrc && w.rt && !w.rt.startsWith('RUTUBE_ID') && !w.rt.startsWith('http')){
-      posterSrc = 'https://rutube.ru/api/video/' + w.rt + '/thumbnail/?redirect=1';
-    }
+  function plyHTML(w, orient){
+    const posterSrc = w.poster || (isReal(w.rt) ? 'https://rutube.ru/api/video/'+w.rt+'/thumbnail/?redirect=1' : '');
     const poster = posterSrc ? `<div class="ply-poster"><img src="${posterSrc}" alt="" onerror="this.closest('.ply-poster').remove()"></div>` : '';
     const badge  = w.badge ? `<span class="badge">${w.badge}</span>` : '';
-    return `<div class="ply ${w.a} ${w.g||''}" data-rt="${w.rt}">
+    return `<div class="ply ${orient} ${w.g||''}" data-rt="${w.rt}">
       ${poster}${badge}
       <button class="ply-play" aria-label="Смотреть">${PLAY_SVG}</button>
       <div class="ply-cap"><b>${w.title}</b>${w.meta?`<span>${w.meta}</span>`:''}</div>
     </div>`;
   }
 
-  // фильмы: отдельно фичер (крупный) + сетка
-  const feat = WORKS.films.find(f=>f.featured);
-  if(feat){
-    document.getElementById('filmsFeat').innerHTML =
-      `<div class="featured">${cardHTML(feat)}</div>` +
-      (feat.desc ? `<p class="feat-desc">${feat.desc}</p>` : '');
+  function framesHTML(w, orient, side){
+    const f = w.frames;
+    if(!f) return '';
+    let items;
+    if(Array.isArray(f)){
+      items = f.map((src,i)=>`<button class="frame ${orient}" data-full="${src}" style="background-image:url('${src}')" aria-label="Кадр ${i+1}"></button>`).join('');
+    }else{
+      items = Array.from({length:f},(_,i)=>`<div class="frame ${orient} ph"><span>${i+1}</span></div>`).join('');
+    }
+    return `<div class="frames${side?' side':''}"><div class="frames-lbl">Ключевые кадры</div><div class="frames-row">${items}</div></div>`;
   }
-  document.getElementById('filmsGrid').innerHTML = WORKS.films.filter(f=>!f.featured).map(cardHTML).join('');
-  document.getElementById('adsGrid').innerHTML   = WORKS.ads.map(cardHTML).join('');
-  document.getElementById('clipsGrid').innerHTML = WORKS.clips.map(cardHTML).join('');
-  document.getElementById('mpGrid').innerHTML     = WORKS.mp.map(cardHTML).join('');
 
-  // клик → грузим Rutube-плеер
+  function vcardHTML(w){
+    return `<div class="vcard reveal">
+      <div class="vc-video">${plyHTML(w,'v')}</div>
+      <div class="vc-info">
+        <h4>${w.title}</h4>${w.meta?`<p>${w.meta}</p>`:''}
+        ${framesHTML(w,'v')}
+      </div>
+    </div>`;
+  }
+
+  let bandIdx = 0;
+  function bandHTML(w, tag){
+    const n = String(++bandIdx).padStart(2,'0');
+    const badge = w.badge?`<span class="band-badge">${w.badge}</span>`:'';
+    const desc  = w.desc?`<p class="band-desc">${w.desc}</p>`:'';
+    const cue   = `<span class="band-cue"><span class="ic">${PLAY_SVG}</span>Смотреть</span>`;
+    const fo = (w.a==='v') ? 'v' : 'h';
+    if(w.featured){
+      return `<div class="band feat">
+        <div class="band-media reveal">${plyHTML(w,'h')}${framesHTML(w,fo,true)}</div>
+        <div class="band-text reveal">
+          <div class="band-top"><span class="band-tag">${tag}</span></div>
+          <h3>${w.title}</h3>
+          <p class="band-meta">${w.meta||''}</p>
+          ${badge}${desc}${cue}
+        </div>
+      </div>`;
+    }
+    const flip = (bandIdx % 2 === 0) ? ' flip' : '';
+    return `<div class="band${flip}">
+      <div class="band-media reveal">${plyHTML(w,'h')}${framesHTML(w,fo)}</div>
+      <div class="band-text reveal">
+        <div class="band-top"><span class="band-tag">${tag}</span><span class="band-line"></span></div>
+        <h3>${w.title}</h3>
+        <p class="band-meta">${w.meta||''}</p>
+        ${badge}${desc}${cue}
+      </div>
+    </div>`;
+  }
+
+  const app = document.getElementById('app');
+  app.innerHTML = SECTIONS.map(s=>{
+    const head = `<div class="cat"><span class="cat-n">${s.num}</span><span class="cat-t">${s.title}</span><span class="cat-s">${s.sub}</span></div>`;
+    const bandsHTML = s.items.filter(w=>!w.vcard).map(w=>bandHTML(w, s.title)).join('');
+    const vcards = s.items.filter(w=>w.vcard);
+    const vrow = vcards.length ? `<div class="vrow">${vcards.map(vcardHTML).join('')}</div>` : '';
+    return `<section id="${s.id}" data-nav="${s.nav}">${head}${bandsHTML}${vrow}</section>`;
+  }).join('');
+
+  /* клик по карточке/кнопке «Смотреть» → Rutube грузится и сразу играет */
   document.addEventListener('click', e=>{
-    const ply = e.target.closest('.ply');
+    let ply = e.target.closest('.ply');
+    const cue = e.target.closest('.band-cue');
+    if(cue && !ply){ const b = cue.closest('.band'); ply = b && b.querySelector('.ply'); }
     if(!ply || ply.classList.contains('playing')) return;
     const rt = ply.getAttribute('data-rt') || '';
-    if(!rt || rt.startsWith('RUTUBE_ID')){
-      alert('Плеер заработает, когда в поле rt этого ролика вписать ID видео с Rutube (сейчас placeholder).');
-      return;
+    if(!isReal(rt) && !rt.startsWith('http')){
+      alert('Плеер заработает, когда в поле rt вписать ID видео с Rutube (сейчас placeholder).'); return;
     }
     const src = rt.startsWith('http')
       ? (rt + (rt.includes('?') ? '&' : '?') + 'autoplay=true')
@@ -292,15 +444,48 @@
     ply.appendChild(ifr);
     ply.classList.add('playing');
   });
-
-  // когда плеер Rutube готов — команда play (автозапуск после клика по карточке)
   window.addEventListener('message', function(e){
     let msg; try{ msg = JSON.parse(e.data); }catch(_){ return; }
     if(!msg || msg.type !== 'player:ready') return;
     document.querySelectorAll('.ply iframe').forEach(function(f){
-      if(f.contentWindow === e.source){ f.contentWindow.postMessage(JSON.stringify({ type:'player:play', data:{} }), '*'); }
+      if(f.contentWindow === e.source) f.contentWindow.postMessage(JSON.stringify({ type:'player:play', data:{} }), '*');
     });
   });
+
+  /* лайтбокс для ключевых кадров */
+  const lb = document.getElementById('lightbox');
+  const lbImg = lb.querySelector('img');
+  document.addEventListener('click', e=>{
+    const fr = e.target.closest('button.frame');
+    if(fr){ lbImg.src = fr.dataset.full; lb.classList.add('on'); }
+  });
+  lb.addEventListener('click', ()=>{ lb.classList.remove('on'); lbImg.src=''; });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape' && lb.classList.contains('on')){ lb.classList.remove('on'); lbImg.src=''; } });
+
+  /* reveal по прокрутке */
+  const io = new IntersectionObserver((es)=>{ es.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } }); }, { threshold:.12, rootMargin:'0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  /* боковые точки + прогресс */
+  const secs = [...document.querySelectorAll('section[data-nav]')];
+  const dots = document.getElementById('dots');
+  dots.innerHTML = secs.map(s=>`<a href="#${s.id}" data-l="${s.dataset.nav}"></a>`).join('');
+  const dotEls = [...dots.children];
+  const progress = document.getElementById('progress');
+  let ticking = false;
+  function onScroll(){
+    const h = document.documentElement;
+    progress.style.width = (h.scrollTop/(h.scrollHeight-h.clientHeight)*100) + '%';
+    let active = -1;
+    secs.forEach((s,i)=>{ if(s.getBoundingClientRect().top <= innerHeight*0.4) active = i; });
+    dotEls.forEach((d,i)=>d.classList.toggle('active', i===active));
+    ticking = false;
+  }
+  window.addEventListener('scroll', ()=>{ if(!ticking){ requestAnimationFrame(onScroll); ticking=true; } }, { passive:true });
+  onScroll();
+
+  const _y = document.getElementById('year');
+  if(_y) _y.textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
