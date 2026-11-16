@@ -4,13 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Prodacy</title>
-    <meta name="claude:viewport-fit-sides" content="cover">
     <meta name="color-scheme" content="light">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&family=Unbounded:wght@600;700&display=swap">
-    <link rel="stylesheet" href="./styles.css">
-    <script type="module" src="./app.js"></script>
+    <link rel="stylesheet" href="./styles.css?v=prodacy">
+    <script type="module" src="./app.js?v=prodacy"></script>
   </head>
   <body>
     <header class="bar">
@@ -27,6 +26,7 @@
     <main>
       <section id="create" class="create" aria-labelledby="create-heading">
         <h1 id="create-heading">Ролик из фото одежды</h1>
+        <p class="feedback-reward">Когда откроется регистрация, за полезный отзыв о мастере можно будет получить бесплатные кредиты.</p>
 
         <form id="composer" class="composer">
           <div id="drop-area" class="attach">
@@ -56,7 +56,7 @@
               <span class="pick-thumb" data-thumb></span>
               <span class="pick-text"><span class="pick-label">Шаблон</span><span class="pick-value" data-value></span></span>
             </button>
-            <button id="generate" class="send" type="submit" aria-label="Создать ролик" disabled>
+            <button id="generate" class="send" type="submit" aria-label="Посмотреть пример" title="Посмотреть пример" disabled>
               <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </button>
           </div>

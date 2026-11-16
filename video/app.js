@@ -61,7 +61,7 @@ function refTitle(kind) {
   const ref = refs[kind];
   if (ref.upload) return 'Своё фото';
   if (ref.preset) return ref.preset.title;
-  return kind === 'person' ? 'Без модели' : 'Без фона';
+  return 'Из шаблона';
 }
 
 function makeVideo(src, autoplay) {
@@ -119,21 +119,30 @@ function renderPickThumbs() {
   picks.template.querySelector('[data-value]').textContent = selected?.title ?? 'Не выбран';
 }
 
+function hasEdits() {
+  return clothes.length > 0 || Object.values(refs).some(({ preset, upload }) => preset || upload);
+}
+
 function updateControls() {
-  const ready = Boolean(selected && clothes.length);
+  const ready = Boolean(selected && hasEdits());
   sendButton.disabled = busy || !ready;
   sendButton.classList.toggle('busy', busy);
-  sendButton.setAttribute('aria-label', busy ? 'Готовим ролик' : 'Создать ролик');  clothesInput.disabled = busy || clothes.length >= maxPhotos;
+  sendButton.setAttribute('aria-label', busy ? 'Готовим пример' : 'Посмотреть пример');
+  clothesInput.disabled = busy || clothes.length >= maxPhotos;
   attachTile.hidden = clothes.length >= maxPhotos;
   attachTitle.textContent = clothes.length
     ? `${selected?.photoTitle ?? 'Фото одежды'}: ${clothes.length} из ${maxPhotos}`
     : 'Прикрепите фото одежды';
   for (const button of [...clothesList.querySelectorAll('button'), ...Object.values(picks)]) button.disabled = busy;
   if (busy) closePicker();
-  const parts = [refTitle('person'), refTitle('background'), selected ? `шаблон «${selected.title}»` : null].filter(Boolean);
-  referenceHint.textContent = clothes.length
-    ? `В ролик пойдёт: одежда · ${parts.join(' · ')}`
-    : 'Начните с фото одежды. Модель, фон и шаблон можно поменять в любой момент.';
+  const parts = [
+    clothes.length && 'фото одежды',
+    (refs.person.preset || refs.person.upload) && 'модель',
+    (refs.background.preset || refs.background.upload) && 'фон',
+  ].filter(Boolean);
+  referenceHint.textContent = ready
+    ? `Выбрано: ${parts.join(', ')}. Нажмите стрелку, чтобы посмотреть пример.`
+    : 'Добавьте фото или выберите новую модель или фон.';
   for (const card of templateGrid.querySelectorAll('[data-template]')) {
     card.setAttribute('aria-pressed', card.dataset.template === selected?.id);
   }
@@ -261,7 +270,7 @@ function renderPicker(kind) {
   }
   pickerBody.append(
     textOption('option-upload', '+ Загрузить своё фото', undefined, () => uploads[kind].click()),
-    textOption('option-empty', kind === 'person' ? 'Без модели' : 'Без фона', !ref.upload && !ref.preset, () => setRef(kind)),
+    textOption('option-empty', 'Оставить из шаблона', !ref.upload && !ref.preset, () => setRef(kind)),
   );
 }
 
@@ -404,12 +413,12 @@ dropArea.addEventListener('drop', (event) => {
 
 composer.addEventListener('submit', async (event) => {
   event.preventDefault();
-  if (busy || !selected || !clothes.length) return;
+  if (busy || !selected || !hasEdits()) return;
   showError();
   busy = true;
   downloadLink.hidden = true;
   showResult(selected.previewUrl, 'Готовим', false);
-  statusLine.textContent = 'Отправляем фото…';
+  statusLine.textContent = 'Готовим пример…';
   updateControls();
   result.scrollIntoView({ behavior: reducedMotion.matches ? 'auto' : 'smooth', block: 'center' });
 
@@ -445,7 +454,6 @@ async function init() {
   modeLabel.hidden = false;
   refs.person.presets = config.referencePresets?.person ?? [];
   refs.background.presets = config.referencePresets?.background ?? [];
-  refs.person.preset = refs.person.presets[0];
   selected = templates[0];
   renderGallery();
   updateControls();

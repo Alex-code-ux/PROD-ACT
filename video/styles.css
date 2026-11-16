@@ -55,6 +55,7 @@ section[id] { scroll-margin-top: 84px; }
 
 /* Create */
 .create { display: grid; justify-items: center; gap: 14px; text-align: center; }
+.feedback-reward { max-width: 42rem; margin-top: -4px; color: var(--muted); font-size: 14px; line-height: 1.5; }
 .category {
   display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 999px;
   background: var(--blue); color: var(--on-blue); font-size: 13px; font-weight: 800;
