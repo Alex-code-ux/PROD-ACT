@@ -1,4 +1,4 @@
-import { testCatalog } from './demo-catalog.js';
+import { testCatalog } from './demo-catalog.js?v=prodacy-duration';
 
 const jobs = new Map();
 const prefix = 'product-video-demo-';

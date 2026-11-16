@@ -8,10 +8,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&family=Unbounded:wght@600;700&display=swap">
-    <link rel="stylesheet" href="./styles.css?v=prodacy">
-    <script type="module" src="./app.js?v=prodacy"></script>
+    <link rel="stylesheet" href="./styles.css?v=prodacy-duration">
+    <script type="module" src="./app.js?v=prodacy-duration"></script>
   </head>
   <body>
+    <svg class="page-waves" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <g fill="none" stroke="currentColor" stroke-width="1.4">
+        <path d="M880-20C1055 214 1232 18 1480 232"/>
+        <path d="M845-20C1035 246 1232 45 1480 272"/>
+        <path d="M810-20C1015 278 1232 72 1480 312"/>
+        <path d="M-40 598C105 764 319 636 597 922"/>
+        <path d="M-40 642C105 804 319 674 559 922"/>
+        <path d="M-40 686C105 844 319 712 521 922"/>
+      </g>
+    </svg>
     <header class="bar">
       <div class="bar-content">
         <a class="brand" href="/" aria-label="prodacy, главная"><span class="brand-mark" aria-hidden="true"></span>prodacy</a>
@@ -54,7 +64,10 @@
             </button>
             <button id="pick-template" class="pick" type="button" aria-expanded="false" aria-controls="picker">
               <span class="pick-thumb" data-thumb></span>
-              <span class="pick-text"><span class="pick-label">Шаблон</span><span class="pick-value" data-value></span></span>
+              <span class="pick-text">
+                <span class="pick-label">Шаблон <span class="pick-duration" data-duration></span></span>
+                <span class="pick-value" data-value></span>
+              </span>
             </button>
             <button id="generate" class="send" type="submit" aria-label="Посмотреть пример" title="Посмотреть пример" disabled>
               <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>

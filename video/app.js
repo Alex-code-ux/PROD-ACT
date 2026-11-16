@@ -1,4 +1,4 @@
-import { demoRequest as getJson } from './demo-api.js';
+import { demoRequest as getJson } from './demo-api.js?v=prodacy-duration';
 
 const $ = (selector) => document.querySelector(selector);
 const composer = $('#composer');
@@ -90,6 +90,10 @@ function observeVideo(video) {
   else if (!reducedMotion.matches) video.autoplay = true;
 }
 
+function templateDuration(template) {
+  return `${template.seconds} с`;
+}
+
 function renderPickThumbs() {
   for (const kind of ['person', 'background']) {
     const thumb = picks[kind].querySelector('[data-thumb]');
@@ -117,6 +121,7 @@ function renderPickThumbs() {
     templateThumb.replaceChildren(makeVideo(selected.previewUrl, false));
   }
   picks.template.querySelector('[data-value]').textContent = selected?.title ?? 'Не выбран';
+  picks.template.querySelector('[data-duration]').textContent = selected ? `· ${templateDuration(selected)}` : '';
 }
 
 function hasEdits() {
@@ -250,7 +255,8 @@ function renderPicker(kind) {
       const media = makeVideo(template.previewUrl, true);
       media.className = 'option-media';
       pickerBody.append(option({
-        pressed: template === selected, media, title: template.title, description: template.description,
+        pressed: template === selected, media,
+        title: template.title, description: `${templateDuration(template)} · ${template.description}`,
         onSelect: () => { selectTemplate(template); closePicker(); },
       }));
     }
@@ -303,7 +309,7 @@ function renderGallery() {
     card.dataset.template = template.id;
     const chip = document.createElement('span');
     chip.className = 'card-chip';
-    chip.textContent = '4 с · 3:4';
+    chip.textContent = `${templateDuration(template)} · 3:4`;
     const title = document.createElement('strong');
     title.textContent = template.title;
     const description = document.createElement('span');
