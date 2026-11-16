@@ -2,90 +2,107 @@
 <html lang="ru">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="color-scheme" content="dark">
-    <title>Мастер роликов — PROD+ACT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Prodacy</title>
+    <meta name="claude:viewport-fit-sides" content="cover">
+    <meta name="color-scheme" content="light">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&family=Unbounded:wght@600;700&display=swap">
     <link rel="stylesheet" href="./styles.css">
     <script type="module" src="./app.js"></script>
   </head>
   <body>
     <header class="bar">
       <div class="bar-content">
-        <a class="brand" href="/" aria-label="Главная PROD+ACT"><span class="brand-mark" aria-hidden="true"></span>PROD+ACT</a>
-        <span id="mode" class="mode" hidden></span>
+        <a class="brand" href="/" aria-label="prodacy, главная"><span class="brand-mark" aria-hidden="true"></span>prodacy</a>
+        <nav class="nav" aria-label="Разделы">
+          <a href="#create">Создать</a>
+          <a href="#templates">Шаблоны</a>
+          <span id="mode" class="pill" hidden></span>
+        </nav>
       </div>
     </header>
 
     <main>
-      <h1>Ролик из фото товара</h1>
-      <div class="workspace">
-        <form id="editor" class="editor">
-          <section class="panel" aria-labelledby="photos-heading">
-            <h2 id="photos-heading">Фото товара</h2>
-            <p class="hint">Добавьте до трёх ракурсов одного товара. JPG или PNG, до 5 МБ на фото.</p>
-            <label id="drop-area" class="drop-area">
-              <input id="photos" type="file" accept="image/jpeg,image/png" multiple>
-              <span class="upload-mark" aria-hidden="true">↑</span>
-              <strong>Выбрать фото</strong>
-              <span class="hint">или перетащить сюда</span>
+      <section id="create" class="create" aria-labelledby="create-heading">
+        <h1 id="create-heading">Ролик из фото одежды</h1>
+
+        <form id="composer" class="composer">
+          <div id="drop-area" class="attach">
+            <label for="photos" class="attach-text">
+              <strong id="attach-title">Прикрепите фото одежды</strong>
+              <span id="attach-hint" class="muted">До трёх ракурсов одной вещи · JPG или PNG до 5 МБ · можно перетащить</span>
             </label>
-            <ul id="photo-list" class="photo-list" aria-label="Выбранные фотографии" hidden></ul>
-          </section>
-
-          <section class="panel" aria-labelledby="templates-heading">
-            <div class="section-header">
-              <h2 id="templates-heading">Шаблон</h2>
-              <span class="hint">4 с · 3:4</span>
+            <div class="attach-row">
+              <label id="attach-tile" class="attach-tile">
+                <input id="photos" type="file" accept="image/jpeg,image/png" multiple aria-label="Прикрепить фото одежды">
+                <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+              </label>
+              <ul id="photo-list" class="clothes" aria-label="Фото одежды"></ul>
             </div>
-            <div id="templates" class="template-list"></div>
-          </section>
-
-          <section class="panel" aria-labelledby="references-heading">
-            <div class="section-header">
-              <h2 id="references-heading">Человек и фон</h2>
-              <span class="hint">По желанию</span>
-            </div>
-            <div class="reference-grid">
-              <fieldset class="reference-group">
-                <legend>Человек</legend>
-                <div id="person-presets" class="reference-presets"></div>
-                <label class="reference-upload">
-                  <input id="person" type="file" accept="image/jpeg,image/png" aria-label="Выбрать своё фото человека">
-                  <span>Выбрать своё фото</span>
-                </label>
-                <ul id="person-list" class="photo-list" aria-label="Фото человека" hidden></ul>
-              </fieldset>
-              <fieldset class="reference-group">
-                <legend>Фон</legend>
-                <div id="background-presets" class="reference-presets"></div>
-                <label class="reference-upload">
-                  <input id="background" type="file" accept="image/jpeg,image/png" aria-label="Выбрать фото фона">
-                  <span>Выбрать фото фона</span>
-                </label>
-                <ul id="background-list" class="photo-list" aria-label="Фото фона" hidden></ul>
-              </fieldset>
-            </div>
-          </section>
-
-          <div class="actions">
-            <p id="reference-hint" class="hint" aria-live="polite">Выберите хотя бы одно фото для замены.</p>
-            <button id="generate" class="primary" type="submit" disabled>Создать ролик</button>
-            <p id="error" class="error" role="alert" hidden></p>
           </div>
+
+          <div class="toolbar">
+            <button id="pick-person" class="pick pick-person" type="button" aria-expanded="false" aria-controls="picker">
+              <span class="pick-thumb" data-thumb></span>
+              <span class="pick-text"><span class="pick-label">Модель</span><span class="pick-value" data-value></span></span>
+            </button>
+            <button id="pick-background" class="pick" type="button" aria-expanded="false" aria-controls="picker">
+              <span class="pick-thumb" data-thumb></span>
+              <span class="pick-text"><span class="pick-label">Фон</span><span class="pick-value" data-value></span></span>
+            </button>
+            <button id="pick-template" class="pick" type="button" aria-expanded="false" aria-controls="picker">
+              <span class="pick-thumb" data-thumb></span>
+              <span class="pick-text"><span class="pick-label">Шаблон</span><span class="pick-value" data-value></span></span>
+            </button>
+            <button id="generate" class="send" type="submit" aria-label="Создать ролик" disabled>
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+
+          <div id="picker" class="picker" hidden>
+            <div class="picker-head">
+              <h2 id="picker-title">Выбор</h2>
+              <button id="picker-close" class="picker-close" type="button" aria-label="Закрыть">×</button>
+            </div>
+            <div id="picker-body" class="picker-body"></div>
+          </div>
+
+          <input id="person" type="file" accept="image/jpeg,image/png" hidden>
+          <input id="background" type="file" accept="image/jpeg,image/png" hidden>
+          <p id="reference-hint" class="hint" aria-live="polite"></p>
+          <p id="error" class="error" role="alert" hidden></p>
         </form>
+      </section>
 
-        <section class="panel preview" aria-labelledby="preview-heading">
-          <div class="section-header">
-            <h2 id="preview-heading">Предпросмотр</h2>
-            <span id="preview-label" class="hint"></span>
-          </div>
-          <div class="preview-frame">
-            <video id="player" controls playsinline preload="metadata" aria-label="Предпросмотр ролика"></video>
-          </div>
-          <p id="status" class="status" role="status" aria-live="polite">Загружаем шаблоны…</p>
-          <a id="download" class="download" download hidden>Скачать MP4</a>
-        </section>
-      </div>
+      <section id="result" class="result" aria-labelledby="result-heading" hidden>
+        <div class="result-frame">
+          <video id="player" controls playsinline muted loop preload="auto" aria-label="Ваш ролик"></video>
+          <span id="preview-label" class="badge">Готовим</span>
+        </div>
+        <div class="result-text">
+          <h2 id="result-heading">Ваш ролик</h2>
+          <p id="status" class="status" role="status" aria-live="polite"></p>
+          <a id="download" class="button-secondary" download hidden>Скачать MP4</a>
+        </div>
+      </section>
+
+      <section id="templates" class="gallery" aria-labelledby="gallery-heading">
+        <div class="gallery-head">
+          <h2 id="gallery-heading">Шаблоны</h2>
+          <span class="category small">Женская одежда</span>
+          <span id="gallery-count" class="muted"></span>
+        </div>
+        <div id="template-grid" class="template-grid"></div>
+      </section>
     </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <span class="brand"><span class="brand-mark" aria-hidden="true"></span>prodacy</span>
+        <span class="muted">Видео из фото одежды · демо-версия</span>
+      </div>
+    </footer>
   </body>
 </html>
