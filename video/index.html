@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&family=Unbounded:wght@600;700&display=swap">
     <link rel="stylesheet" href="./styles.css?v=prodacy-duration">
+    <link rel="stylesheet" href="./service.css?v=tariffs">
+    <script type="module" src="./tariffs.js?v=tariffs"></script>
     <script type="module" src="./app.js?v=prodacy-duration"></script>
   </head>
   <body>
@@ -28,6 +30,7 @@
         <nav class="nav" aria-label="Разделы">
           <a href="#create">Создать</a>
           <a href="#templates">Шаблоны</a>
+          <a href="#tariffs">Тарифы</a>
           <span id="mode" class="pill" hidden></span>
         </nav>
       </div>
@@ -109,12 +112,34 @@
         </div>
         <div id="template-grid" class="template-grid"></div>
       </section>
+
+      <section id="tariffs" class="tariffs" aria-labelledby="tariffs-heading">
+        <div class="tariffs-heading">
+          <h2 id="tariffs-heading">Тарифы</h2>
+          <p class="muted">Кредиты расходуются на создание роликов. Стоимость зависит от длительности и качества.</p>
+        </div>
+        <ul id="tariff-list" class="tariff-list" aria-label="Пакеты кредитов"></ul>
+        <p id="tariff-custom" class="muted"></p>
+        <p id="tariff-rates" class="tariff-rates"></p>
+        <div class="tariff-actions">
+          <p class="muted">Сейчас доступен просмотр примера. Покупка кредитов откроется после запуска.</p>
+          <a href="./offer.html#payment">Как проходит оплата</a>
+          <a href="./offer.html#refunds">Правила возврата</a>
+        </div>
+      </section>
     </main>
 
     <footer class="footer">
       <div class="footer-inner">
         <span class="brand"><span class="brand-mark" aria-hidden="true"></span>prodacy</span>
-        <span class="muted">Видео из фото одежды · демо-версия</span>
+        <div id="contacts" class="seller">
+          <p>Исполнитель — Меленчук Ольга Александровна, плательщик НПД</p>
+          <p>ИНН 231296286961 · <a href="mailto:hello@prodact.site">hello@prodact.site</a></p>
+        </div>
+        <nav class="service-links" aria-label="Документы">
+          <a href="./offer.html">Публичная оферта</a>
+          <a href="./privacy.html">Политика обработки персональных данных</a>
+        </nav>
       </div>
     </footer>
   </body>
