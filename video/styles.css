@@ -1,0 +1,110 @@
+:root {
+  font-family: Inter, "Segoe UI", system-ui, sans-serif;
+  color: #eff2f5;
+  background: #101216;
+  color-scheme: dark;
+  --panel: #191c22;
+  --border: #2f343e;
+  --muted: #a8afbc;
+  --accent: #b8effb;
+  --ink: #102129;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; }
+button, input { font: inherit; }
+button { cursor: pointer; }
+button:disabled { cursor: default; }
+button:focus-visible, a:focus-visible, .drop-area:focus-within, .reference-upload:focus-within { outline: 2px solid var(--accent); outline-offset: 3px; }
+h1, h2, p { margin: 0; }
+
+.bar { background: #13151a; border-bottom: 1px solid #242831; }
+.bar-content, main { max-width: 1120px; margin: 0 auto; padding-inline: 32px; }
+.bar-content { min-height: 66px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 700; }
+.brand-mark { display: grid; place-items: center; width: 25px; height: 22px; border: 1px solid #6594a0; border-radius: 5px; background: #263a43; }
+.brand-mark::after { content: ''; border-block: 4px solid transparent; border-left: 6px solid var(--accent); margin-left: 2px; }
+.mode { color: var(--muted); font-size: 12px; padding: 5px 9px; border: 1px solid var(--border); border-radius: 20px; }
+
+main { padding-top: 42px; padding-bottom: 48px; }
+h1 { font-size: clamp(27px, 4vw, 38px); letter-spacing: -.04em; line-height: 1.12; margin-bottom: 26px; }
+h2 { font-size: 17px; letter-spacing: -.01em; }
+.workspace { display: grid; grid-template-columns: minmax(0, 1.36fr) minmax(280px, 1fr); gap: 20px; align-items: start; }
+.editor { display: grid; gap: 14px; min-width: 0; }
+.panel { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 18px; min-width: 0; }
+.section-header { display: flex; gap: 12px; justify-content: space-between; align-items: baseline; }
+.hint { color: var(--muted); font-size: 13px; line-height: 1.45; }
+h2 + .hint { margin-top: 8px; }
+.section-header > .hint { margin: 0; }
+
+.drop-area {
+  position: relative; display: grid; justify-items: center; align-content: center; gap: 5px;
+  min-height: 104px; padding: 12px; margin-top: 14px; border: 1px dashed #47515e;
+  border-radius: 12px; background: #15181e; cursor: pointer;
+}
+.drop-area input, .reference-upload input { position: absolute; inset: 0; opacity: 0; width: 100%; height: 100%; cursor: pointer; }
+.drop-area:hover, .drop-area.dragging, .reference-upload:hover { background: #1d2a32; border-color: #8dc8d6; }
+.drop-area strong { font-size: 14px; }
+.drop-area:has(input:disabled), .reference-upload:has(input:disabled) { opacity: .56; }
+.upload-mark { color: var(--accent); font-size: 23px; line-height: 1; }
+.photo-list { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 0; list-style: none; padding: 0; }
+.photo-list li { position: relative; width: 62px; height: 62px; }
+.photo-list img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); }
+.photo-list button {
+  position: absolute; top: -4px; right: -4px; width: 21px; height: 21px;
+  display: grid; place-items: center; padding: 0; color: #fff; background: #242931;
+  border: 1px solid #515867; border-radius: 50%; line-height: 1;
+}
+
+.template-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }
+.template {
+  display: grid; gap: 5px; align-content: start; text-align: left; padding: 7px 7px 10px;
+  background: #14171d; color: inherit; border: 1px solid var(--border); border-radius: 11px; overflow: hidden;
+}
+.template[aria-pressed="true"] { border-color: #95d9e9; background: #1c2a32; }
+.template:hover:enabled { filter: brightness(1.1); }
+.template video, .template img { display: block; width: 100%; aspect-ratio: 2 / 1; object-fit: cover; border-radius: 6px; background: #0d0f13; }
+.template strong { font-size: 14px; padding-inline: 2px; }
+.template .hint { font-size: 12px; padding-inline: 2px; }
+
+.reference-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 14px; }
+.reference-group { min-width: 0; margin: 0; padding: 0; border: 0; }
+.reference-group legend { padding: 0; margin-bottom: 8px; font-size: 14px; font-weight: 600; }
+.reference-presets { display: grid; gap: 8px; margin-bottom: 8px; }
+.reference-presets:empty { display: none; }
+.reference-presets img { aspect-ratio: 16 / 9; }
+.reference-upload {
+  display: grid; place-items: center; position: relative; min-height: 42px;
+  padding: 8px; text-align: center; font-size: 13px; background: #15181e;
+  border: 1px dashed #47515e; border-radius: 10px;
+}
+
+.actions { display: grid; gap: 10px; }
+.primary, .download {
+  border: 0; border-radius: 10px; min-height: 42px; padding: 9px 14px;
+  font-size: 14px; font-weight: 700; text-decoration: none; text-align: center;
+}
+.primary { background: var(--accent); color: var(--ink); }
+.primary:hover:enabled { background: #d3f6fe; }
+.primary:disabled { background: #323943; color: #b0b8c6; }
+.error { color: #ffb1aa; font-size: 13px; line-height: 1.45; }
+
+.preview { display: grid; gap: 14px; }
+.preview-frame { display: grid; place-items: center; min-height: 320px; border-radius: 12px; overflow: hidden; background: #101218; }
+.preview video { display: block; width: 100%; max-height: 470px; aspect-ratio: 3 / 4; background: #101218; }
+.status { color: var(--muted); font-size: 13px; line-height: 1.45; min-height: 1.45em; }
+.download { display: grid; place-items: center; border: 1px solid #516f7b; color: var(--accent); background: #1e2c35; }
+.download:hover { background: #263c47; }
+
+@media (max-width: 700px) {
+  .bar-content, main { padding-inline: 16px; }
+  .bar-content { min-height: 56px; }
+  main { padding-top: 30px; }
+  .workspace { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .panel { padding: 14px; }
+  .preview video { max-height: 390px; }
+}
+
+.brand { color: inherit; text-decoration: none; }
+.brand:hover { text-decoration: underline; }

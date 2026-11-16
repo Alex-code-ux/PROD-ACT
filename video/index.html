@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
+    <title>Мастер роликов — PROD+ACT</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script type="module" src="./app.js"></script>
+  </head>
+  <body>
+    <header class="bar">
+      <div class="bar-content">
+        <a class="brand" href="/" aria-label="Главная PROD+ACT"><span class="brand-mark" aria-hidden="true"></span>PROD+ACT</a>
+        <span id="mode" class="mode" hidden></span>
+      </div>
+    </header>
+
+    <main>
+      <h1>Ролик из фото товара</h1>
+      <div class="workspace">
+        <form id="editor" class="editor">
+          <section class="panel" aria-labelledby="photos-heading">
+            <h2 id="photos-heading">Фото товара</h2>
+            <p class="hint">Добавьте до трёх ракурсов одного товара. JPG или PNG, до 5 МБ на фото.</p>
+            <label id="drop-area" class="drop-area">
+              <input id="photos" type="file" accept="image/jpeg,image/png" multiple>
+              <span class="upload-mark" aria-hidden="true">↑</span>
+              <strong>Выбрать фото</strong>
+              <span class="hint">или перетащить сюда</span>
+            </label>
+            <ul id="photo-list" class="photo-list" aria-label="Выбранные фотографии" hidden></ul>
+          </section>
+
+          <section class="panel" aria-labelledby="templates-heading">
+            <div class="section-header">
+              <h2 id="templates-heading">Шаблон</h2>
+              <span class="hint">4 с · 3:4</span>
+            </div>
+            <div id="templates" class="template-list"></div>
+          </section>
+
+          <section class="panel" aria-labelledby="references-heading">
+            <div class="section-header">
+              <h2 id="references-heading">Человек и фон</h2>
+              <span class="hint">По желанию</span>
+            </div>
+            <div class="reference-grid">
+              <fieldset class="reference-group">
+                <legend>Человек</legend>
+                <div id="person-presets" class="reference-presets"></div>
+                <label class="reference-upload">
+                  <input id="person" type="file" accept="image/jpeg,image/png" aria-label="Выбрать своё фото человека">
+                  <span>Выбрать своё фото</span>
+                </label>
+                <ul id="person-list" class="photo-list" aria-label="Фото человека" hidden></ul>
+              </fieldset>
+              <fieldset class="reference-group">
+                <legend>Фон</legend>
+                <div id="background-presets" class="reference-presets"></div>
+                <label class="reference-upload">
+                  <input id="background" type="file" accept="image/jpeg,image/png" aria-label="Выбрать фото фона">
+                  <span>Выбрать фото фона</span>
+                </label>
+                <ul id="background-list" class="photo-list" aria-label="Фото фона" hidden></ul>
+              </fieldset>
+            </div>
+          </section>
+
+          <div class="actions">
+            <p id="reference-hint" class="hint" aria-live="polite">Выберите хотя бы одно фото для замены.</p>
+            <button id="generate" class="primary" type="submit" disabled>Создать ролик</button>
+            <p id="error" class="error" role="alert" hidden></p>
+          </div>
+        </form>
+
+        <section class="panel preview" aria-labelledby="preview-heading">
+          <div class="section-header">
+            <h2 id="preview-heading">Предпросмотр</h2>
+            <span id="preview-label" class="hint"></span>
+          </div>
+          <div class="preview-frame">
+            <video id="player" controls playsinline preload="metadata" aria-label="Предпросмотр ролика"></video>
+          </div>
+          <p id="status" class="status" role="status" aria-live="polite">Загружаем шаблоны…</p>
+          <a id="download" class="download" download hidden>Скачать MP4</a>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
