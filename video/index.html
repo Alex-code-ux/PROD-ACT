@@ -9,9 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&family=Unbounded:wght@600;700&display=swap">
     <link rel="stylesheet" href="./styles.css?v=prodacy-duration">
-    <link rel="stylesheet" href="./service.css?v=tariffs">
-    <script type="module" src="./tariffs.js?v=tariffs"></script>
-    <script type="module" src="./app.js?v=prodacy-duration"></script>
+    <link rel="stylesheet" href="./service.css?v=account-pages">
+    <script type="module" src="./app.js?v=account-pages"></script>
   </head>
   <body>
     <svg class="page-waves" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true" focusable="false">
@@ -30,7 +29,7 @@
         <nav class="nav" aria-label="Разделы">
           <a href="#create">Создать</a>
           <a href="#templates">Шаблоны</a>
-          <a href="#tariffs">Тарифы</a>
+          <a href="./top-up.html">Тарифы</a>
           <span id="mode" class="pill" hidden></span>
         </nav>
       </div>
@@ -111,21 +110,6 @@
           <span id="gallery-count" class="muted"></span>
         </div>
         <div id="template-grid" class="template-grid"></div>
-      </section>
-
-      <section id="tariffs" class="tariffs" aria-labelledby="tariffs-heading">
-        <div class="tariffs-heading">
-          <h2 id="tariffs-heading">Тарифы</h2>
-          <p class="muted">Кредиты расходуются на создание роликов. Стоимость зависит от длительности и качества.</p>
-        </div>
-        <ul id="tariff-list" class="tariff-list" aria-label="Пакеты кредитов"></ul>
-        <p id="tariff-custom" class="muted"></p>
-        <p id="tariff-rates" class="tariff-rates"></p>
-        <div class="tariff-actions">
-          <p class="muted">Сейчас доступен просмотр примера. Покупка кредитов откроется после запуска.</p>
-          <a href="./offer.html#payment">Как проходит оплата</a>
-          <a href="./offer.html#refunds">Правила возврата</a>
-        </div>
       </section>
     </main>
 

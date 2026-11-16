@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Пополнение баланса — Prodacy</title>
+    <meta name="color-scheme" content="light">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&family=Unbounded:wght@600;700&display=swap">
+    <link rel="stylesheet" href="./styles.css?v=prodacy-duration">
+    <link rel="stylesheet" href="./service.css?v=account-pages">
+    <script type="module" src="./tariffs.js?v=account-pages"></script>
+  </head>
+  <body data-top-up="demo">
+    <header class="bar">
+      <div class="bar-content">
+        <a class="brand" href="./" aria-label="Prodacy, главная"><span class="brand-mark" aria-hidden="true"></span>prodacy</a>
+        <div class="bar-actions">
+          <a class="account-home" href="./">К мастеру</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="account-layout">
+      <section class="account-content" aria-labelledby="top-up-heading">
+        <h1 id="top-up-heading">Пополнение баланса</h1>
+        <p class="muted">Покупка кредитов откроется после запуска сервиса. Сейчас в мастере можно посмотреть пример ролика.</p>
+        <div class="tariffs" id="tariffs">
+          <h2>Пакеты кредитов</h2>
+          <ul id="tariff-list" class="tariff-list" aria-label="Пакеты кредитов"></ul>
+          <p id="tariff-custom" class="muted"></p>
+        </div>
+        <div class="account-card">
+          <h2>Стоимость ролика</h2>
+          <p class="muted">Расход кредитов зависит от длительности и качества видео.</p>
+          <p id="tariff-rates" class="tariff-rates"></p>
+          <nav class="tariff-actions" aria-label="Оплата и возврат">
+            <a href="./offer.html#payment">Как проходит оплата</a>
+            <a href="./offer.html#refunds">Правила возврата</a>
+          </nav>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <nav class="footer-inner service-links" aria-label="Документы">
+        <a href="./offer.html">Публичная оферта</a>
+        <a href="./privacy.html">Политика обработки персональных данных</a>
+        <a href="mailto:hello@prodact.site">Поддержка</a>
+      </nav>
+    </footer>
+  </body>
+</html>

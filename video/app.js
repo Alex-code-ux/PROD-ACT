@@ -1,5 +1,7 @@
 import { demoRequest as getJson } from './demo-api.js?v=prodacy-duration';
 
+if (location.hash === '#tariffs') location.replace('./top-up.html');
+
 const $ = (selector) => document.querySelector(selector);
 const composer = $('#composer');
 const dropArea = $('#drop-area');

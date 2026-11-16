@@ -1,11 +1,13 @@
 .tariffs { display: grid; gap: 14px; }
-.tariffs-heading { display: grid; gap: 8px; }
-.tariffs-heading h2 { font-family: var(--font-display); font-size: 24px; letter-spacing: -.03em; }
 .tariff-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 0; padding: 0; list-style: none; }
-.tariff-list li {
-  display: grid; gap: 6px; padding: 14px 16px; border: 1px solid var(--line);
-  border-radius: 16px; background: var(--bg); color: var(--muted); font-weight: 800;
+.tariff-option { display: grid; min-width: 0; }
+.tariff-option-static, .tariff-buy {
+  display: grid; justify-items: start; gap: 6px; padding: 14px 16px;
+  border: 1px solid var(--line); border-radius: 16px;
+  background: var(--bg); color: var(--muted); font-weight: 800; text-align: left;
 }
+.tariff-buy:hover:enabled { border-color: var(--blue); background: var(--blue-soft); }
+.tariff-buy:disabled { opacity: .65; }
 .tariff-list strong { color: var(--ink); font-size: 21px; }
 .tariff-rates { color: var(--ink); font-size: 14px; font-weight: 800; }
 .tariff-actions, .service-links { display: flex; flex-wrap: wrap; align-items: center; gap: 9px 16px; }
@@ -13,9 +15,25 @@
   color: var(--blue-strong); text-underline-offset: .16em;
 }
 .tariff-actions a, .service-links a { font-size: 14px; font-weight: 800; }
-.tariff-actions .muted { flex-basis: 100%; }
 .seller { color: var(--muted); font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }
 .account-document { color: var(--muted); font-size: 13px; line-height: 1.4; }
+.account-layout { max-width: 820px; }
+.account-content { display: grid; gap: 20px; min-width: 0; }
+.account-content h1 { margin: 0; }
+.account-content h2 { font-size: 19px; font-weight: 900; }
+.account-card {
+  display: grid; gap: 12px; min-width: 0; padding: clamp(14px, 4vw, 22px);
+  border: 1px solid var(--line); border-radius: 18px; background: var(--bg);
+}
+.account-card a:not(.account-primary) { color: var(--blue-strong); text-underline-offset: .16em; }
+.account-card.auth-form, .wallet-card { width: min(100%, 420px); }
+.wallet-card > a { justify-self: start; }
+.wallet-card #account-email { overflow-wrap: anywhere; }
+.wallet-card #wallet-balance { font-size: 25px; }
+.account-home { color: var(--blue-strong); font-size: 14px; font-weight: 800; white-space: nowrap; text-underline-offset: .16em; }
+.top-up-balance { font-size: 17px; font-weight: 900; }
+.top-up-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.top-up-actions:not(:has(> :not([hidden]))) { display: none; }
 .document-layout { max-width: 820px; }
 .document { display: grid; gap: 24px; line-height: 1.6; overflow-wrap: anywhere; }
 .document h1 { font-size: clamp(25px, 4vw, 37px); margin-bottom: 0; }
@@ -26,10 +44,11 @@
 
 @media (max-width: 640px) {
   .tariff-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .tariff-list li { padding: 12px; }
+  .tariff-option-static, .tariff-buy { padding: 12px; }
 }
 
 @media (max-width: 460px) {
   .bar .nav { gap: 10px; }
   .bar .nav .pill, .bar-actions .nav a[href="#templates"] { display: none; }
+  .bar-actions:has(#account-navigation:not([hidden])) .account-home { display: none; }
 }
